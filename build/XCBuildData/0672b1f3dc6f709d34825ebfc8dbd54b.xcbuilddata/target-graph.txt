@@ -1,0 +1,2 @@
+Target dependency graph (1 target)
+Target 'SharingOnlyProject' in project 'SharingOnlyProject' (no dependencies)

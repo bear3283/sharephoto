@@ -1,0 +1,152 @@
+{
+  "source": "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/RecipientSetupView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%lld/8",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "대상자",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 49
+        }
+      },
+      {
+        "comment": "",
+        "key": "최대 8명",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "사람을 추가하세요",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 104
+        }
+      },
+      {
+        "comment": "",
+        "key": "각 방향에 한 명씩 최대 8명까지 설정해서 분배가능",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 108
+        }
+      },
+      {
+        "comment": "",
+        "key": "추가",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 134
+        }
+      },
+      {
+        "comment": "",
+        "key": "대상자 제거",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 267
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 222
+        }
+      },
+      {
+        "comment": "",
+        "key": "취소",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 268
+        }
+      },
+      {
+        "comment": "",
+        "key": "제거",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 269
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@을(를) 제거하시겠습니까?\n해당 임시 앨범의 사진도 함께 삭제됩니다.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 273
+        }
+      },
+      {
+        "comment": "",
+        "key": "새 공유 대상자",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 314
+        }
+      },
+      {
+        "comment": "",
+        "key": "취소",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 318
+        }
+      },
+      {
+        "comment": "",
+        "key": "이름",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 342
+        }
+      },
+      {
+        "comment": "",
+        "key": "공유할 사람의 이름을 입력하세요",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 346
+        }
+      },
+      {
+        "comment": "",
+        "key": "방향 선택",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 361
+        }
+      },
+      {
+        "comment": "",
+        "key": "사용 가능한 방향이 없습니다 (최대 8명)",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 366
+        }
+      },
+      {
+        "comment": "",
+        "key": "추가",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 400
+        }
+      }
+    ]
+  },
+  "version": 1
+}

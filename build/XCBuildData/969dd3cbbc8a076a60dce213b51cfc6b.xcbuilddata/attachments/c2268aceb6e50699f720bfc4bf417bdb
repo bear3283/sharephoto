@@ -1,0 +1,348 @@
+{
+  "" : {
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingOnlyProject-master.dia",
+    "emit-module-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingOnlyProject-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingOnlyProject-master-emit-module.dia",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingOnlyProject-master.swiftdeps"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/App/SharingOnlyApp.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingOnlyApp.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingOnlyApp.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingOnlyApp.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingOnlyApp.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingOnlyApp.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingOnlyApp.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingOnlyApp.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingOnlyApp~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/CompactThemeButton.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/CompactThemeButton.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/CompactThemeButton.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/CompactThemeButton.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/CompactThemeButton.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/CompactThemeButton.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/CompactThemeButton.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/CompactThemeButton.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/CompactThemeButton~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/DirectionalDragView.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DirectionalDragView.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DirectionalDragView.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DirectionalDragView.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DirectionalDragView.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DirectionalDragView.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DirectionalDragView.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DirectionalDragView.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DirectionalDragView~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/FullscreenPhotoViewer.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/FullscreenPhotoViewer.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/FullscreenPhotoViewer.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/FullscreenPhotoViewer.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/FullscreenPhotoViewer.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/FullscreenPhotoViewer.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/FullscreenPhotoViewer.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/FullscreenPhotoViewer.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/FullscreenPhotoViewer~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/PhotoCounter.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoCounter.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoCounter.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoCounter.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoCounter.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoCounter.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoCounter.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoCounter.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoCounter~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/PhotoInfoHeader.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoInfoHeader.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoInfoHeader.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoInfoHeader.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoInfoHeader.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoInfoHeader.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoInfoHeader.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoInfoHeader.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoInfoHeader~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/PhotoOverlayInfo.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoOverlayInfo.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoOverlayInfo.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoOverlayInfo.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoOverlayInfo.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoOverlayInfo.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoOverlayInfo.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoOverlayInfo.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoOverlayInfo~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/Pickers/DatePickerView.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DatePickerView.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DatePickerView.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DatePickerView.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DatePickerView.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DatePickerView.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DatePickerView.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DatePickerView.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DatePickerView~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/RecipientSetupView.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/RecipientSetupView.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/RecipientSetupView.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/RecipientSetupView.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/RecipientSetupView.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/RecipientSetupView.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/RecipientSetupView.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/RecipientSetupView.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/RecipientSetupView~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/SwipeablePhotoView.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SwipeablePhotoView.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SwipeablePhotoView.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SwipeablePhotoView.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SwipeablePhotoView.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SwipeablePhotoView.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SwipeablePhotoView.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SwipeablePhotoView.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SwipeablePhotoView~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/TemporaryAlbumPreview.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TemporaryAlbumPreview.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TemporaryAlbumPreview.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TemporaryAlbumPreview.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TemporaryAlbumPreview.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TemporaryAlbumPreview.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TemporaryAlbumPreview.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TemporaryAlbumPreview.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TemporaryAlbumPreview~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/ThemeSwitcher.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeSwitcher.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeSwitcher.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeSwitcher.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeSwitcher.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeSwitcher.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeSwitcher.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeSwitcher.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeSwitcher~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/TimelinePhotoHeader.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TimelinePhotoHeader.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TimelinePhotoHeader.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TimelinePhotoHeader.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TimelinePhotoHeader.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TimelinePhotoHeader.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TimelinePhotoHeader.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TimelinePhotoHeader.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/TimelinePhotoHeader~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Models/Album/AlbumModels.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AlbumModels.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AlbumModels.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AlbumModels.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AlbumModels.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AlbumModels.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AlbumModels.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AlbumModels.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AlbumModels~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Models/Photo/PhotoConstants.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoConstants.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoConstants.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoConstants.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoConstants.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoConstants.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoConstants.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoConstants.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoConstants~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Models/Photo/PhotoItem.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoItem.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoItem.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoItem.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoItem.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoItem.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoItem.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoItem.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoItem~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Models/Sharing/ShareModels.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ShareModels.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ShareModels.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ShareModels.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ShareModels.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ShareModels.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ShareModels.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ShareModels.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ShareModels~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Models/Theme/AppTheme.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AppTheme.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AppTheme.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AppTheme.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AppTheme.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AppTheme.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AppTheme.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AppTheme.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/AppTheme~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Models/Theme/SleekThemeColors.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SleekThemeColors.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SleekThemeColors.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SleekThemeColors.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SleekThemeColors.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SleekThemeColors.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SleekThemeColors.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SleekThemeColors.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SleekThemeColors~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Models/Theme/SpringThemeColors.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SpringThemeColors.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SpringThemeColors.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SpringThemeColors.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SpringThemeColors.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SpringThemeColors.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SpringThemeColors.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SpringThemeColors.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SpringThemeColors~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Models/Theme/ThemeColors.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeColors.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeColors.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeColors.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeColors.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeColors.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeColors.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeColors.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeColors~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Services/PhotoService.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoService.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoService.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoService.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoService.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoService.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoService.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoService.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoService~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Services/SharingService.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingService.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingService.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingService.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingService.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingService.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingService.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingService.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingService~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Services/ThemeService.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeService.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeService.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeService.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeService.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeService.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeService.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeService.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeService~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Utilities/Extensions/DateFormatter+Photo.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DateFormatter+Photo.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DateFormatter+Photo.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DateFormatter+Photo.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DateFormatter+Photo.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DateFormatter+Photo.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DateFormatter+Photo.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DateFormatter+Photo.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DateFormatter+Photo~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Utilities/Helpers/DummyImageGenerator.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DummyImageGenerator.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DummyImageGenerator.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DummyImageGenerator.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DummyImageGenerator.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DummyImageGenerator.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DummyImageGenerator.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DummyImageGenerator.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/DummyImageGenerator~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Utilities/Helpers/PreviewData.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PreviewData.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PreviewData.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PreviewData.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PreviewData.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PreviewData.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PreviewData.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PreviewData.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PreviewData~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Utilities/Protocols/ViewModelProtocol.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ViewModelProtocol.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ViewModelProtocol.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ViewModelProtocol.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ViewModelProtocol.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ViewModelProtocol.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ViewModelProtocol.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ViewModelProtocol.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ViewModelProtocol~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/ViewModels/EnhancedAlbumViewModel.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/EnhancedAlbumViewModel.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/EnhancedAlbumViewModel.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/EnhancedAlbumViewModel.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/EnhancedAlbumViewModel.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/EnhancedAlbumViewModel.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/EnhancedAlbumViewModel.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/EnhancedAlbumViewModel.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/EnhancedAlbumViewModel~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/ViewModels/PhotoViewModel.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoViewModel.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoViewModel.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoViewModel.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoViewModel.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoViewModel.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoViewModel.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoViewModel.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/PhotoViewModel~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/ViewModels/SharingViewModel.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingViewModel.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingViewModel.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingViewModel.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingViewModel.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingViewModel.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingViewModel.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingViewModel.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingViewModel~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/ViewModels/ThemeViewModel.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeViewModel.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeViewModel.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeViewModel.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeViewModel.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeViewModel.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeViewModel.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeViewModel.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/ThemeViewModel~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Views/SharingMainView.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingMainView.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingMainView.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingMainView.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingMainView.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingMainView.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingMainView.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingMainView.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingMainView~partial.swiftmodule"
+  },
+  "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Views/SharingView.swift" : {
+    "const-values" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingView.swiftconstvalues",
+    "dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingView.d",
+    "diagnostics" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingView.dia",
+    "index-unit-output-path" : "/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingView.o",
+    "llvm-bc" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingView.bc",
+    "object" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingView.o",
+    "swift-dependencies" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingView.swiftdeps",
+    "swiftmodule" : "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/build/SharingOnlyProject.build/Debug-iphoneos/SharingOnlyProject.build/Objects-normal/arm64/SharingView~partial.swiftmodule"
+  }
+}

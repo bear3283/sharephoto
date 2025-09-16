@@ -1,0 +1,56 @@
+{
+  "source": "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/DirectionalDragView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 197
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld / %lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 280
+        }
+      },
+      {
+        "comment": "",
+        "key": "대상자 설정하러 가기",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 334
+        }
+      },
+      {
+        "comment": "",
+        "key": "공유할 대상자를 먼저 설정하세요",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 322
+        }
+      },
+      {
+        "comment": "",
+        "key": "이전 단계로 돌아가서\n공유할 사람들을 추가해주세요",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 327
+        }
+      },
+      {
+        "comment": "",
+        "key": "선택한 날짜에 사진이 없습니다",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 465
+        }
+      }
+    ]
+  },
+  "version": 1
+}
