@@ -126,35 +126,32 @@ struct OverlayDatePicker: View {
                     .buttonStyle(PlainButtonStyle())
                 }
                 
-                // DatePicker를 고정 크기 컨테이너로 감싸기 - GeometryReader로 더 강력한 크기 제약
-                GeometryReader { geometry in
-                    ZStack {
-                        // 고정된 배경 프레임
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.clear)
-                            .frame(width: 300, height: 320) // 고정된 크기
-                            .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                        
-                        DatePicker("날짜 선택",
-                                  selection: $selectedDate,
-                                  displayedComponents: .date)
-                            .datePickerStyle(GraphicalDatePickerStyle())
-                            .colorScheme(.light)
-                            .accentColor(Color(red: 0.2, green: 0.7, blue: 0.4))
-                            .frame(width: 300, height: 320) // DatePicker도 같은 고정 크기
-                            .frame(minWidth: 300, maxWidth: 300, minHeight: 320, maxHeight: 320) // 최소/최대 크기 강제 고정
-                            .fixedSize(horizontal: true, vertical: true) // 양방향 고정된 크기 유지
-                            .clipped() // 넘치는 부분 잘라내기
-                            .animation(.none, value: selectedDate) // 날짜 변경 시 애니메이션 비활성화
-                            .layoutPriority(1) // 레이아웃 우선순위 설정
-                            .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                            .onChange(of: selectedDate) { _, _ in
-                                // 날짜 선택 시 콜백만 호출하고 자동으로 닫지 않음
-                                onDateSelected()
-                            }
-                    }
+                // DatePicker를 고정 크기 컨테이너로 감싸기 - 크기 변화 방지
+                ZStack {
+                    // 투명한 고정 배경 프레임 (크기 변화 방지)
+                    Rectangle()
+                        .fill(Color.clear)
+                        .frame(width: 300, height: 320)
+
+                    DatePicker("날짜 선택",
+                              selection: $selectedDate,
+                              displayedComponents: .date)
+                        .datePickerStyle(GraphicalDatePickerStyle())
+                        .colorScheme(.light)
+                        .accentColor(Color(red: 0.2, green: 0.7, blue: 0.4))
+                        .frame(width: 300, height: 320)
+                        .clipped()
+                        .id("datePicker") // ID를 고정하여 재생성 방지
+                        .transaction { transaction in
+                            transaction.animation = nil // 모든 애니메이션 비활성화
+                        }
+                        .onChange(of: selectedDate) { _, _ in
+                            onDateSelected()
+                        }
                 }
-                .frame(width: 300, height: 320) // GeometryReader 자체도 고정 크기
+                .frame(width: 300, height: 320)
+                .frame(minWidth: 300, maxWidth: 300, minHeight: 320, maxHeight: 320)
+                .fixedSize() // 고정된 크기 강제 적용
                 
                 // 완료 버튼 추가
                 Button(action: dismissCalendar) {
@@ -269,6 +266,41 @@ struct OverlayDatePicker: View {
 }
 
 #Preview {
-    DatePickerView(selectedDate: .constant(Date()), showingDatePicker: .constant(false))
-        .padding()
+    struct PreviewWrapper: View {
+        @State private var selectedDate = Date()
+        @State private var isPresented = true
+
+        var body: some View {
+            ZStack {
+                // 배경
+                Color.gray.opacity(0.2)
+                    .ignoresSafeArea()
+
+                // 테스트 버튼
+                Button("날짜 선택") {
+                    isPresented = true
+                }
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+            }
+            .overlay(
+                // OverlayDatePicker
+                Group {
+                    if isPresented {
+                        OverlayDatePicker(
+                            selectedDate: $selectedDate,
+                            isPresented: $isPresented,
+                            onDateSelected: {
+                                print("선택된 날짜: \(selectedDate)")
+                            }
+                        )
+                    }
+                }
+            )
+        }
+    }
+
+    return PreviewWrapper()
 }

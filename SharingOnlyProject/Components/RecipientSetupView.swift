@@ -96,7 +96,7 @@ struct RecipientSetupView: View {
     // MARK: - Empty State
     private var emptyStateView: some View {
         VStack(spacing: 16) {
-            Image(systemName: "person.2.badge.plus")
+            Image(systemName: "person.3")
                 .font(.system(size: 48))
                 .foregroundColor(theme.accentColor.opacity(0.6))
             

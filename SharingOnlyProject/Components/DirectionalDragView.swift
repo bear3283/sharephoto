@@ -10,9 +10,9 @@ struct DirectionalDragView: View {
     @Environment(\.theme) private var theme
     @State private var selectedPhotoIndex = 0
     
-    // 세그먼트된 도넛형 오버레이 설정 - 사진 크기 최대화
-    private let donutOuterRadius: CGFloat = 220
-    private let donutInnerRadius: CGFloat = 190  // 중앙 사진이 보이는 영역 최대 확대
+    // 세그먼트된 도넛형 오버레이 설정 - 화면에 맞는 크기로 조정
+    private let donutOuterRadius: CGFloat = 200  // 220 → 180으로 축소
+    private let donutInnerRadius: CGFloat = 170  // 190 → 150으로 축소
     
     var body: some View {
         GeometryReader { geometry in
@@ -67,21 +67,6 @@ struct DirectionalDragView: View {
         return ZStack {
             // 세그먼트된 도넛 오버레이
             segmentedDonutOverlay(centerPoint: centerPoint)
-            
-            // 중앙 원형 테두리 (사진 영역 강조)
-            Circle()
-                .stroke(
-                    LinearGradient(
-                        colors: [Color.white.opacity(0.9), Color.white.opacity(0.6)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    ),
-                    lineWidth: 4
-                )
-                .frame(width: donutInnerRadius * 2, height: donutInnerRadius * 2)
-                .position(centerPoint)
-                .scaleEffect(sharingViewModel.dragState.isDragging ? 1.08 : 1.0)
-                .animation(.spring(response: 0.4, dampingFraction: 0.8), value: sharingViewModel.dragState.isDragging)
         }
     }
     
@@ -101,20 +86,20 @@ struct DirectionalDragView: View {
                 )
             }
             
-            // 세그먼트 구분선들
+            // 세그먼트 구분선들 (도넛 안쪽으로 이동)
             ForEach(0..<8, id: \.self) { index in
                 let angle = Double(index) * 45.0 - 22.5 // 각 세그먼트 경계선
                 let radians = angle * .pi / 180
-                let innerX = centerPoint.x + Foundation.cos(radians) * donutInnerRadius
-                let innerY = centerPoint.y + Foundation.sin(radians) * donutInnerRadius
-                let outerX = centerPoint.x + Foundation.cos(radians) * donutOuterRadius
-                let outerY = centerPoint.y + Foundation.sin(radians) * donutOuterRadius
-                
+                let innerX = centerPoint.x + Foundation.cos(radians) * (donutInnerRadius + 10) // 안쪽으로 10pt 이동
+                let innerY = centerPoint.y + Foundation.sin(radians) * (donutInnerRadius + 10)
+                let outerX = centerPoint.x + Foundation.cos(radians) * (donutOuterRadius - 10) // 바깥쪽에서 10pt 안으로
+                let outerY = centerPoint.y + Foundation.sin(radians) * (donutOuterRadius - 10)
+
                 Path { path in
                     path.move(to: CGPoint(x: innerX, y: innerY))
                     path.addLine(to: CGPoint(x: outerX, y: outerY))
                 }
-                .stroke(Color.white.opacity(0.3), lineWidth: 1.5)
+                .stroke(Color.white.opacity(0.4), lineWidth: 2.0) // 약간 더 굵고 진하게
             }
         }
         .transition(.scale.combined(with: .opacity))
@@ -268,7 +253,7 @@ struct DirectionalDragView: View {
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(selectedPhotoIndex == 0 ? theme.secondaryText : .white)
-                        .frame(width: 48, height: 48)
+                        .frame(width: 40, height: 40)
                         .background(
                             Circle().fill(
                                 selectedPhotoIndex == 0 
@@ -297,7 +282,7 @@ struct DirectionalDragView: View {
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(selectedPhotoIndex == photoViewModel.photos.count - 1 ? theme.secondaryText : .white)
-                        .frame(width: 48, height: 48)
+                        .frame(width: 40, height: 40)
                         .background(
                             Circle().fill(
                                 selectedPhotoIndex == photoViewModel.photos.count - 1
@@ -316,7 +301,7 @@ struct DirectionalDragView: View {
     // MARK: - No Recipients Guide
     private var noRecipientsGuideView: some View {
         VStack(spacing: 16) {
-            Image(systemName: "person.2.badge.plus")
+            Image(systemName: "person.3")
                 .font(.system(size: 48))
                 .foregroundColor(theme.accentColor)
                 .symbolEffect(.bounce, value: sharingViewModel.recipients.isEmpty)
@@ -599,7 +584,7 @@ struct DonutSegmentShape: Shape {
 }
 
 // MARK: - Preview
-#Preview {
+#Preview("DirectionalDragView") {
     VStack {
         DirectionalDragView(
             sharingViewModel: {
@@ -619,3 +604,4 @@ struct DonutSegmentShape: Shape {
     }
     .environment(\.theme, SpringThemeColors())
 }
+

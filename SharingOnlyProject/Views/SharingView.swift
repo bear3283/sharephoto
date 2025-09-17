@@ -31,7 +31,7 @@ struct SharingView: View {
         var title: String {
             switch self {
             case .dateSelection: return "사진"
-            case .recipientSetup: return "대상자"
+            case .recipientSetup: return "대상자 추가"
             case .photoDistribution: return "분배"
             case .albumPreview: return "공유"
             }
@@ -381,6 +381,7 @@ struct SharingView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 20)
             .contentShape(Rectangle()) // 전체 영역 터치 가능
+            .buttonStyle(PlainButtonStyle())
         }
     }
     
@@ -389,40 +390,43 @@ struct SharingView: View {
         HStack(spacing: 16) {
             // 이전 버튼
             if currentStep != .dateSelection {
-                Button("이전") {
+                Button(action: {
                     goToPreviousStep()
+                }) {
+                    Text("이전")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(theme.secondaryText)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(theme.secondaryBackground.opacity(0.6))
+                        )
                 }
-                .font(.subheadline)
-                .fontWeight(.medium)
-                .foregroundColor(theme.secondaryText)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(theme.secondaryBackground.opacity(0.6))
-                )
-                .contentShape(Rectangle())
+                .buttonStyle(PlainButtonStyle()) // 버튼 스타일은 그대로 유지
             }
             
             // 다음 버튼 또는 기능별 버튼
             if canProceedToNext {
-                Button(nextButtonTitle) {
+                Button(action: {
                     goToNextStep()
+                }) {
+                    Text(nextButtonTitle)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(
+                            LinearGradient(
+                                colors: [theme.accentColor, theme.accentColor.opacity(0.8)],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .cornerRadius(12)
                 }
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
-                .background(
-                    LinearGradient(
-                        colors: [theme.accentColor, theme.accentColor.opacity(0.8)],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
-                .cornerRadius(12)
-                .contentShape(Rectangle())
                 .buttonStyle(PlainButtonStyle())
             }
         }
