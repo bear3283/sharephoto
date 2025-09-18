@@ -173,13 +173,14 @@ struct FavoriteButtonStyle: ButtonStyle {
         
         VStack {
             PhotoOverlayInfo(
-                photo: PhotoItem(
-                    asset: PHAsset(),
-                    image: UIImage(systemName: "photo"),
-                    dateCreated: Date(),
-                    isMarkedForDeletion: false,
-                    isMarkedForSaving: true
-                ),
+                photo: {
+                    var photo = PhotoItem.createPreviewItem(
+                        image: UIImage(systemName: "photo"),
+                        dateCreated: Date()
+                    )
+                    photo.isMarkedForSaving = true
+                    return photo
+                }(),
                 currentIndex: 4,
                 totalCount: 22,
                 onFavoriteToggle: {

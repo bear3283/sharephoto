@@ -1,5 +1,6 @@
 import Foundation
 import Photos
+import UIKit
 import Combine
 
 // MARK: - PhotoViewModel State
@@ -8,6 +9,7 @@ struct PhotoViewModelState: LoadableStateProtocol {
     var isLoading: Bool = false
     var errorMessage: String? = nil
     var isSharingMode: Bool = false
+    var currentFilter: PhotoFilterType = .all
 }
 
 // MARK: - PhotoViewModel Actions
@@ -22,6 +24,16 @@ enum PhotoViewModelAction {
     case clearMarks(PhotoItem)
     case clearAllMarks
     case setSharingMode(Bool)
+
+    // 새로운 기능
+    case setFilter(PhotoFilterType)
+    case addUserPhoto(UIImage, Date?)
+    case removeUserPhoto(PhotoItem)
+    case clearUserPhotos
+
+    // 배치 처리 기능
+    case addMultipleUserPhotos([UIImage], Date?)
+    case processBatchPhotoUpload([UIImage], Date?, (Int, Int) -> Void)
 }
 
 // MARK: - PhotoViewModel
@@ -41,6 +53,19 @@ final class PhotoViewModel: ViewModelProtocol {
     var isLoading: Bool { state.isLoading }
     var errorMessage: String? { state.errorMessage }
     var isSharingMode: Bool { state.isSharingMode }
+    var currentFilter: PhotoFilterType { state.currentFilter }
+
+    /// 현재 필터에 따른 사진 개수 정보
+    var photoCountInfo: String {
+        switch currentFilter {
+        case .all:
+            let userAddedCount = photos.filter { $0.isUserAdded }.count
+            let deviceCount = photos.count - userAddedCount
+            return "전체 \(photos.count)장 (기기: \(deviceCount), 추가: \(userAddedCount))"
+        case .userAddedOnly:
+            return "내가 추가한 \(photos.count)장"
+        }
+    }
     
     /// 공유 모드에서는 복제/삭제 등의 위험한 작업을 제한
     var canModifyPhotos: Bool { !state.isSharingMode }
@@ -94,6 +119,24 @@ final class PhotoViewModel: ViewModelProtocol {
             
         case .setSharingMode(let isSharing):
             await setSharingMode(isSharing)
+
+        case .setFilter(let filter):
+            await setFilter(filter)
+
+        case .addUserPhoto(let image, let date):
+            await addUserPhoto(image, date: date)
+
+        case .removeUserPhoto(let photoItem):
+            await removeUserPhoto(photoItem)
+
+        case .clearUserPhotos:
+            await clearUserPhotos()
+
+        case .addMultipleUserPhotos(let images, let date):
+            await addMultipleUserPhotos(images, date: date)
+
+        case .processBatchPhotoUpload(let images, let date, let progressCallback):
+            await processBatchPhotoUpload(images, date: date, progressCallback: progressCallback)
         }
     }
     
@@ -114,8 +157,8 @@ final class PhotoViewModel: ViewModelProtocol {
     private func loadPhotos(for date: Date) async {
         state.isLoading = true
         state.errorMessage = nil
-        
-        let photos = await photoService.loadPhotos(for: date)
+
+        let photos = await photoService.loadPhotos(for: date, filter: state.currentFilter)
         state.photos = photos
         state.isLoading = false
     }
@@ -127,22 +170,29 @@ final class PhotoViewModel: ViewModelProtocol {
     
     private func toggleFavorite(_ photo: PhotoItem) async {
         print("💖 즐겨찾기 토글 시작: \(photo.id), 현재 상태: \(photo.isFavorite)")
-        
+
+        // 사용자 추가 사진은 즐겨찾기 기능을 지원하지 않음
+        guard !photo.isUserAdded, let asset = photo.asset else {
+            print("❌ 사용자 추가 사진은 즐겨찾기를 지원하지 않습니다")
+            state.errorMessage = "사용자 추가 사진은 즐겨찾기를 지원하지 않습니다"
+            return
+        }
+
         // Find photo index
         guard let index = state.photos.firstIndex(where: { $0.id == photo.id }) else {
             print("❌ 사진을 찾을 수 없습니다: \(photo.id)")
             return
         }
-        
+
         let originalState = photo.isFavorite
         let newState = !originalState
-        
+
         // 1. Optimistic update with immediate UI feedback
         state.photos[index].localFavoriteState = newState
         print("⚡ 낙관적 업데이트: \(originalState) -> \(newState)")
-        
+
         // 2. Perform actual PHAsset update
-        let success = await photoService.toggleFavorite(for: photo.asset)
+        let success = await photoService.toggleFavorite(for: asset)
         
         if success {
             print("✅ 즐겨찾기 성공: \(photo.id) -> \(newState)")
@@ -227,17 +277,38 @@ final class PhotoViewModel: ViewModelProtocol {
         
         // 삭제 마킹된 사진들 실제 삭제
         for photo in photosToDelete {
-            let success = await photoService.deletePhoto(photo.asset)
-            if success {
-                state.photos.removeAll { $0.id == photo.id }
-                deletedCount += 1
-                print("🗑️ 사진 삭제 완료: \(photo.id)")
+            // 사용자 추가 사진은 직접 제거, PHAsset 사진은 시스템 삭제
+            if photo.isUserAdded {
+                let success = await photoService.removeUserPhoto(photo)
+                if success {
+                    state.photos.removeAll { $0.id == photo.id }
+                    deletedCount += 1
+                    print("🗑️ 사용자 사진 삭제 완료: \(photo.id)")
+                } else {
+                    // 실패 시 마킹 해제
+                    if let index = state.photos.firstIndex(where: { $0.id == photo.id }) {
+                        state.photos[index].isMarkedForDeletion = false
+                    }
+                    print("❌ 사용자 사진 삭제 실패: \(photo.id)")
+                }
+            } else if let asset = photo.asset {
+                let success = await photoService.deletePhoto(asset)
+                if success {
+                    state.photos.removeAll { $0.id == photo.id }
+                    deletedCount += 1
+                    print("🗑️ 라이브러리 사진 삭제 완료: \(photo.id)")
+                } else {
+                    // 실패 시 마킹 해제
+                    if let index = state.photos.firstIndex(where: { $0.id == photo.id }) {
+                        state.photos[index].isMarkedForDeletion = false
+                    }
+                    print("❌ 라이브러리 사진 삭제 실패: \(photo.id)")
+                }
             } else {
-                // 실패 시 마킹 해제
+                print("❌ 삭제할 수 없는 사진: \(photo.id) - asset 없음")
                 if let index = state.photos.firstIndex(where: { $0.id == photo.id }) {
                     state.photos[index].isMarkedForDeletion = false
                 }
-                print("❌ 사진 삭제 실패: \(photo.id)")
             }
         }
         
@@ -283,6 +354,151 @@ final class PhotoViewModel: ViewModelProtocol {
             await clearAllMarks()
         } else {
             print("🔓 일반 모드 활성화: 사진 조작 기능 활성화됨")
+        }
+    }
+
+    // MARK: - New Filter and User Photo Methods
+    private func setFilter(_ filter: PhotoFilterType) async {
+        let oldFilter = state.currentFilter
+        state.currentFilter = filter
+
+        print("🔍 필터 변경: \(oldFilter) -> \(filter)")
+
+        // 필터가 변경되면 현재 날짜로 다시 로딩
+        await loadPhotos(for: selectedDate)
+    }
+
+    private func addUserPhoto(_ image: UIImage, date: Date?) async {
+        let photoDate = date ?? selectedDate
+        let photoItem = await photoService.addUserPhoto(image, date: photoDate)
+
+        print("📷 사용자 사진 추가: \(photoItem.id)")
+
+        // 현재 필터와 날짜에 맞는 사진이면 목록에 추가
+        let calendar = Calendar.current
+        let startOfSelectedDay = calendar.startOfDay(for: selectedDate)
+        let photoStartDay = calendar.startOfDay(for: photoDate)
+
+        if startOfSelectedDay == photoStartDay {
+            // 같은 날짜이고, 현재 필터에 포함되는 사진이면 추가
+            switch state.currentFilter {
+            case .all, .userAddedOnly:
+                // 최신 순으로 정렬하여 맨 앞에 삽입
+                state.photos.insert(photoItem, at: 0)
+            }
+        }
+    }
+
+    private func removeUserPhoto(_ photoItem: PhotoItem) async {
+        guard photoItem.isUserAdded else {
+            print("❌ 기존 사진은 제거할 수 없습니다: \(photoItem.id)")
+            return
+        }
+
+        let success = await photoService.removeUserPhoto(photoItem)
+        if success {
+            state.photos.removeAll { $0.id == photoItem.id }
+            print("🗑️ 사용자 사진 제거 완료: \(photoItem.id)")
+        } else {
+            print("❌ 사용자 사진 제거 실패: \(photoItem.id)")
+            state.errorMessage = "사진 제거에 실패했습니다."
+        }
+    }
+
+    private func clearUserPhotos() async {
+        await photoService.clearUserAddedPhotos()
+
+        // 현재 표시된 사진 중 사용자 추가 사진들만 제거
+        state.photos.removeAll { $0.isUserAdded }
+
+        print("🧹 모든 사용자 사진 제거 완료")
+    }
+
+    // MARK: - Batch Processing Methods
+    private func addMultipleUserPhotos(_ images: [UIImage], date: Date?) async {
+        let photoDate = date ?? selectedDate
+
+        print("📷 배치 사진 추가 시작: \(images.count)장")
+
+        for (index, image) in images.enumerated() {
+            let photoItem = await photoService.addUserPhoto(image, date: photoDate)
+
+            // 현재 날짜와 필터에 맞는 사진이면 목록에 추가
+            let calendar = Calendar.current
+            let startOfSelectedDay = calendar.startOfDay(for: selectedDate)
+            let photoStartDay = calendar.startOfDay(for: photoDate)
+
+            if startOfSelectedDay == photoStartDay {
+                switch state.currentFilter {
+                case .all, .userAddedOnly:
+                    state.photos.insert(photoItem, at: 0)
+                }
+            }
+
+            print("📷 사진 \(index + 1)/\(images.count) 추가됨: \(photoItem.id)")
+        }
+
+        print("🎉 배치 사진 추가 완료: \(images.count)장")
+    }
+
+    private func processBatchPhotoUpload(
+        _ images: [UIImage],
+        date: Date?,
+        progressCallback: @escaping (Int, Int) -> Void
+    ) async {
+        let photoDate = date ?? selectedDate
+        let batchSize = 3 // 메모리 관리를 위한 배치 크기
+
+        print("📷 배치 업로드 시작: \(images.count)장 (배치 크기: \(batchSize))")
+
+        var processedCount = 0
+
+        // 배치 단위로 처리
+        for batch in images.chunked(into: batchSize) {
+            await withTaskGroup(of: PhotoItem?.self) { group in
+                for image in batch {
+                    group.addTask {
+                        await self.photoService.addUserPhoto(image, date: photoDate)
+                    }
+                }
+
+                for await photoItem in group {
+                    if let item = photoItem {
+                        // UI 업데이트
+                        let calendar = Calendar.current
+                        let startOfSelectedDay = calendar.startOfDay(for: selectedDate)
+                        let photoStartDay = calendar.startOfDay(for: photoDate)
+
+                        if startOfSelectedDay == photoStartDay {
+                            switch state.currentFilter {
+                            case .all, .userAddedOnly:
+                                state.photos.insert(item, at: 0)
+                            }
+                        }
+
+                        processedCount += 1
+                        progressCallback(processedCount, images.count)
+
+                        print("📷 배치 처리: \(processedCount)/\(images.count)")
+                    }
+                }
+            }
+
+            // 메모리 압박 방지를 위한 짧은 지연
+            if processedCount < images.count {
+                try? await Task.sleep(nanoseconds: 100_000_000) // 0.1초
+            }
+        }
+
+        print("🎉 배치 업로드 완료: \(processedCount)장")
+    }
+}
+
+// MARK: - Array Extension for Batch Processing
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        return stride(from: 0, to: count, by: size).map {
+            Array(self[$0..<Swift.min($0 + size, count)])
         }
     }
 }

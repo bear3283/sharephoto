@@ -47,7 +47,7 @@ struct FullscreenPhotoViewer: View {
     
     private var currentPhoto: PhotoItem {
         guard currentIndex >= 0 && currentIndex < photos.count else { 
-            return photos.first ?? PhotoItem(asset: PHAsset(), image: nil, dateCreated: Date()) 
+            return photos.first ?? PhotoItem.createPreviewItem(image: nil, dateCreated: Date()) 
         }
         return photos[currentIndex]
     }
@@ -356,23 +356,36 @@ struct FullscreenPhotoViewer: View {
     
     // MARK: - 고화질 이미지 로딩
     private func getDisplayImage(for photo: PhotoItem) -> UIImage? {
-        // 고화질 이미지가 있으면 우선 사용, 없으면 썸네일 사용
-        return fullQualityImages[photo.asset.localIdentifier] ?? photo.image
+        // 사용자 추가 사진은 displayImage 사용
+        if photo.isUserAdded {
+            return photo.displayImage
+        }
+
+        // PHAsset 사진은 고화질 이미지가 있으면 우선 사용, 없으면 썸네일 사용
+        guard let asset = photo.asset else {
+            return photo.displayImage
+        }
+        return fullQualityImages[asset.localIdentifier] ?? photo.image
     }
-    
+
     private func loadFullQualityImage(for photo: PhotoItem) {
-        let assetId = photo.asset.localIdentifier
-        
+        // 사용자 추가 사진은 고화질 로딩 불필요
+        guard !photo.isUserAdded, let asset = photo.asset else {
+            return
+        }
+
+        let assetId = asset.localIdentifier
+
         // 이미 로드된 것이거나 로딩 중인 경우 건너뛰기
         guard fullQualityImages[assetId] == nil && !loadingFullQuality.contains(assetId) else {
             return
         }
-        
+
         // 로딩 중으로 표시
         loadingFullQuality.insert(assetId)
-        
+
         Task {
-            if let fullQualityImage = await photoService.loadImage(for: photo.asset, context: .fullscreen) {
+            if let fullQualityImage = await photoService.loadImage(for: asset, context: .fullscreen) {
                 await MainActor.run {
                     fullQualityImages[assetId] = fullQualityImage
                     loadingFullQuality.remove(assetId)
@@ -447,8 +460,7 @@ struct FullscreenPhotoViewer: View {
     
     // 샘플 PhotoItem 생성 (실제 PHAsset 없이 테스트용)
     let samplePhotos: [PhotoItem] = [
-        PhotoItem(
-            asset: PHAsset(), // 빈 asset (preview용)
+        PhotoItem.createPreviewItem(
             image: UIImage(systemName: "photo")!.withTintColor(.blue, renderingMode: .alwaysOriginal),
             dateCreated: Date()
         )

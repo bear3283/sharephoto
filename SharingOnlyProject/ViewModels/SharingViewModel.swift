@@ -139,7 +139,7 @@ final class SharingViewModel: ViewModelProtocol {
         state.isLoading = true
         state.errorMessage = nil
         
-        let photos = await photoService.loadPhotos(for: date)
+        let photos = await photoService.loadPhotos(for: date, filter: .all)
         state.availablePhotos = photos
         state.isLoading = false
         

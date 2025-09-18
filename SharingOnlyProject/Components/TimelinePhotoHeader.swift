@@ -249,8 +249,7 @@ extension Date {
         VStack {
             // Timeline header at top
             let dummyAsset = PHAsset()
-            let dummyPhoto = PhotoItem(
-                asset: dummyAsset,
+            let dummyPhoto = PhotoItem.createPreviewItem(
                 image: UIImage(systemName: "photo"),
                 dateCreated: Date()
             )

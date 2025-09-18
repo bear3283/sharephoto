@@ -2,14 +2,26 @@ import Foundation
 import Photos
 import UIKit
 
+// MARK: - Photo Filter Type
+enum PhotoFilterType {
+    case all           // 모든 사진 (기존 + 사용자 추가)
+    case userAddedOnly // 사용자가 추가한 사진만
+}
+
 // MARK: - Simple and Reliable PhotoService
 protocol PhotoServiceProtocol {
     func requestPhotoPermission() async -> Bool
-    func loadPhotos(for date: Date) async -> [PhotoItem]
+    func loadPhotos(for date: Date, filter: PhotoFilterType) async -> [PhotoItem]
     func loadImage(for asset: PHAsset, context: ImageLoadContext) async -> UIImage?
     func toggleFavorite(for asset: PHAsset) async -> Bool
     func savePhotoToCameraRoll(_ asset: PHAsset) async -> Bool
     func deletePhoto(_ asset: PHAsset) async -> Bool
+
+    // 사용자 추가 사진 관리
+    func addUserPhoto(_ image: UIImage, date: Date) async -> PhotoItem
+    func removeUserPhoto(_ photoItem: PhotoItem) async -> Bool
+    func clearUserAddedPhotos() async
+    func getUserAddedPhotos() async -> [PhotoItem]
 }
 
 enum ImageLoadContext {
@@ -19,6 +31,10 @@ enum ImageLoadContext {
 
 final class PhotoService: PhotoServiceProtocol {
     private let imageManager = PHImageManager.default()
+
+    // 사용자 추가 사진 임시 저장소 (세션 기반)
+    private var userAddedPhotos: [PhotoItem] = []
+    private let userPhotosQueue = DispatchQueue(label: "com.sharingapp.userPhotos", attributes: .concurrent)
     
     // MARK: - Permission Management
     func requestPhotoPermission() async -> Bool {
@@ -46,7 +62,7 @@ final class PhotoService: PhotoServiceProtocol {
     }
     
     // MARK: - Simple Photo Loading
-    func loadPhotos(for date: Date) async -> [PhotoItem] {
+    func loadPhotos(for date: Date, filter: PhotoFilterType = .all) async -> [PhotoItem] {
         print("📸 사진 로딩 시작: \(DateFormatter.photoTitle.string(from: date))")
         
         // 날짜 범위 설정
@@ -94,8 +110,24 @@ final class PhotoService: PhotoServiceProtocol {
             print("✅ 이미지 \(i+1) 로딩 완료 - 성공: \(image != nil)")
         }
         
-        print("🎉 전체 로딩 완료: \(photoItems.count)장")
-        return photoItems
+        print("🎉 기존 사진 로딩 완료: \(photoItems.count)장")
+
+        // 필터 타입에 따른 결과 반환
+        switch filter {
+        case .all:
+            // 기존 사진 + 사용자 추가 사진 (날짜 필터링)
+            let userPhotos = await getUserAddedPhotosForDate(date)
+            let allPhotos = photoItems + userPhotos
+            let sortedPhotos = allPhotos.sorted { $0.actualDate > $1.actualDate }
+            print("🎉 전체 로딩 완료: 기존 \(photoItems.count)장 + 사용자 추가 \(userPhotos.count)장")
+            return sortedPhotos
+
+        case .userAddedOnly:
+            // 사용자가 추가한 사진만 (날짜 필터링)
+            let userPhotos = await getUserAddedPhotosForDate(date)
+            print("🎉 사용자 추가 사진만 로딩 완료: \(userPhotos.count)장")
+            return userPhotos
+        }
     }
     
     // MARK: - Public Image Loading
@@ -228,6 +260,67 @@ final class PhotoService: PhotoServiceProtocol {
                 continuation.resume(returning: success)
             }
         }
+    }
+
+    // MARK: - User Added Photos Management
+    func addUserPhoto(_ image: UIImage, date: Date = Date()) async -> PhotoItem {
+        return await withCheckedContinuation { continuation in
+            userPhotosQueue.async(flags: .barrier) {
+                let photoItem = PhotoItem(userAddedImage: image, userAddedDate: date)
+                self.userAddedPhotos.append(photoItem)
+                print("📷 사용자 사진 추가됨: \(photoItem.id)")
+                continuation.resume(returning: photoItem)
+            }
+        }
+    }
+
+    func removeUserPhoto(_ photoItem: PhotoItem) async -> Bool {
+        return await withCheckedContinuation { continuation in
+            userPhotosQueue.async(flags: .barrier) {
+                if let index = self.userAddedPhotos.firstIndex(where: { $0.id == photoItem.id }) {
+                    self.userAddedPhotos.remove(at: index)
+                    print("🗑️ 사용자 사진 제거됨: \(photoItem.id)")
+                    continuation.resume(returning: true)
+                } else {
+                    print("❌ 제거할 사용자 사진을 찾을 수 없음: \(photoItem.id)")
+                    continuation.resume(returning: false)
+                }
+            }
+        }
+    }
+
+    func clearUserAddedPhotos() async {
+        await withCheckedContinuation { continuation in
+            userPhotosQueue.async(flags: .barrier) {
+                let count = self.userAddedPhotos.count
+                self.userAddedPhotos.removeAll()
+                print("🧹 모든 사용자 사진 제거됨: \(count)장")
+                continuation.resume(returning: ())
+            }
+        }
+    }
+
+    func getUserAddedPhotos() async -> [PhotoItem] {
+        return await withCheckedContinuation { continuation in
+            userPhotosQueue.async {
+                continuation.resume(returning: self.userAddedPhotos)
+            }
+        }
+    }
+
+    // MARK: - Private Helper Methods
+    private func getUserAddedPhotosForDate(_ date: Date) async -> [PhotoItem] {
+        let allUserPhotos = await getUserAddedPhotos()
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: date)
+        guard let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay) else {
+            return []
+        }
+
+        return allUserPhotos.filter { photo in
+            let photoDate = photo.actualDate
+            return photoDate >= startOfDay && photoDate < endOfDay
+        }.sorted { $0.actualDate > $1.actualDate }
     }
 }
 

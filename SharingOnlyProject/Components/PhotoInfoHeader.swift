@@ -103,8 +103,7 @@ struct PhotoInfoHeader: View {
 #Preview {
     // Preview용 더미 데이터
     let dummyAsset = PHAsset()
-    var dummyPhoto = PhotoItem(
-        asset: dummyAsset,
+    var dummyPhoto = PhotoItem.createPreviewItem(
         image: UIImage(systemName: "photo"),
         dateCreated: Date()
     )

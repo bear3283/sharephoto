@@ -478,16 +478,34 @@ struct EnhancedPhotoDragView: View {
     
     // MARK: - Helper Methods
     private func calculateAspectRatio() {
-        let asset = photo.asset
-        let width = CGFloat(asset.pixelWidth)
-        let height = CGFloat(asset.pixelHeight)
-        
-        if height > 0 {
-            photoAspectRatio = width / height
+        // 사용자 추가 사진의 경우 이미지에서 직접 계산
+        if photo.isUserAdded {
+            if let image = photo.displayImage {
+                let width = image.size.width
+                let height = image.size.height
+
+                if height > 0 {
+                    photoAspectRatio = width / height
+                } else {
+                    photoAspectRatio = 1.0
+                }
+            } else {
+                photoAspectRatio = 1.0
+            }
+        } else if let asset = photo.asset {
+            // PHAsset 사진의 경우 asset에서 계산
+            let width = CGFloat(asset.pixelWidth)
+            let height = CGFloat(asset.pixelHeight)
+
+            if height > 0 {
+                photoAspectRatio = width / height
+            } else {
+                photoAspectRatio = 1.0
+            }
         } else {
             photoAspectRatio = 1.0
         }
-        
+
         photoAspectRatio = max(0.5, min(photoAspectRatio, 2.0))
     }
     
@@ -497,8 +515,27 @@ struct EnhancedPhotoDragView: View {
         loadingHighQuality = true
         
         Task {
+            // 사용자 추가 사진은 이미 고화질 이미지를 가지고 있음
+            if photo.isUserAdded {
+                await MainActor.run {
+                    loadingHighQuality = false
+                    if let image = photo.displayImage {
+                        highQualityImage = image
+                    }
+                }
+                return
+            }
+
+            // PHAsset 사진만 고화질 로딩
+            guard let asset = photo.asset else {
+                await MainActor.run {
+                    loadingHighQuality = false
+                }
+                return
+            }
+
             let photoService = PhotoService()
-            let image = await photoService.loadImage(for: photo.asset, context: .fullscreen)
+            let image = await photoService.loadImage(for: asset, context: .fullscreen)
             
             await MainActor.run {
                 loadingHighQuality = false

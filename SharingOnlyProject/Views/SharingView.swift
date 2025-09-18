@@ -19,6 +19,15 @@ struct SharingView: View {
     @State private var showingFullscreenPhoto = false
     @State private var selectedFullscreenPhoto: PhotoItem?
     @State private var selectedPhotoIndex = 0
+    @State private var showingMultiPhotoPicker = false
+    @State private var showingDeleteConfirmation = false
+    @State private var showingClearAllConfirmation = false
+    @State private var photoToDelete: PhotoItem?
+
+    // 배치 업로드 상태
+    @State private var batchUploadProgress = 0
+    @State private var batchUploadTotal = 0
+    @State private var isBatchUploading = false
     
     @Environment(\.theme) private var theme
     
@@ -84,6 +93,45 @@ struct SharingView: View {
                             .disabled(showingFullscreenPhoto)  // 풀스크린 모드에서 비활성화
                         }
                     }
+
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        HStack(spacing: 12) {
+                            // 모든 추가 사진 삭제 버튼 (필터가 userAddedOnly일 때만)
+                            if !showingFullscreenPhoto && photoViewModel.currentFilter == .userAddedOnly &&
+                               !photoViewModel.photos.isEmpty && currentStep == .dateSelection {
+                                Button(action: {
+                                    showingClearAllConfirmation = true
+                                }) {
+                                    Image(systemName: "trash.circle")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(.red)
+                                }
+                            }
+
+                            // 필터 토글 버튼
+                            if !showingFullscreenPhoto {
+                                Button(action: {
+                                    let newFilter: PhotoFilterType = photoViewModel.currentFilter == .all ? .userAddedOnly : .all
+                                    photoViewModel.send(.setFilter(newFilter))
+                                }) {
+                                    Image(systemName: photoViewModel.currentFilter == .all ? "calendar.and.person" : "photo.badge.plus.fill")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(theme.accentColor)
+                                }
+                            }
+
+                            // 사진 추가 버튼
+                            if !showingFullscreenPhoto && currentStep == .dateSelection {
+                                Button(action: {
+                                    showingMultiPhotoPicker = true
+                                }) {
+                                    Image(systemName: "plus.circle")
+                                        .font(.system(size: 18, weight: .medium))
+                                        .foregroundColor(theme.accentColor)
+                                }
+                            }
+                        }
+                    }
                 }
                 .background(theme.primaryBackground.ignoresSafeArea())
                 
@@ -111,7 +159,54 @@ struct SharingView: View {
                     )
                     .zIndex(2000)
                 }
+
+                // Direct Multi Photo Picker
+                if showingMultiPhotoPicker {
+                    if #available(iOS 14.0, *) {
+                        MultiPhotoPickerView(
+                            isPresented: $showingMultiPhotoPicker,
+                            selectionLimit: 0, // 무제한 선택
+                            onPhotosSelected: { images in
+                                handleMultiplePhotosSelected(images)
+                            }
+                        )
+                    }
+                }
+
+                // Batch Upload Progress Toast
+                VStack {
+                    BatchProgressToast(
+                        currentIndex: batchUploadProgress,
+                        totalCount: batchUploadTotal,
+                        isVisible: isBatchUploading
+                    )
+                    .padding(.top, 10)
+
+                    Spacer()
+                }
+                .zIndex(1700)
             }
+        }
+        .alert("사진 삭제", isPresented: $showingDeleteConfirmation) {
+            Button("취소", role: .cancel) {
+                photoToDelete = nil
+            }
+            Button("삭제", role: .destructive) {
+                if let photo = photoToDelete {
+                    photoViewModel.send(.removeUserPhoto(photo))
+                }
+                photoToDelete = nil
+            }
+        } message: {
+            Text("이 사진을 삭제하시겠습니까?")
+        }
+        .alert("모든 추가 사진 삭제", isPresented: $showingClearAllConfirmation) {
+            Button("취소", role: .cancel) { }
+            Button("모두 삭제", role: .destructive) {
+                photoViewModel.send(.clearUserPhotos)
+            }
+        } message: {
+            Text("추가한 모든 사진을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.")
         }
         .onAppear {
             setupInitialState()
@@ -213,18 +308,8 @@ struct SharingView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                // 빈 상태 표시
-                VStack(spacing: 16) {
-                    Image(systemName: "photo.on.rectangle")
-                        .font(.system(size: 48))
-                        .foregroundColor(theme.accentColor.opacity(0.5))
-                    
-                    Text("선택한 날짜에 사진이 없습니다")
-                        .font(.title3)
-                        .fontWeight(.medium)
-                        .foregroundColor(theme.secondaryText)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                // 빈 상태 표시 (필터별 맞춤 메시지)
+                emptyStateView
             }
             
             Spacer()
@@ -251,7 +336,7 @@ struct SharingView: View {
     @ViewBuilder
     private func photoGridItem(photo: PhotoItem, index: Int) -> some View {
         Group {
-            if let image = photo.image {
+            if let image = photo.displayImage {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -260,6 +345,33 @@ struct SharingView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(theme.buttonBorder.opacity(0.2), lineWidth: 1)
+                    )
+                    .overlay(
+                        // 사용자 추가 사진 삭제 버튼
+                        Group {
+                            if photo.isUserAdded {
+                                VStack {
+                                    HStack {
+                                        Spacer()
+                                        Button(action: {
+                                            photoToDelete = photo
+                                            showingDeleteConfirmation = true
+                                        }) {
+                                            Image(systemName: "xmark.circle.fill")
+                                                .font(.system(size: 16, weight: .semibold))
+                                                .foregroundColor(.white)
+                                                .background(
+                                                    Circle()
+                                                        .fill(Color.red)
+                                                        .frame(width: 20, height: 20)
+                                                )
+                                        }
+                                        .padding(4)
+                                    }
+                                    Spacer()
+                                }
+                            }
+                        }
                     )
                     .onTapGesture {
                         selectedPhotoIndex = index
@@ -469,7 +581,7 @@ struct SharingView: View {
             } else if photoViewModel.photos.isEmpty {
                 return "사진 없음"
             } else {
-                return "\(photoViewModel.photos.count)장 준비됨"
+                return photoViewModel.photoCountInfo
             }
         case .recipientSetup:
             if sharingViewModel.recipients.isEmpty {
@@ -518,7 +630,57 @@ struct SharingView: View {
             }
         }
     }
-    
+
+    // MARK: - Empty State View
+    private var emptyStateView: some View {
+        VStack(spacing: 16) {
+            Image(systemName: emptyStateIcon)
+                .font(.system(size: 48))
+                .foregroundColor(theme.accentColor.opacity(0.5))
+
+            VStack(spacing: 8) {
+                Text(emptyStateTitle)
+                    .font(.title3)
+                    .fontWeight(.medium)
+                    .foregroundColor(theme.primaryText)
+
+                Text(emptyStateSubtitle)
+                    .font(.subheadline)
+                    .foregroundColor(theme.secondaryText)
+                    .multilineTextAlignment(.center)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    // MARK: - Empty State Content
+    private var emptyStateIcon: String {
+        switch photoViewModel.currentFilter {
+        case .all:
+            return "photo.on.rectangle"
+        case .userAddedOnly:
+            return "photo.badge.plus.fill"
+        }
+    }
+
+    private var emptyStateTitle: String {
+        switch photoViewModel.currentFilter {
+        case .all:
+            return "선택한 날짜에 사진이 없습니다"
+        case .userAddedOnly:
+            return "추가된 사진이 없습니다"
+        }
+    }
+
+    private var emptyStateSubtitle: String {
+        switch photoViewModel.currentFilter {
+        case .all:
+            return "다른 날짜를 선택하거나\n새 사진을 추가해보세요"
+        case .userAddedOnly:
+            return "새 사진을 추가해보세요"
+        }
+    }
+
     private func setupInitialState() {
         Task {
             // 권한 요청 및 사진 로딩
@@ -537,6 +699,60 @@ struct SharingView: View {
             await sharingViewModel.sendAsync(.clearSession)
             await sharingViewModel.sendAsync(.createSession(photoViewModel.selectedDate))
         }
+    }
+
+    // MARK: - Multiple Photos Handling
+    private func handleMultiplePhotosSelected(_ images: [UIImage]) {
+        guard !images.isEmpty else { return }
+
+        print("📷 다중 사진 선택됨: \(images.count)장")
+
+        // 배치 업로드 상태 초기화
+        batchUploadProgress = 0
+        batchUploadTotal = images.count
+        isBatchUploading = true
+
+        // 진행 상태 콜백과 함께 배치 처리 시작
+        photoViewModel.send(.processBatchPhotoUpload(images, photoViewModel.selectedDate) { progress, total in
+            Task { @MainActor in
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    batchUploadProgress = progress
+                    batchUploadTotal = total
+
+                    // 완료 시 UI 상태 리셋
+                    if progress >= total {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            withAnimation(.easeOut(duration: 0.3)) {
+                                isBatchUploading = false
+                                batchUploadProgress = 0
+                                batchUploadTotal = 0
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    }
+}
+
+// MARK: - View Extensions
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape(RoundedCorner(radius: radius, corners: corners))
+    }
+}
+
+struct RoundedCorner: Shape {
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(
+            roundedRect: rect,
+            byRoundingCorners: corners,
+            cornerRadii: CGSize(width: radius, height: radius)
+        )
+        return Path(path.cgPath)
     }
 }
 
