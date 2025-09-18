@@ -53,10 +53,6 @@ struct DirectionalDragView: View {
     private var backgroundView: some View {
         RoundedRectangle(cornerRadius: 20)
             .fill(theme.primaryBackground)
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(theme.buttonBorder.opacity(0.2), lineWidth: 1)
-            )
             .shadow(color: theme.primaryShadow.opacity(0.08), radius: 6, x: 0, y: 2)
     }
     

@@ -103,7 +103,7 @@ struct SharingView: View {
                                     showingClearAllConfirmation = true
                                 }) {
                                     Image(systemName: "trash.circle")
-                                        .font(.system(size: 16, weight: .medium))
+                                        .font(.system(size: 16, weight: .regular))
                                         .foregroundColor(.red)
                                 }
                             }
@@ -114,7 +114,7 @@ struct SharingView: View {
                                     let newFilter: PhotoFilterType = photoViewModel.currentFilter == .all ? .userAddedOnly : .all
                                     photoViewModel.send(.setFilter(newFilter))
                                 }) {
-                                    Image(systemName: photoViewModel.currentFilter == .all ? "calendar.and.person" : "photo.badge.plus.fill")
+                                    Image(systemName: photoViewModel.currentFilter == .all ? "photo.badge.plus.fill" : "calendar.and.person")
                                         .font(.system(size: 16, weight: .medium))
                                         .foregroundColor(theme.accentColor)
                                 }
@@ -358,11 +358,11 @@ struct SharingView: View {
                                             showingDeleteConfirmation = true
                                         }) {
                                             Image(systemName: "xmark.circle.fill")
-                                                .font(.system(size: 16, weight: .semibold))
+                                                .font(.system(size: 16, weight: .regular))
                                                 .foregroundColor(.white)
                                                 .background(
                                                     Circle()
-                                                        .fill(Color.red)
+                                                        .fill(Color.red.opacity(0.6))
                                                         .frame(width: 20, height: 20)
                                                 )
                                         }
@@ -513,7 +513,7 @@ struct SharingView: View {
                         .padding(.vertical, 16)
                         .background(
                             RoundedRectangle(cornerRadius: 12)
-                                .fill(theme.secondaryBackground.opacity(0.6))
+                                .fill(theme.secondaryBackground.opacity(1.5))
                         )
                 }
                 .buttonStyle(PlainButtonStyle()) // 버튼 스타일은 그대로 유지
@@ -659,7 +659,7 @@ struct SharingView: View {
         case .all:
             return "photo.on.rectangle"
         case .userAddedOnly:
-            return "photo.badge.plus.fill"
+            return "calendar.and.person"
         }
     }
 

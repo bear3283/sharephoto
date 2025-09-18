@@ -251,26 +251,17 @@ struct TemporaryAlbumPreview: View {
                 await sharingViewModel.sendAsync(.clearSession)
             }
         }) {
-            HStack(spacing: 8) {
-                Image(systemName: "arrow.counterclockwise")
-                    .font(.subheadline)
-                
-                Text("새로시작하기")
-                    .fontWeight(.medium)
-            }
-            .foregroundColor(theme.accentColor)
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(theme.secondaryBackground)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(theme.accentColor.opacity(0.3), lineWidth: 1)
-                    )
-            )
+            Text("새로시작하기")
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(theme.secondaryText)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(theme.secondaryBackground.opacity(0.6))
+                )
         }
-        .contentShape(Rectangle())
         .buttonStyle(PlainButtonStyle())
     }
     
