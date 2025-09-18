@@ -72,7 +72,7 @@ struct SharingView: View {
                     stepContentView
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                .navigationTitle("PHOTO SHARING")
+                .navigationTitle("PHOTO FLICK")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
