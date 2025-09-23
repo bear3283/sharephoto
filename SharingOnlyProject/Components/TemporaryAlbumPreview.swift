@@ -110,7 +110,7 @@ struct TemporaryAlbumPreview: View {
             .padding(.vertical, 8)
             .background(
                 Capsule()
-                    .fill(sharingViewModel.canStartSharing ? AnyShapeStyle(.green.opacity(0.1)) : AnyShapeStyle(theme.accentColor.opacity(0.1)))
+                    .fill(sharingViewModel.canStartSharing ? AnyShapeStyle(Color.green.opacity(0.1)) : AnyShapeStyle(theme.accentColor.opacity(0.1)))
             )
         }
     }

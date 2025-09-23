@@ -57,8 +57,20 @@ struct SharingView: View {
         
     }
     
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    // iPad에서 더 많은 컬럼 표시
+    private var gridColumnCount: Int {
+        horizontalSizeClass == .regular ? 8 : 5
+    }
+
+    // iPad에서 더 큰 사진 크기
+    private var photoItemSize: CGFloat {
+        horizontalSizeClass == .regular ? 80 : 65
+    }
+
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 // Main Content
                 VStack(spacing: 0) {
@@ -322,7 +334,7 @@ struct SharingView: View {
     private var photoGridView: some View {
         ScrollView {
             LazyVGrid(
-                columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 5),
+                columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: gridColumnCount),
                 spacing: 8
             ) {
                 ForEach(Array(photoViewModel.photos.enumerated()), id: \.element.id) { index, photo in
@@ -340,7 +352,7 @@ struct SharingView: View {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 65, height: 65)
+                    .frame(width: photoItemSize, height: photoItemSize)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
@@ -386,7 +398,7 @@ struct SharingView: View {
                     Image(uiImage: dummyImage)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 65, height: 65)
+                        .frame(width: photoItemSize, height: photoItemSize)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
@@ -424,7 +436,7 @@ struct SharingView: View {
                     // Fallback to loading placeholder
                     RoundedRectangle(cornerRadius: 8)
                         .fill(theme.secondaryBackground)
-                        .frame(width: 65, height: 65)
+                        .frame(width: photoItemSize, height: photoItemSize)
                         .overlay(
                             ProgressView()
                                 .scaleEffect(0.8)

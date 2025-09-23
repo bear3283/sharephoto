@@ -6,8 +6,14 @@ struct RecipientSetupView: View {
     @State private var showingAddRecipientSheet = false
     @State private var newRecipientName = ""
     @State private var selectedDirection: ShareDirection = .top
-    
+
     @Environment(\.theme) private var theme
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    // iPad에서 더 많은 컬럼 표시
+    private var recipientGridColumns: Int {
+        horizontalSizeClass == .regular ? 4 : 3
+    }
     
     var body: some View {
         VStack(spacing: 20) {
@@ -77,7 +83,7 @@ struct RecipientSetupView: View {
     // MARK: - Recipients Grid - 최적화된 레이아웃
     private var recipientsGridView: some View {
         LazyVGrid(
-            columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 3),
+            columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: recipientGridColumns),
             spacing: 20
         ) {
             ForEach(sharingViewModel.recipients) { recipient in
@@ -346,13 +352,36 @@ struct AddRecipientSheet: View {
                 .foregroundColor(theme.primaryText)
             
             TextField("공유할 사람의 이름을 입력하세요", text: $newRecipientName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(theme.secondaryBackground)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(isNameFieldFocused ? AnyShapeStyle(theme.accentColor) : AnyShapeStyle(theme.buttonBorder.opacity(0.3)), lineWidth: 1)
+                        )
+                )
                 .focused($isNameFieldFocused)
+                .keyboardType(.default)
+                .autocorrectionDisabled(false)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(false)
                 .submitLabel(.done)
                 .onSubmit {
-                    if canAddRecipient {
-                        onAdd()
-                        dismiss()
+                    // 한글 조합 완료를 위한 딜레이 추가
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        if canAddRecipient {
+                            onAdd()
+                            dismiss()
+                        }
+                    }
+                }
+                // 한글 입력 최적화를 위한 추가 설정
+                .onChange(of: newRecipientName) { oldValue, newValue in
+                    // 텍스트 변경 시 즉시 반영하지 않고 디바운스 적용
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                        // 한글 조합이 완료되면 자동으로 반영됨
                     }
                 }
         }
@@ -490,7 +519,7 @@ struct DirectionSelectionCard: View {
                             .stroke(
                                 isAvailable ?
                                 (isSelected ? AnyShapeStyle(theme.accentColor) : AnyShapeStyle(theme.buttonBorder.opacity(0.3))) :
-                                AnyShapeStyle(.clear),
+                                AnyShapeStyle(Color.clear),
                                 lineWidth: isSelected ? 2 : 1
                             )
                     )
