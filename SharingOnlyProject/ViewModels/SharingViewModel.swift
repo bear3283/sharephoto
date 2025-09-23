@@ -5,7 +5,6 @@ import Combine
 // MARK: - SharingViewModel State
 struct SharingViewModelState: LoadableStateProtocol {
     var currentSession: ShareSession?
-    var availablePhotos: [PhotoItem] = []
     var dragState: DragState = DragState()
     var isLoading: Bool = false
     var errorMessage: String? = nil
@@ -14,7 +13,6 @@ struct SharingViewModelState: LoadableStateProtocol {
 // MARK: - SharingViewModel Actions
 enum SharingViewModelAction {
     case createSession(Date)
-    case loadPhotos(for: Date)
     case addRecipient(String, ShareDirection)
     case removeRecipient(ShareRecipient)
     case startDrag(PhotoItem, CGPoint)
@@ -42,7 +40,6 @@ final class SharingViewModel: ViewModelProtocol {
     
     // MARK: - Computed Properties
     var currentSession: ShareSession? { state.currentSession }
-    var availablePhotos: [PhotoItem] { state.availablePhotos }
     var dragState: DragState { state.dragState }
     var isLoading: Bool { state.isLoading }
     var errorMessage: String? { state.errorMessage }
@@ -87,10 +84,7 @@ final class SharingViewModel: ViewModelProtocol {
         switch action {
         case .createSession(let date):
             await createSession(for: date)
-            
-        case .loadPhotos(let date):
-            await loadPhotos(for: date)
-            
+
         case .addRecipient(let name, let direction):
             await addRecipient(name: name, direction: direction)
             
@@ -132,18 +126,7 @@ final class SharingViewModel: ViewModelProtocol {
     private func createSession(for date: Date) async {
         print("🎯 새 공유 세션 생성: \(date)")
         state.currentSession = ShareSession(selectedDate: date)
-        await loadPhotos(for: date)
-    }
-    
-    private func loadPhotos(for date: Date) async {
-        state.isLoading = true
-        state.errorMessage = nil
-        
-        let photos = await photoService.loadPhotos(for: date, filter: .all)
-        state.availablePhotos = photos
-        state.isLoading = false
-        
-        print("📸 \(photos.count)개 사진 로드 완료")
+        print("✅ 공유 세션 생성 완료")
     }
     
     private func addRecipient(name: String, direction: ShareDirection) async {
@@ -231,9 +214,8 @@ final class SharingViewModel: ViewModelProtocol {
     
     private func clearSession() async {
         state.currentSession = nil
-        state.availablePhotos = []
         state.dragState.reset()
-        
+
         print("🗑️ 공유 세션 초기화")
     }
     

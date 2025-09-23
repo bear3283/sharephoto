@@ -66,8 +66,8 @@ final class SharingService: SharingServiceProtocol {
         
         print("📤 공유 시작: \(name)에게 \(photos.count)장 사진")
         
-        // UIImage 배열로 변환
-        let images = photos.compactMap { $0.image }
+        // UIImage 배열로 변환 (사용자 추가 사진 포함)
+        let images = photos.compactMap { $0.displayImage }
         guard !images.isEmpty else { return false }
         
         return await withCheckedContinuation { continuation in
@@ -227,7 +227,7 @@ struct ActivityViewController: UIViewControllerRepresentable {
     let onCompletion: (Bool) -> Void
     
     func makeUIViewController(context: Context) -> UIActivityViewController {
-        let images = photos.compactMap { $0.image }
+        let images = photos.compactMap { $0.displayImage }
         let message = "📸 \(recipientName)님과 공유하는 사진들입니다 (\(images.count)장)"
         
         let shareItems: [Any] = images + [message]

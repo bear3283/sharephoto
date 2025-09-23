@@ -406,7 +406,7 @@ struct AlbumPreviewCard: View {
         
         return LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 2), count: 2), spacing: 2) {
             ForEach(photos) { photo in
-                if let image = photo.image {
+                if let image = photo.displayImage {
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -536,7 +536,7 @@ struct AlbumDetailSheet: View {
         ScrollView {
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 3), spacing: 4) {
                 ForEach(album.photos) { photo in
-                    if let image = photo.image {
+                    if let image = photo.displayImage {
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)

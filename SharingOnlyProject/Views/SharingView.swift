@@ -154,6 +154,9 @@ struct SharingView: View {
                         isPresented: $showingDatePicker,
                         onDateSelected: {
                             Task {
+                                // 사진 로딩
+                                await photoViewModel.sendAsync(.changeDate(photoViewModel.selectedDate))
+                                // 공유 세션 생성
                                 await sharingViewModel.sendAsync(.createSession(photoViewModel.selectedDate))
                             }
                         }
@@ -490,19 +493,38 @@ struct SharingView: View {
             
             Spacer()
             
-            // Reset button - 하단 고정 (44pt 최소 높이 보장)
-            Button("새로 시작하기") {
-                resetSharingSession()
+            // Navigation buttons - 하단 고정
+            VStack(spacing: 12) {
+                // Back button - 사진 분배로 돌아가기
+                Button("← 사진 분배로 돌아가기") {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        currentStep = .photoDistribution
+                    }
+                }
+                .fontWeight(.medium)
+                .foregroundColor(theme.accentColor)
+                .frame(maxWidth: .infinity, minHeight: 44)
+                .padding(.vertical, 14)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(theme.accentColor.opacity(0.3), lineWidth: 1)
+                )
+                .padding(.horizontal, 20)
+
+                // Reset button - 하단 고정 (44pt 최소 높이 보장)
+                Button("새로 시작하기") {
+                    resetSharingSession()
+                }
+                .fontWeight(.medium)
+                .foregroundColor(theme.secondaryText)
+                .frame(maxWidth: .infinity, minHeight: 44) // HIG 기준 보장
+                .padding(.vertical, 14) // 더 큰 패딩
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(theme.buttonBorder.opacity(0.3), lineWidth: 1)
+                )
+                .padding(.horizontal, 20)
             }
-            .fontWeight(.medium)
-            .foregroundColor(theme.secondaryText)
-            .frame(maxWidth: .infinity, minHeight: 44) // HIG 기준 보장
-            .padding(.vertical, 14) // 더 큰 패딩
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(theme.buttonBorder.opacity(0.3), lineWidth: 1)
-            )
-            .padding(.horizontal, 20)
             .padding(.bottom, 20)
             .contentShape(Rectangle()) // 전체 영역 터치 가능
             .buttonStyle(PlainButtonStyle())
@@ -671,7 +693,7 @@ struct SharingView: View {
         case .all:
             return "photo.on.rectangle"
         case .userAddedOnly:
-            return "calendar.and.person"
+            return "photo.badge.plus"
         }
     }
 
