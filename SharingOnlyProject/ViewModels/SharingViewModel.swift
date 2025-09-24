@@ -19,6 +19,7 @@ enum SharingViewModelAction {
     case updateDrag(CGSize, CGPoint)
     case endDrag(ShareDirection?)
     case distributePhoto(PhotoItem, ShareDirection)
+    case distributePhotoToAll(PhotoItem) // 모든 사람에게 공유
     case clearSession
     case shareAlbums
     case shareIndividualAlbum(TemporaryAlbum)
@@ -102,7 +103,10 @@ final class SharingViewModel: ViewModelProtocol {
             
         case .distributePhoto(let photo, let direction):
             await distributePhoto(photo, to: direction)
-            
+
+        case .distributePhotoToAll(let photo):
+            await distributePhotoToAll(photo)
+
         case .clearSession:
             await clearSession()
             
@@ -166,29 +170,47 @@ final class SharingViewModel: ViewModelProtocol {
     
     private func updateDrag(offset: CGSize, position: CGPoint) async {
         guard state.dragState.isDragging else { return }
-        
+
         state.dragState.dragOffset = offset
-        
+
         // 드래그 거리와 방향 계산
         let distance = sqrt(offset.width * offset.width + offset.height * offset.height)
-        
-        if distance > 50 { // 최소 드래그 거리
+
+        // 중앙 공유 존 감지 (거리가 작을 때)
+        if distance <= 50 {
+            state.dragState.isTargetingAll = true
+            state.dragState.targetDirection = nil
+        } else if distance > 80 { // 방향별 드래그 존 (최소 드래그 거리)
+            state.dragState.isTargetingAll = false
             let angle = atan2(offset.height, offset.width)
             state.dragState.targetDirection = calculateDirection(from: angle)
         } else {
+            // 중간 영역 - 타겟 클리어
+            state.dragState.isTargetingAll = false
             state.dragState.targetDirection = nil
         }
     }
     
     private func endDrag(at direction: ShareDirection?) async {
         defer { state.dragState.reset() }
-        
-        guard let photo = state.dragState.currentPhoto,
-              let targetDirection = direction ?? state.dragState.targetDirection else {
+
+        guard let photo = state.dragState.currentPhoto else {
+            print("❌ 드래그 취소: 사진 없음")
+            return
+        }
+
+        // 중앙 공유 존에서 드래그 종료
+        if state.dragState.isTargetingAll {
+            await distributePhotoToAll(photo)
+            return
+        }
+
+        // 방향별 드래그 존에서 드래그 종료
+        guard let targetDirection = direction ?? state.dragState.targetDirection else {
             print("❌ 드래그 취소: 유효하지 않은 방향")
             return
         }
-        
+
         await distributePhoto(photo, to: targetDirection)
     }
     
@@ -206,12 +228,41 @@ final class SharingViewModel: ViewModelProtocol {
         state.currentSession = session
         
         print("📤 사진 분배: \(photo.id) -> \(recipient.name) (\(direction.displayName))")
-        
+
         // 햅틱 피드백
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
     }
-    
+
+    private func distributePhotoToAll(_ photo: PhotoItem) async {
+        guard var session = state.currentSession else { return }
+
+        // 모든 수신자가 있는지 확인
+        guard !session.recipients.isEmpty else {
+            state.errorMessage = "공유할 대상자가 없습니다."
+            return
+        }
+
+        // 모든 수신자에게 사진 추가
+        for recipient in session.recipients {
+            session.addPhotoToRecipient(photo: photo, recipientId: recipient.id)
+        }
+
+        state.currentSession = session
+
+        print("📤📤 사진 전체 분배: \(photo.id) -> 모든 수신자 (\(session.recipients.count)명)")
+
+        // 강한 햅틱 피드백 (전체 공유를 나타냄)
+        let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
+        impactFeedback.impactOccurred()
+
+        // 추가 성공 피드백
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            let feedbackGenerator = UINotificationFeedbackGenerator()
+            feedbackGenerator.notificationOccurred(.success)
+        }
+    }
+
     private func clearSession() async {
         state.currentSession = nil
         state.dragState.reset()

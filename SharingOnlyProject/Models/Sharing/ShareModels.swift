@@ -197,13 +197,15 @@ struct DragState {
     var currentPhoto: PhotoItem?
     var dragOffset: CGSize = .zero
     var targetDirection: ShareDirection?
+    var isTargetingAll: Bool = false // 모든 사람에게 공유 존 타겟팅
     var startPosition: CGPoint = .zero
-    
+
     mutating func reset() {
         isDragging = false
         currentPhoto = nil
         dragOffset = .zero
         targetDirection = nil
+        isTargetingAll = false
         startPosition = .zero
     }
 }

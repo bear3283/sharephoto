@@ -401,35 +401,37 @@ struct AlbumPreviewCard: View {
     }
     
     private var photoPreviewGrid: some View {
-        let maxPhotos = min(album.photos.count, 4)
+        let maxPhotos = min(album.photos.count, 5)  // 5장까지 표시 (3×2에서 마지막 위치는 +숫자용)
         let photos = Array(album.photos.prefix(maxPhotos))
-        
-        return LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 2), count: 2), spacing: 2) {
-            ForEach(photos) { photo in
-                if let image = photo.displayImage {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 40, height: 40)
-                        .clipShape(RoundedRectangle(cornerRadius: 6))
+
+        return LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 2), count: 3), spacing: 2) {
+            ForEach(Array(photos.enumerated()), id: \.offset) { index, photo in
+                if index < 5 {  // 5번째(인덱스 4)까지만 사진 표시
+                    if let image = photo.displayImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 35, height: 35)  // 3열로 변경에 따라 크기 조정
+                            .clipShape(RoundedRectangle(cornerRadius: 6))
+                    }
                 }
             }
-            
-            // Show "+X more" if there are more photos
-            if album.photos.count > 4 {
+
+            // 6번째 위치(2행 3열)에 "+숫자" 표시
+            if album.photos.count > 5 {
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(theme.accentColor.opacity(0.8))
-                        .frame(width: 40, height: 40)
-                    
-                    Text("+\(album.photos.count - 4)")
+                        .frame(width: 35, height: 35)
+
+                    Text("+\(album.photos.count - 5)")
                         .font(.caption2)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                 }
             }
         }
-        .frame(height: 82)
+        .frame(height: 72)  // 2행에 맞게 높이 조정
     }
     
     private var emptyAlbumIndicator: some View {
@@ -446,7 +448,7 @@ struct AlbumPreviewCard: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
         }
-        .frame(height: 82)
+        .frame(height: 72)  // 새로운 그리드 높이와 일치
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 8)
@@ -539,9 +541,9 @@ struct AlbumDetailSheet: View {
                     if let image = photo.displayImage {
                         Image(uiImage: image)
                             .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 120)
+                            .aspectRatio(1, contentMode: .fill)  // 모든 이미지를 정사각형 비율로 맞춤
                             .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .clipped()
                     }
                 }
             }

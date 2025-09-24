@@ -1,5 +1,6 @@
 import SwiftUI
 import Foundation
+import Photos
 
 
 /// 8방향 드래그 시스템의 핵심 컴포넌트 - 원형 오버레이 UI
@@ -63,6 +64,14 @@ struct DirectionalDragView: View {
         return ZStack {
             // 세그먼트된 도넛 오버레이
             segmentedDonutOverlay(centerPoint: centerPoint)
+
+            // 연결선 효과 (중앙에서 모든 세그먼트로)
+            if sharingViewModel.dragState.isTargetingAll && !sharingViewModel.recipients.isEmpty {
+                connectionLines(centerPoint: centerPoint)
+            }
+
+            // 중앙 공유 존 (모든 사람에게)
+            centralShareZone(centerPoint: centerPoint)
         }
     }
     
@@ -72,8 +81,10 @@ struct DirectionalDragView: View {
             // 8개 방향 세그먼트들
             ForEach(ShareDirection.allCases, id: \.self) { direction in
                 let recipient = sharingViewModel.recipients.first { $0.direction == direction }
-                let isActive = sharingViewModel.dragState.targetDirection == direction
-                
+                let isDirectionActive = sharingViewModel.dragState.targetDirection == direction
+                let isAllActive = sharingViewModel.dragState.isTargetingAll && recipient != nil
+                let isActive = isDirectionActive || isAllActive
+
                 donutSegment(
                     direction: direction,
                     recipient: recipient,
@@ -120,7 +131,13 @@ struct DirectionalDragView: View {
                 recipient != nil ?
                 LinearGradient(
                     colors: [
+                        // 모든 사람 공유 모드일 때 특별한 색상 효과
+                        sharingViewModel.dragState.isTargetingAll ?
+                        theme.accentColor.opacity(isActive ? 0.9 : 0.7) :
                         recipient!.swiftUIColor.opacity(isActive ? 0.9 : 0.6),
+
+                        sharingViewModel.dragState.isTargetingAll ?
+                        theme.accentColor.opacity(isActive ? 0.7 : 0.5) :
                         recipient!.swiftUIColor.opacity(isActive ? 0.7 : 0.4)
                     ],
                     startPoint: .center,
@@ -195,9 +212,130 @@ struct DirectionalDragView: View {
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isActive)
         .animation(.spring(response: 0.3, dampingFraction: 0.7), value: photoCount)
     }
-    
-    
-    
+
+    // MARK: - 중앙 공유 존 (모든 사람에게)
+    private func centralShareZone(centerPoint: CGPoint) -> AnyView {
+        let isActive = sharingViewModel.dragState.isTargetingAll
+        let hasRecipients = !sharingViewModel.recipients.isEmpty
+        let zoneRadius: CGFloat = 60
+
+        // 중앙 원형 배경
+        return AnyView(Circle()
+            .fill(
+                isActive && hasRecipients ?
+                LinearGradient(
+                    colors: [
+                        theme.accentColor.opacity(0.9),
+                        theme.accentColor.opacity(0.7)
+                    ],
+                    startPoint: .center,
+                    endPoint: .bottom
+                ) :
+                LinearGradient(
+                    colors: [
+                        Color.gray.opacity(hasRecipients ? 0.7 : 0.3),
+                        Color.gray.opacity(hasRecipients ? 0.5 : 0.2)
+                    ],
+                    startPoint: .center,
+                    endPoint: .bottom
+                )
+            )
+            .frame(width: zoneRadius * 2, height: zoneRadius * 2)
+            .overlay(
+                Circle()
+                    .stroke(
+                        isActive && hasRecipients ?
+                        Color.white.opacity(0.9) :
+                        Color.gray.opacity(hasRecipients ? 0.4 : 0.2),
+                        lineWidth: isActive ? 3 : 2
+                    )
+            )
+            .overlay(
+                // 중앙 콘텐츠
+                VStack(spacing: 6) {
+                    // 아이콘
+                    Image(systemName: hasRecipients ? "person.3.fill" : "person.3")
+                        .font(.system(size: isActive ? 18 : 16, weight: .bold, design: .rounded))
+                        .foregroundColor(
+                            isActive && hasRecipients ? .white :
+                            hasRecipients ? theme.accentColor : theme.secondaryText
+                        )
+                        .shadow(color: .black.opacity(isActive ? 0.5 : 0), radius: 2, x: 0, y: 1)
+
+                    // 텍스트
+                    Text(hasRecipients ? "모든 사람" : "대상자 없음")
+                        .font(.system(size: isActive ? 11 : 10, weight: .bold, design: .rounded))
+                        .foregroundColor(
+                            isActive && hasRecipients ? .white :
+                            hasRecipients ? theme.primaryText : theme.secondaryText
+                        )
+                        .shadow(color: .black.opacity(isActive ? 0.7 : 0), radius: 1, x: 0, y: 1)
+                        .lineLimit(1)
+
+                    // 수신자 수 표시
+                    if hasRecipients {
+                        Text("\(sharingViewModel.recipients.count)명")
+                            .font(.system(size: isActive ? 10 : 9, weight: .semibold, design: .rounded))
+                            .foregroundColor(
+                                isActive ? .white.opacity(0.9) : theme.secondaryText
+                            )
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(
+                                Capsule()
+                                    .fill(
+                                        isActive ?
+                                        Color.black.opacity(0.3) :
+                                        theme.accentColor.opacity(0.2)
+                                    )
+                            )
+                            .shadow(color: .black.opacity(isActive ? 0.5 : 0), radius: 2, x: 0, y: 1)
+                    }
+                }
+                .scaleEffect(isActive ? 1.2 : 1.0)
+                .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isActive)
+                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: hasRecipients)
+            )
+            .scaleEffect(isActive ? 1.15 : 1.0)
+            .position(centerPoint))
+    }
+
+    // MARK: - 연결선 효과 (중앙에서 모든 세그먼트로)
+    private func connectionLines(centerPoint: CGPoint) -> some View {
+        ZStack {
+            ForEach(sharingViewModel.recipients, id: \.id) { recipient in
+                let angle = getAngleForDirection(recipient.direction)
+                let radians = angle * .pi / 180
+                let lineLength: CGFloat = 80
+                let endX = centerPoint.x + Foundation.cos(radians) * lineLength
+                let endY = centerPoint.y + Foundation.sin(radians) * lineLength
+
+                Path { path in
+                    path.move(to: centerPoint)
+                    path.addLine(to: CGPoint(x: endX, y: endY))
+                }
+                .stroke(
+                    LinearGradient(
+                        colors: [
+                            theme.accentColor.opacity(0.8),
+                            recipient.swiftUIColor.opacity(0.6)
+                        ],
+                        startPoint: .center,
+                        endPoint: .topTrailing
+                    ),
+                    style: StrokeStyle(
+                        lineWidth: 3,
+                        lineCap: .round,
+                        dash: [8, 4]
+                    )
+                )
+                .shadow(color: theme.accentColor.opacity(0.3), radius: 2, x: 0, y: 0)
+            }
+        }
+        .opacity(0.7)
+        .transition(.opacity.combined(with: .scale))
+    }
+
     // MARK: - 헬퍼 함수
     private func getAngleForDirection(_ direction: ShareDirection) -> Double {
         switch direction {
@@ -441,13 +579,19 @@ struct EnhancedPhotoDragView: View {
                             }
                             .onEnded { value in
                                 isDragging = false
-                                
+
                                 let distance = sqrt(pow(value.translation.width, 2) + pow(value.translation.height, 2))
-                                
+
                                 Task {
-                                    if distance > 80 {
+                                    // 중앙 공유 존 또는 방향별 드래그 존에서 분배
+                                    if distance <= 50 && !sharingViewModel.recipients.isEmpty {
+                                        // 중앙 공유 존에서 끝남 - 모든 사람에게 분배
+                                        await sharingViewModel.sendAsync(.endDrag(nil))
+                                    } else if distance > 80 {
+                                        // 방향별 드래그 존에서 끝남
                                         await sharingViewModel.sendAsync(.endDrag(sharingViewModel.dragState.targetDirection))
                                     } else {
+                                        // 드래그 취소
                                         await sharingViewModel.sendAsync(.endDrag(nil))
                                     }
                                 }
