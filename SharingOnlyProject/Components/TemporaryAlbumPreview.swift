@@ -3,9 +3,9 @@ import SwiftUI
 /// 임시 앨범들의 미리보기 및 관리 뷰
 struct TemporaryAlbumPreview: View {
     @ObservedObject var sharingViewModel: SharingViewModel
-    @State private var selectedAlbum: TemporaryAlbum?
+    @State private var selectedRecipientId: UUID?  // album 대신 recipientId 저장
     @State private var showingAlbumDetail = false
-    
+
     @Environment(\.theme) private var theme
     
     var body: some View {
@@ -47,8 +47,10 @@ struct TemporaryAlbumPreview: View {
                 // No fixed bottom actions - all content is now scrollable
             }
         }
-        .sheet(item: $selectedAlbum) { album in
-            AlbumDetailSheet(album: album, sharingViewModel: sharingViewModel)
+        .sheet(isPresented: $showingAlbumDetail) {
+            if let recipientId = selectedRecipientId {
+                AlbumDetailSheet(recipientId: recipientId, sharingViewModel: sharingViewModel)
+            }
         }
         .alert("공유 상태", isPresented: .constant(sharingViewModel.errorMessage != nil)) {
             Button("확인") {
@@ -122,7 +124,7 @@ struct TemporaryAlbumPreview: View {
                 AlbumPreviewCard(
                     album: album,
                     onTap: {
-                        selectedAlbum = album
+                        selectedRecipientId = album.recipient.id
                         showingAlbumDetail = true
                     }
                 )
@@ -208,35 +210,26 @@ struct TemporaryAlbumPreview: View {
                 if sharingViewModel.isLoading {
                     ProgressView()
                         .scaleEffect(0.8)
-                        .tint(.white)
+                        .tint(theme.secondaryText)
                 } else {
                     Image(systemName: "paperplane.fill")
                         .font(.title3)
                         .symbolEffect(.bounce, value: sharingViewModel.canStartSharing)
                 }
-                
+
                 Text(sharingViewModel.isLoading ? "공유 중..." : "모든 앨범 공유하기")
                     .fontWeight(.semibold)
             }
-            .foregroundColor(.white)
+            .foregroundColor(
+                sharingViewModel.canStartSharing && !sharingViewModel.isLoading ?
+                .green : theme.secondaryText
+            )
             .frame(maxWidth: .infinity)
             .padding(.vertical, 16)
             .background(
-                LinearGradient(
-                    colors: sharingViewModel.canStartSharing && !sharingViewModel.isLoading ?
-                    [theme.accentColor, theme.accentColor.opacity(0.8)] :
-                    [.gray, .gray.opacity(0.8)],
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(theme.secondaryBackground.opacity(0.6))
             )
-            .cornerRadius(12)
-            .shadow(
-                color: sharingViewModel.canStartSharing && !sharingViewModel.isLoading ? 
-                theme.accentColor.opacity(0.3) : .clear,
-                radius: 8, x: 0, y: 4
-            )
-            .scaleEffect(sharingViewModel.canStartSharing && !sharingViewModel.isLoading ? 1.0 : 0.98)
         }
         .contentShape(Rectangle())
         .disabled(!sharingViewModel.canStartSharing || sharingViewModel.isLoading)
@@ -460,122 +453,201 @@ struct AlbumPreviewCard: View {
 
 // MARK: - Album Detail Sheet
 struct AlbumDetailSheet: View {
-    let album: TemporaryAlbum
+    let recipientId: UUID  // album 대신 recipientId로 참조
     @ObservedObject var sharingViewModel: SharingViewModel
-    
+
+    @State private var showingFullscreenPhoto = false
+    @State private var selectedPhotoIndex = 0
+    @State private var showingDeleteConfirmation = false
+    @State private var photoToDelete: PhotoItem?
+
     @Environment(\.theme) private var theme
     @Environment(\.dismiss) private var dismiss
-    
+
+    // 실시간으로 앨범 가져오기
+    private var currentAlbum: TemporaryAlbum? {
+        sharingViewModel.temporaryAlbums.first { $0.recipient.id == recipientId }
+    }
+
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                // Album info header
-                albumInfoHeader
-                    .padding()
-                
-                Divider()
-                
-                // Photos grid
-                if !album.isEmpty {
-                    photosGridView
-                } else {
-                    emptyAlbumView
-                }
-            }
-            .navigationTitle(album.recipient.name)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("닫기") {
-                        dismiss()
+            if let album = currentAlbum {
+                VStack(spacing: 0) {
+                    // Album info header
+                    albumInfoHeader(for: album)
+                        .padding()
+
+                    Divider()
+
+                    // Photos grid
+                    if !album.isEmpty {
+                        photosGridView(for: album)
+                    } else {
+                        emptyAlbumView(for: album)
                     }
                 }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    shareAlbumButton
+                .navigationTitle(album.recipient.name)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("닫기") {
+                            dismiss()
+                        }
+                    }
+
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        shareAlbumButton(for: album)
+                    }
+                }
+                .background(theme.primaryBackground)
+            } else {
+                // 앨범이 삭제된 경우
+                VStack {
+                    Text("앨범을 찾을 수 없습니다")
+                        .foregroundColor(theme.secondaryText)
+                }
+                .onAppear {
+                    dismiss()
                 }
             }
-            .background(theme.primaryBackground)
         }
     }
     
-    private var albumInfoHeader: some View {
+    private func albumInfoHeader(for album: TemporaryAlbum) -> some View {
         HStack(spacing: 16) {
             // Direction indicator
             ZStack {
                 Circle()
                     .fill(album.recipient.swiftUIColor)
                     .frame(width: 50, height: 50)
-                
+
                 Image(systemName: album.recipient.direction.systemIcon)
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
                     .rotationEffect(album.recipient.direction.angle)
             }
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(album.recipient.name)
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(theme.primaryText)
-                
+
                 Text("\(album.recipient.direction.displayName) 방향")
                     .font(.subheadline)
                     .foregroundColor(theme.secondaryText)
-                
+
                 Text("\(album.photoCount)장의 사진")
                     .font(.caption)
                     .foregroundColor(album.isEmpty ? .red : theme.accentColor)
                     .fontWeight(.medium)
             }
-            
+
             Spacer()
         }
     }
     
-    private var photosGridView: some View {
-        ScrollView {
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 3), spacing: 4) {
-                ForEach(album.photos) { photo in
-                    if let image = photo.displayImage {
-                        Image(uiImage: image)
-                            .resizable()
-                            .aspectRatio(1, contentMode: .fill)  // 모든 이미지를 정사각형 비율로 맞춤
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .clipped()
+    private func photosGridView(for album: TemporaryAlbum) -> some View {
+        ZStack {
+            ScrollView {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 3), spacing: 4) {
+                    ForEach(Array(album.photos.enumerated()), id: \.element.id) { index, photo in
+                        if let image = photo.displayImage {
+                            Button(action: {
+                                selectedPhotoIndex = index
+                                showingFullscreenPhoto = true
+                            }) {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)  // 원본 비율 유지
+                                    .frame(width: 110, height: 110)  // 고정 프레임
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    .clipped()
+                                    .overlay(
+                                        // 삭제 버튼
+                                        VStack {
+                                            HStack {
+                                                Spacer()
+                                                Button(action: {
+                                                    photoToDelete = photo
+                                                    showingDeleteConfirmation = true
+                                                }) {
+                                                    Image(systemName: "xmark.circle.fill")
+                                                        .font(.system(size: 20))
+                                                        .foregroundColor(.white)
+                                                        .background(
+                                                            Circle()
+                                                                .fill(Color.red.opacity(0.8))
+                                                                .frame(width: 24, height: 24)
+                                                        )
+                                                }
+                                                .padding(6)
+                                            }
+                                            Spacer()
+                                        }
+                                    )
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
                     }
                 }
+                .padding()
             }
-            .padding()
+
+            // Fullscreen Photo Viewer
+            if showingFullscreenPhoto {
+                FullscreenPhotoViewer(
+                    photos: album.photos,
+                    initialIndex: selectedPhotoIndex,
+                    isPresented: $showingFullscreenPhoto,
+                    photoService: PhotoService()
+                )
+                .zIndex(1000)
+            }
+        }
+        .alert("사진 삭제", isPresented: $showingDeleteConfirmation) {
+            Button("취소", role: .cancel) {
+                photoToDelete = nil
+            }
+            Button("삭제", role: .destructive) {
+                if let photo = photoToDelete {
+                    Task {
+                        await sharingViewModel.sendAsync(.removePhotoFromAlbum(photo, album.recipient.direction))
+                    }
+                }
+                photoToDelete = nil
+            }
+        } message: {
+            Text("이 사진을 앨범에서 제거하시겠습니까?")
         }
     }
     
-    private var emptyAlbumView: some View {
+    private func emptyAlbumView(for album: TemporaryAlbum) -> some View {
         VStack(spacing: 24) {
             Spacer()
-            
+
             Image(systemName: "photo.badge.plus")
                 .font(.system(size: 64))
                 .foregroundColor(theme.accentColor.opacity(0.6))
-            
+
             VStack(spacing: 8) {
                 Text("앨범이 비어있습니다")
                     .font(.headline)
                     .foregroundColor(theme.primaryText)
-                
+
                 Text("\(album.recipient.direction.displayName) 방향으로\n사진을 드래그하여 추가해보세요")
                     .font(.subheadline)
                     .foregroundColor(theme.secondaryText)
                     .multilineTextAlignment(.center)
             }
-            
+
             Spacer()
         }
         .frame(maxWidth: .infinity)
     }
     
-    private var shareAlbumButton: some View {
+    private func shareAlbumButton(for album: TemporaryAlbum) -> some View {
         Button {
             // Individual album sharing
             Task {
@@ -587,28 +659,26 @@ struct AlbumDetailSheet: View {
                 if sharingViewModel.isLoading {
                     ProgressView()
                         .scaleEffect(0.8)
-                        .tint(.white)
+                        .tint(theme.secondaryText)
                 } else {
                     Image(systemName: "paperplane.fill")
                         .font(.subheadline)
                 }
-                
+
                 Text(sharingViewModel.isLoading ? "공유 중..." : "공유하기")
                     .fontWeight(.semibold)
             }
-            .foregroundColor(.white)
+            .foregroundColor(
+                !album.isEmpty && !sharingViewModel.isLoading ?
+                .green : theme.secondaryText
+            )
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
             .background(
-                LinearGradient(
-                    colors: !album.isEmpty && !sharingViewModel.isLoading ? 
-                    [theme.accentColor, theme.accentColor.opacity(0.8)] :
-                    [.gray, .gray.opacity(0.8)],
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(.regularMaterial)
+                    .opacity(0.8)
             )
-            .cornerRadius(20)
         }
         .disabled(album.isEmpty || sharingViewModel.isLoading)
     }

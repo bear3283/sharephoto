@@ -10,10 +10,21 @@ import Photos
 
 /// 8방향 드래그 공유 시스템 메인 뷰
 struct SharingView: View {
+    // MARK: - Constants
+    private enum Constants {
+        static let gridSpacing: CGFloat = 4
+        static let gridPadding: CGFloat = 16
+        static let buttonSpacing: CGFloat = 16
+        static let buttonCornerRadius: CGFloat = 12
+        static let buttonVerticalPadding: CGFloat = 16
+        static let animationDuration: Double = 0.3
+        static let batchCompleteDelay: Double = 1.0
+    }
+
     @ObservedObject var photoViewModel: PhotoViewModel
     @ObservedObject var themeViewModel: ThemeViewModel
     @StateObject private var sharingViewModel = SharingViewModel()
-    
+
     @State private var showingDatePicker = false
     @State private var currentStep: SharingStep = .dateSelection
     @State private var showingFullscreenPhoto = false
@@ -28,9 +39,9 @@ struct SharingView: View {
     @State private var batchUploadProgress = 0
     @State private var batchUploadTotal = 0
     @State private var isBatchUploading = false
-    
+
     @Environment(\.theme) private var theme
-    
+
     enum SharingStep: CaseIterable {
         case dateSelection      // 1. 날짜 선택
         case recipientSetup     // 2. 공유 대상자 설정
@@ -86,69 +97,69 @@ struct SharingView: View {
                 }
                 .navigationTitle("PHOTO FLICK")
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationBarHidden(showingFullscreenPhoto)
+                .toolbar(showingFullscreenPhoto ? .hidden : .visible, for: .navigationBar)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         HStack(spacing: 16) {
                             // 달력 아이콘 (정리탭과 일관성) - 풀스크린에서 비활성화
                             Button(action: {
-                                // 풀스크린 모드에서는 달력 선택 금지
-                                if !showingFullscreenPhoto {
-                                    withAnimation(.easeInOut(duration: 0.3)) {
-                                        showingDatePicker.toggle()
-                                    }
+                                withAnimation(.easeInOut(duration: Constants.animationDuration)) {
+                                    showingDatePicker.toggle()
                                 }
                             }) {
                                 Image(systemName: "calendar")
-                                    .font(.system(size: 18, weight: .medium))
-                                    .foregroundColor(showingFullscreenPhoto ? theme.secondaryText.opacity(0.5) : theme.accentColor)
+                                    .toolbarIconButton(theme: theme)
                             }
-                            .disabled(showingFullscreenPhoto)  // 풀스크린 모드에서 비활성화
+                            .accessibilityLabel("날짜 선택")
+                            .accessibilityHint("달력을 열어 날짜를 선택합니다")
                         }
                     }
 
                     ToolbarItem(placement: .navigationBarTrailing) {
                         HStack(spacing: 12) {
                             // 모든 추가 사진 삭제 버튼 (필터가 userAddedOnly일 때만)
-                            if !showingFullscreenPhoto && photoViewModel.currentFilter == .userAddedOnly &&
+                            if photoViewModel.currentFilter == .userAddedOnly &&
                                !photoViewModel.photos.isEmpty && currentStep == .dateSelection {
                                 Button(action: {
                                     showingClearAllConfirmation = true
                                 }) {
                                     Image(systemName: "trash.circle")
-                                        .font(.system(size: 16, weight: .regular))
-                                        .foregroundColor(.red)
+                                        .toolbarIconButton(size: 16, color: .red)
                                 }
+                                .accessibilityLabel("모든 사진 삭제")
+                                .accessibilityHint("추가한 모든 사진을 삭제합니다")
                             }
 
                             // 필터 토글 버튼
-                            if !showingFullscreenPhoto {
                                 Button(action: {
                                     let newFilter: PhotoFilterType = photoViewModel.currentFilter == .all ? .userAddedOnly : .all
                                     photoViewModel.send(.setFilter(newFilter))
                                 }) {
                                     Image(systemName: photoViewModel.currentFilter == .all ? "photo.badge.plus.fill" : "calendar.and.person")
-                                        .font(.system(size: 16, weight: .medium))
-                                        .foregroundColor(theme.accentColor)
+                                        .toolbarIconButton(size: 16, theme: theme)
                                 }
-                            }
+                                .accessibilityLabel(photoViewModel.currentFilter == .all ? "추가 사진만 보기" : "모든 사진 보기")
+                                .accessibilityHint("사진 필터를 전환합니다")
 
                             // 사진 추가 버튼
-                            if !showingFullscreenPhoto && currentStep == .dateSelection {
+                            if currentStep == .dateSelection {
                                 Button(action: {
                                     showingMultiPhotoPicker = true
                                 }) {
                                     Image(systemName: "plus.circle")
-                                        .font(.system(size: 18, weight: .medium))
-                                        .foregroundColor(theme.accentColor)
+                                        .toolbarIconButton(theme: theme)
                                 }
+                                .accessibilityLabel("사진 추가")
+                                .accessibilityHint("앨범에서 사진을 선택하여 추가합니다")
                             }
                         }
                     }
                 }
                 .background(theme.primaryBackground.ignoresSafeArea())
                 
-                // Overlay Date Picker - 풀스크린 모드에서 비활성화
-                if showingDatePicker && !showingFullscreenPhoto {
+                // Overlay Date Picker
+                if showingDatePicker {
                     OverlayDatePicker(
                         selectedDate: $photoViewModel.selectedDate,
                         isPresented: $showingDatePicker,
@@ -337,14 +348,14 @@ struct SharingView: View {
     private var photoGridView: some View {
         ScrollView {
             LazyVGrid(
-                columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: gridColumnCount),
-                spacing: 8
+                columns: Array(repeating: GridItem(.flexible(), spacing: Constants.gridSpacing), count: gridColumnCount),
+                spacing: Constants.gridSpacing * 2
             ) {
                 ForEach(Array(photoViewModel.photos.enumerated()), id: \.element.id) { index, photo in
                     photoGridItem(photo: photo, index: index)
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, Constants.gridPadding)
         }
     }
     
@@ -493,53 +504,15 @@ struct SharingView: View {
             
             Spacer()
             
-            // Navigation buttons - 하단 고정
-            VStack(spacing: 12) {
-                // Back button - 사진 분배로 돌아가기
-                Button("← 사진 분배로 돌아가기") {
+            // Navigation buttons - 하단 고정 (이전 스텝과 통일된 스타일)
+            HStack(spacing: 16) {
+                // Back button - 사진 분배로 돌아가기 (이전 버튼 스타일과 통일)
+                Button(action: {
                     withAnimation(.easeInOut(duration: 0.3)) {
                         currentStep = .photoDistribution
                     }
-                }
-                .fontWeight(.medium)
-                .foregroundColor(theme.accentColor)
-                .frame(maxWidth: .infinity, minHeight: 44)
-                .padding(.vertical, 14)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(theme.accentColor.opacity(0.3), lineWidth: 1)
-                )
-                .padding(.horizontal, 20)
-
-                // Reset button - 하단 고정 (44pt 최소 높이 보장)
-                Button("새로 시작하기") {
-                    resetSharingSession()
-                }
-                .fontWeight(.medium)
-                .foregroundColor(theme.secondaryText)
-                .frame(maxWidth: .infinity, minHeight: 44) // HIG 기준 보장
-                .padding(.vertical, 14) // 더 큰 패딩
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(theme.buttonBorder.opacity(0.3), lineWidth: 1)
-                )
-                .padding(.horizontal, 20)
-            }
-            .padding(.bottom, 20)
-            .contentShape(Rectangle()) // 전체 영역 터치 가능
-            .buttonStyle(PlainButtonStyle())
-        }
-    }
-    
-    // MARK: - Bottom Navigation
-    private var bottomNavigationButtons: some View {
-        HStack(spacing: 16) {
-            // 이전 버튼
-            if currentStep != .dateSelection {
-                Button(action: {
-                    goToPreviousStep()
                 }) {
-                    Text("이전")
+                    Text("← 사진 분배로 돌아가기")
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(theme.secondaryText)
@@ -550,15 +523,13 @@ struct SharingView: View {
                                 .fill(theme.secondaryBackground.opacity(1.5))
                         )
                 }
-                .buttonStyle(PlainButtonStyle()) // 버튼 스타일은 그대로 유지
-            }
-            
-            // 다음 버튼 또는 기능별 버튼
-            if canProceedToNext {
+                .buttonStyle(PlainButtonStyle())
+
+                // Reset button - 새로 시작하기 (다음 버튼 스타일과 통일)
                 Button(action: {
-                    goToNextStep()
+                    resetSharingSession()
                 }) {
-                    Text(nextButtonTitle)
+                    Text("새로 시작하기")
                         .font(.subheadline)
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
@@ -572,6 +543,55 @@ struct SharingView: View {
                             )
                         )
                         .cornerRadius(12)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
+        }
+    }
+    
+    // MARK: - Bottom Navigation
+    private var bottomNavigationButtons: some View {
+        HStack(spacing: Constants.buttonSpacing) {
+            // 이전 버튼
+            if currentStep != .dateSelection {
+                Button(action: {
+                    goToPreviousStep()
+                }) {
+                    Text("이전")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(theme.secondaryText)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, Constants.buttonVerticalPadding)
+                        .background(
+                            RoundedRectangle(cornerRadius: Constants.buttonCornerRadius)
+                                .fill(theme.secondaryBackground.opacity(1.5))
+                        )
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+
+            // 다음 버튼 또는 기능별 버튼
+            if canProceedToNext {
+                Button(action: {
+                    goToNextStep()
+                }) {
+                    Text(nextButtonTitle)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, Constants.buttonVerticalPadding)
+                        .background(
+                            LinearGradient(
+                                colors: [theme.accentColor, theme.accentColor.opacity(0.8)],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .cornerRadius(Constants.buttonCornerRadius)
                 }
                 .buttonStyle(PlainButtonStyle())
             }
@@ -636,7 +656,7 @@ struct SharingView: View {
     }
     
     private func goToNextStep() {
-        withAnimation(.easeInOut(duration: 0.3)) {
+        withAnimation(.easeInOut(duration: Constants.animationDuration)) {
             switch currentStep {
             case .dateSelection:
                 currentStep = .recipientSetup
@@ -649,9 +669,9 @@ struct SharingView: View {
             }
         }
     }
-    
+
     private func goToPreviousStep() {
-        withAnimation(.easeInOut(duration: 0.3)) {
+        withAnimation(.easeInOut(duration: Constants.animationDuration)) {
             switch currentStep {
             case .dateSelection:
                 break
@@ -667,51 +687,29 @@ struct SharingView: View {
 
     // MARK: - Empty State View
     private var emptyStateView: some View {
-        VStack(spacing: 16) {
-            Image(systemName: emptyStateIcon)
-                .font(.system(size: 48))
-                .foregroundColor(theme.accentColor.opacity(0.5))
-
-            VStack(spacing: 8) {
-                Text(emptyStateTitle)
-                    .font(.title3)
-                    .fontWeight(.medium)
-                    .foregroundColor(theme.primaryText)
-
-                Text(emptyStateSubtitle)
-                    .font(.subheadline)
-                    .foregroundColor(theme.secondaryText)
-                    .multilineTextAlignment(.center)
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        EmptyStateView(
+            icon: emptyStateConfig.icon,
+            title: emptyStateConfig.title,
+            subtitle: emptyStateConfig.subtitle,
+            theme: theme
+        )
     }
 
-    // MARK: - Empty State Content
-    private var emptyStateIcon: String {
+    // MARK: - Empty State Configuration
+    private var emptyStateConfig: (icon: String, title: String, subtitle: String) {
         switch photoViewModel.currentFilter {
         case .all:
-            return "photo.on.rectangle"
+            return (
+                icon: "photo.on.rectangle",
+                title: "선택한 날짜에 사진이 없습니다",
+                subtitle: "다른 날짜를 선택하거나\n새 사진을 추가해보세요"
+            )
         case .userAddedOnly:
-            return "photo.badge.plus"
-        }
-    }
-
-    private var emptyStateTitle: String {
-        switch photoViewModel.currentFilter {
-        case .all:
-            return "선택한 날짜에 사진이 없습니다"
-        case .userAddedOnly:
-            return "추가된 사진이 없습니다"
-        }
-    }
-
-    private var emptyStateSubtitle: String {
-        switch photoViewModel.currentFilter {
-        case .all:
-            return "다른 날짜를 선택하거나\n새 사진을 추가해보세요"
-        case .userAddedOnly:
-            return "새 사진을 추가해보세요"
+            return (
+                icon: "photo.badge.plus",
+                title: "추가된 사진이 없습니다",
+                subtitle: "새 사진을 추가해보세요"
+            )
         }
     }
 
@@ -755,8 +753,8 @@ struct SharingView: View {
 
                     // 완료 시 UI 상태 리셋
                     if progress >= total {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            withAnimation(.easeOut(duration: 0.3)) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.batchCompleteDelay) {
+                            withAnimation(.easeOut(duration: Constants.animationDuration)) {
                                 isBatchUploading = false
                                 batchUploadProgress = 0
                                 batchUploadTotal = 0
@@ -766,6 +764,62 @@ struct SharingView: View {
                 }
             }
         })
+    }
+}
+
+// MARK: - Supporting Views & Modifiers
+/// 툴바 아이콘 버튼 스타일
+struct ToolbarIconButtonStyle: ViewModifier {
+    let size: CGFloat
+    let color: Color
+
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: size, weight: .medium))
+            .foregroundColor(color)
+            .frame(width: size * 2, height: size * 2)
+    }
+}
+
+extension View {
+    func toolbarIconButton(size: CGFloat = 18, theme: ThemeColors) -> some View {
+        modifier(ToolbarIconButtonStyle(size: size, color: theme.accentColor))
+    }
+
+    func toolbarIconButton(size: CGFloat = 18, color: Color) -> some View {
+        modifier(ToolbarIconButtonStyle(size: size, color: color))
+    }
+}
+
+/// 빈 상태를 표시하는 재사용 가능한 컴포넌트
+struct EmptyStateView: View {
+    let icon: String
+    let title: String
+    let subtitle: String
+    let theme: ThemeColors
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Image(systemName: icon)
+                .font(.system(size: 48))
+                .foregroundColor(theme.accentColor.opacity(0.5))
+                .accessibilityHidden(true)
+
+            VStack(spacing: 8) {
+                Text(title)
+                    .font(.title3)
+                    .fontWeight(.medium)
+                    .foregroundColor(theme.primaryText)
+
+                Text(subtitle)
+                    .font(.subheadline)
+                    .foregroundColor(theme.secondaryText)
+                    .multilineTextAlignment(.center)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(title). \(subtitle)")
     }
 }
 

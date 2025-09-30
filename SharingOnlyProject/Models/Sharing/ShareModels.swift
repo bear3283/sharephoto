@@ -172,7 +172,13 @@ struct ShareSession: Identifiable {
             temporaryAlbums[index].addPhoto(photo)
         }
     }
-    
+
+    mutating func removePhotoFromRecipient(photo: PhotoItem, recipientId: UUID) {
+        if let index = temporaryAlbums.firstIndex(where: { $0.recipient.id == recipientId }) {
+            temporaryAlbums[index].removePhoto(photo)
+        }
+    }
+
     func getAlbum(for recipient: ShareRecipient) -> TemporaryAlbum? {
         return temporaryAlbums.first { $0.recipient.id == recipient.id }
     }

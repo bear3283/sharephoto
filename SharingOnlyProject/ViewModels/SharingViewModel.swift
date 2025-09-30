@@ -20,6 +20,7 @@ enum SharingViewModelAction {
     case endDrag(ShareDirection?)
     case distributePhoto(PhotoItem, ShareDirection)
     case distributePhotoToAll(PhotoItem) // 모든 사람에게 공유
+    case removePhotoFromAlbum(PhotoItem, ShareDirection) // 앨범에서 사진 제거
     case clearSession
     case shareAlbums
     case shareIndividualAlbum(TemporaryAlbum)
@@ -106,6 +107,9 @@ final class SharingViewModel: ViewModelProtocol {
 
         case .distributePhotoToAll(let photo):
             await distributePhotoToAll(photo)
+
+        case .removePhotoFromAlbum(let photo, let direction):
+            await removePhotoFromAlbum(photo, from: direction)
 
         case .clearSession:
             await clearSession()
@@ -261,6 +265,26 @@ final class SharingViewModel: ViewModelProtocol {
             let feedbackGenerator = UINotificationFeedbackGenerator()
             feedbackGenerator.notificationOccurred(.success)
         }
+    }
+
+    private func removePhotoFromAlbum(_ photo: PhotoItem, from direction: ShareDirection) async {
+        guard var session = state.currentSession else { return }
+
+        // 해당 방향의 대상자 찾기
+        guard let recipient = session.recipients.first(where: { $0.direction == direction }) else {
+            state.errorMessage = "\(direction.displayName) 방향에 공유 대상자가 없습니다."
+            return
+        }
+
+        // 임시 앨범에서 사진 제거
+        session.removePhotoFromRecipient(photo: photo, recipientId: recipient.id)
+        state.currentSession = session
+
+        print("🗑️ 사진 제거: \(photo.id) <- \(recipient.name) (\(direction.displayName))")
+
+        // 햅틱 피드백
+        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+        impactFeedback.impactOccurred()
     }
 
     private func clearSession() async {
