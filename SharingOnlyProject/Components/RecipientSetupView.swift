@@ -52,12 +52,12 @@ struct RecipientSetupView: View {
     private var headerView: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text("대상자")
+                Text(LocalizedString.Recipient.title)
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(theme.primaryText)
-                
-                Text("최대 8명")
+
+                Text(LocalizedString.Recipient.maxCount)
                     .font(.caption)
                     .foregroundColor(theme.secondaryText)
             }
@@ -107,11 +107,11 @@ struct RecipientSetupView: View {
                 .foregroundColor(theme.accentColor.opacity(0.6))
             
             VStack(spacing: 8) {
-                Text("사람을 추가하세요")
+                Text(LocalizedString.Recipient.addPerson)
                     .font(.headline)
                     .foregroundColor(theme.primaryText)
-                
-                Text("각 방향에 한 명씩 최대 8명까지 설정해서 분배가능")
+
+                Text(LocalizedString.Recipient.addPersonMessage)
                     .font(.subheadline)
                     .foregroundColor(theme.secondaryText)
                     .multilineTextAlignment(.center)
@@ -137,7 +137,7 @@ struct RecipientSetupView: View {
             HStack(spacing: 8) {
                 Image(systemName: "plus.circle.fill")
                     .font(.title3)
-                Text("추가")
+                Text(LocalizedString.General.add)
                     .fontWeight(.semibold)
             }
             .foregroundColor(.white)
@@ -271,13 +271,13 @@ struct RecipientCard: View {
         .onLongPressGesture {
             showingRemoveConfirmation = true
         }
-        .alert("대상자 제거", isPresented: $showingRemoveConfirmation) {
-            Button("취소", role: .cancel) { }
-            Button("제거", role: .destructive) {
+        .alert(LocalizedString.Recipient.removeTitle, isPresented: $showingRemoveConfirmation) {
+            Button(LocalizedString.General.cancel, role: .cancel) { }
+            Button(LocalizedString.General.delete, role: .destructive) {
                 onRemove()
             }
         } message: {
-            Text("\(recipient.name)을(를) 제거하시겠습니까?\n해당 임시 앨범의 사진도 함께 삭제됩니다.")
+            Text(String(format: NSLocalizedString("recipient_remove_message", comment: ""), recipient.name))
         }
     }
 }
@@ -318,11 +318,11 @@ struct AddRecipientSheet: View {
                     .offset(y: isAnimating ? 0 : 40)
             }
             .padding(20)
-            .navigationTitle("새 공유 대상자")
+            .navigationTitle(LocalizedString.Recipient.newRecipient)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("취소") {
+                    Button(LocalizedString.General.cancel) {
                         onCancel()
                         dismiss()
                     }
@@ -347,11 +347,11 @@ struct AddRecipientSheet: View {
     
     private var nameInputSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("이름")
+            Text(LocalizedString.Recipient.title)
                 .font(.headline)
                 .foregroundColor(theme.primaryText)
-            
-            TextField("공유할 사람의 이름을 입력하세요", text: $newRecipientName)
+
+            TextField(LocalizedString.Recipient.enterName, text: $newRecipientName)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
                 .background(
@@ -389,12 +389,12 @@ struct AddRecipientSheet: View {
     
     private var directionSelectionSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("방향 선택")
+            Text(LocalizedString.Recipient.selectDirection)
                 .font(.headline)
                 .foregroundColor(theme.primaryText)
-            
+
             if availableDirections.isEmpty {
-                Text("사용 가능한 방향이 없습니다 (최대 8명)")
+                Text(LocalizedString.Recipient.noDirectionsAvailable)
                     .font(.subheadline)
                     .foregroundColor(.red)
                     .padding()
@@ -428,7 +428,7 @@ struct AddRecipientSheet: View {
             onAdd()
             dismiss()
         }) {
-            Text("추가")
+            Text(LocalizedString.General.add)
                 .fontWeight(.semibold)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)

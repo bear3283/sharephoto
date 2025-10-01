@@ -3,8 +3,7 @@ import SwiftUI
 /// 임시 앨범들의 미리보기 및 관리 뷰
 struct TemporaryAlbumPreview: View {
     @ObservedObject var sharingViewModel: SharingViewModel
-    @State private var selectedRecipientId: UUID?  // album 대신 recipientId 저장
-    @State private var showingAlbumDetail = false
+    @State private var selectedRecipient: ShareRecipient?  // Sheet item으로 사용
 
     @Environment(\.theme) private var theme
     
@@ -47,13 +46,11 @@ struct TemporaryAlbumPreview: View {
                 // No fixed bottom actions - all content is now scrollable
             }
         }
-        .sheet(isPresented: $showingAlbumDetail) {
-            if let recipientId = selectedRecipientId {
-                AlbumDetailSheet(recipientId: recipientId, sharingViewModel: sharingViewModel)
-            }
+        .sheet(item: $selectedRecipient) { recipient in
+            AlbumDetailSheet(recipientId: recipient.id, sharingViewModel: sharingViewModel)
         }
-        .alert("공유 상태", isPresented: .constant(sharingViewModel.errorMessage != nil)) {
-            Button("확인") {
+        .alert(LocalizedString.Alert.shareStatus, isPresented: .constant(sharingViewModel.errorMessage != nil)) {
+            Button(LocalizedString.General.confirm) {
                 sharingViewModel.send(.clearError)
             }
         } message: {
@@ -73,13 +70,13 @@ struct TemporaryAlbumPreview: View {
     private var headerView: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text("임시 앨범")
+                Text(LocalizedString.Album.temporaryAlbum)
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(theme.primaryText)
-                
+
                 if !sharingViewModel.temporaryAlbums.isEmpty {
-                    Text("\(sharingViewModel.getTotalPhotosDistributed())장의 사진 분배됨")
+                    Text(LocalizedString.photosDistributed(sharingViewModel.getTotalPhotosDistributed()))
                         .font(.caption)
                         .foregroundColor(theme.secondaryText)
                 }
@@ -98,12 +95,12 @@ struct TemporaryAlbumPreview: View {
                     .font(.title3)
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(sharingViewModel.canStartSharing ? "공유 준비 완료" : "일부 앨범 준비됨")
+                    Text(sharingViewModel.canStartSharing ? LocalizedString.Album.shareReady : LocalizedString.Album.someReady)
                         .font(.caption)
                         .fontWeight(.semibold)
                         .foregroundColor(sharingViewModel.canStartSharing ? .green : theme.primaryText)
-                    
-                    Text("\(totalPhotos)장 사진 • \(nonEmptyAlbums)/\(totalAlbums)명 대상자")
+
+                    Text(LocalizedString.albumPhotoCount(totalPhotos, nonEmptyAlbums, totalAlbums))
                         .font(.caption2)
                         .foregroundColor(theme.secondaryText)
                 }
@@ -124,8 +121,7 @@ struct TemporaryAlbumPreview: View {
                 AlbumPreviewCard(
                     album: album,
                     onTap: {
-                        selectedRecipientId = album.recipient.id
-                        showingAlbumDetail = true
+                        selectedRecipient = album.recipient
                     }
                 )
             }
@@ -213,19 +209,20 @@ struct TemporaryAlbumPreview: View {
                         .tint(theme.secondaryText)
                 } else {
                     Image(systemName: "paperplane.fill")
-                        .font(.title3)
+                        .font(.subheadline)
                         .symbolEffect(.bounce, value: sharingViewModel.canStartSharing)
                 }
 
-                Text(sharingViewModel.isLoading ? "공유 중..." : "모든 앨범 공유하기")
+                Text(sharingViewModel.isLoading ? LocalizedString.Album.sharing : LocalizedString.Album.shareAll)
+                    .font(.subheadline)
                     .fontWeight(.semibold)
             }
             .foregroundColor(
                 sharingViewModel.canStartSharing && !sharingViewModel.isLoading ?
                 .green : theme.secondaryText
             )
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
             .background(
                 RoundedRectangle(cornerRadius: 12)
                     .fill(theme.secondaryBackground.opacity(0.6))
@@ -244,7 +241,7 @@ struct TemporaryAlbumPreview: View {
                 await sharingViewModel.sendAsync(.clearSession)
             }
         }) {
-            Text("새로시작하기")
+            Text(LocalizedString.Button.startOver)
                 .font(.subheadline)
                 .fontWeight(.medium)
                 .foregroundColor(theme.secondaryText)
@@ -266,11 +263,11 @@ struct TemporaryAlbumPreview: View {
                 .foregroundColor(theme.accentColor.opacity(0.6))
             
             VStack(spacing: 8) {
-                Text("임시 앨범이 없습니다")
+                Text(LocalizedString.Album.noAlbums)
                     .font(.headline)
                     .foregroundColor(theme.primaryText)
-                
-                Text("공유 대상자를 추가하고\n사진을 드래그하여 분배해보세요")
+
+                Text(LocalizedString.Album.noAlbumsMessage)
                     .font(.subheadline)
                     .foregroundColor(theme.secondaryText)
                     .multilineTextAlignment(.center)
@@ -293,12 +290,12 @@ struct TemporaryAlbumPreview: View {
                 .font(.title3)
             
             VStack(alignment: .leading, spacing: 2) {
-                Text("공유 완료!")
+                Text(LocalizedString.Album.shareSuccess)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(theme.primaryText)
-                
-                Text("모든 앨범이 성공적으로 공유되었습니다")
+
+                Text(LocalizedString.Album.shareSuccessMessage)
                     .font(.caption)
                     .foregroundColor(theme.secondaryText)
             }
@@ -306,7 +303,7 @@ struct TemporaryAlbumPreview: View {
             Spacer()
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+        .padding(.vertical, 8)
         .background(
             RoundedRectangle(cornerRadius: 12)
                 .fill(.ultraThinMaterial)
@@ -434,7 +431,7 @@ struct AlbumPreviewCard: View {
                 .foregroundColor(.red.opacity(0.6))
                 .symbolEffect(.pulse, options: .repeat(.continuous).speed(2))
             
-            Text("사진을 드래그하여\n앨범에 추가하세요")
+            Text(LocalizedString.Album.addPhotos)
                 .font(.caption)
                 .foregroundColor(.red)
                 .fontWeight(.medium)
@@ -470,46 +467,60 @@ struct AlbumDetailSheet: View {
     }
 
     var body: some View {
-        NavigationView {
-            if let album = currentAlbum {
-                VStack(spacing: 0) {
-                    // Album info header
-                    albumInfoHeader(for: album)
-                        .padding()
+        NavigationStack {
+            Group {
+                if let album = currentAlbum {
+                    VStack(spacing: 0) {
+                        // Album info header
+                        albumInfoHeader(for: album)
+                            .padding()
 
-                    Divider()
+                        Divider()
 
-                    // Photos grid
-                    if !album.isEmpty {
-                        photosGridView(for: album)
-                    } else {
-                        emptyAlbumView(for: album)
-                    }
-                }
-                .navigationTitle(album.recipient.name)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("닫기") {
-                            dismiss()
+                        // Photos grid
+                        if !album.isEmpty {
+                            photosGridView(for: album)
+                        } else {
+                            emptyAlbumView(for: album)
                         }
                     }
+                    .navigationTitle(album.recipient.name)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button(LocalizedString.General.close) {
+                                dismiss()
+                            }
+                        }
 
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        shareAlbumButton(for: album)
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            shareAlbumButton(for: album)
+                        }
+                    }
+                } else {
+                    // 로딩 중이거나 앨범을 찾을 수 없는 경우
+                    VStack(spacing: 16) {
+                        ProgressView()
+                            .scaleEffect(1.2)
+                            .tint(theme.accentColor)
+
+                        Text(LocalizedString.Album.loading)
+                            .font(.subheadline)
+                            .foregroundColor(theme.secondaryText)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .navigationTitle("")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button(LocalizedString.General.close) {
+                                dismiss()
+                            }
+                        }
                     }
                 }
-                .background(theme.primaryBackground)
-            } else {
-                // 앨범이 삭제된 경우
-                VStack {
-                    Text("앨범을 찾을 수 없습니다")
-                        .foregroundColor(theme.secondaryText)
-                }
-                .onAppear {
-                    dismiss()
-                }
             }
+            .background(theme.primaryBackground)
         }
     }
     
@@ -606,11 +617,11 @@ struct AlbumDetailSheet: View {
                 .zIndex(1000)
             }
         }
-        .alert("사진 삭제", isPresented: $showingDeleteConfirmation) {
-            Button("취소", role: .cancel) {
+        .alert(LocalizedString.Alert.removeFromAlbum, isPresented: $showingDeleteConfirmation) {
+            Button(LocalizedString.General.cancel, role: .cancel) {
                 photoToDelete = nil
             }
-            Button("삭제", role: .destructive) {
+            Button(LocalizedString.General.delete, role: .destructive) {
                 if let photo = photoToDelete {
                     Task {
                         await sharingViewModel.sendAsync(.removePhotoFromAlbum(photo, album.recipient.direction))
@@ -619,7 +630,7 @@ struct AlbumDetailSheet: View {
                 photoToDelete = nil
             }
         } message: {
-            Text("이 사진을 앨범에서 제거하시겠습니까?")
+            Text(LocalizedString.Alert.removeFromAlbumMessage)
         }
     }
     
@@ -632,11 +643,11 @@ struct AlbumDetailSheet: View {
                 .foregroundColor(theme.accentColor.opacity(0.6))
 
             VStack(spacing: 8) {
-                Text("앨범이 비어있습니다")
+                Text(LocalizedString.Album.empty)
                     .font(.headline)
                     .foregroundColor(theme.primaryText)
 
-                Text("\(album.recipient.direction.displayName) 방향으로\n사진을 드래그하여 추가해보세요")
+                Text(String(format: NSLocalizedString("album_empty_message", comment: ""), album.recipient.direction.displayName))
                     .font(.subheadline)
                     .foregroundColor(theme.secondaryText)
                     .multilineTextAlignment(.center)
@@ -665,7 +676,7 @@ struct AlbumDetailSheet: View {
                         .font(.subheadline)
                 }
 
-                Text(sharingViewModel.isLoading ? "공유 중..." : "공유하기")
+                Text(sharingViewModel.isLoading ? LocalizedString.Album.sharing : LocalizedString.Button.shareAlbum)
                     .fontWeight(.semibold)
             }
             .foregroundColor(
@@ -674,11 +685,6 @@ struct AlbumDetailSheet: View {
             )
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(.regularMaterial)
-                    .opacity(0.8)
-            )
         }
         .disabled(album.isEmpty || sharingViewModel.isLoading)
     }

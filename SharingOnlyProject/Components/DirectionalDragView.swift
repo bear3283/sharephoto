@@ -12,8 +12,8 @@ struct DirectionalDragView: View {
     @State private var selectedPhotoIndex = 0
     
     // 세그먼트된 도넛형 오버레이 설정 - 화면에 맞는 크기로 조정
-    private let donutOuterRadius: CGFloat = 200  // 220 → 180으로 축소
-    private let donutInnerRadius: CGFloat = 170  // 190 → 150으로 축소
+    private let donutOuterRadius: CGFloat = 170  // 화면 안에 잘 들어오도록 축소
+    private let donutInnerRadius: CGFloat = 140  // 중앙 사진 크기 최적화
     
     var body: some View {
         GeometryReader { geometry in
@@ -263,7 +263,7 @@ struct DirectionalDragView: View {
                         .shadow(color: .black.opacity(isActive ? 0.5 : 0), radius: 2, x: 0, y: 1)
 
                     // 텍스트
-                    Text(hasRecipients ? "모든 사람" : "대상자 없음")
+                    Text(hasRecipients ? LocalizedString.Distribution.allPeople : LocalizedString.Distribution.noRecipientStatus)
                         .font(.system(size: isActive ? 11 : 10, weight: .bold, design: .rounded))
                         .foregroundColor(
                             isActive && hasRecipients ? .white :
@@ -274,7 +274,7 @@ struct DirectionalDragView: View {
 
                     // 수신자 수 표시
                     if hasRecipients {
-                        Text("\(sharingViewModel.recipients.count)명")
+                        Text(LocalizedString.recipientCount(sharingViewModel.recipients.count))
                             .font(.system(size: isActive ? 10 : 9, weight: .semibold, design: .rounded))
                             .foregroundColor(
                                 isActive ? .white.opacity(0.9) : theme.secondaryText
@@ -441,19 +441,19 @@ struct DirectionalDragView: View {
                 .symbolEffect(.bounce, value: sharingViewModel.recipients.isEmpty)
             
             VStack(spacing: 8) {
-                Text("공유할 대상자를 먼저 설정하세요")
+                Text(LocalizedString.Distribution.noRecipients)
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(theme.primaryText)
-                
-                Text("이전 단계로 돌아가서\n공유할 사람들을 추가해주세요")
+
+                Text(LocalizedString.Distribution.noRecipientsMessage)
                     .font(.subheadline)
                     .foregroundColor(theme.secondaryText)
                     .multilineTextAlignment(.center)
                     .lineLimit(nil)
             }
-            
-            Button("대상자 설정하러 가기") {
+
+            Button(LocalizedString.Distribution.goToRecipientSetup) {
                 // This would need to be handled by the parent view
                 // For now, just show the message
             }
@@ -521,7 +521,7 @@ struct EnhancedPhotoDragView: View {
     var body: some View {
         ZStack {
             if let displayImage = highQualityImage ?? photo.image {
-                let maxSize = min(donutInnerRadius * 2.6, 500)  // 더욱 큰 사진 허용
+                let maxSize: CGFloat = 450  // 도넛 크기와 독립적인 사진 크기 (이전 442px와 유사)
                 let photoWidth = maxSize
                 let photoHeight = maxSize / photoAspectRatio
                 
@@ -550,7 +550,7 @@ struct EnhancedPhotoDragView: View {
                                     ProgressView()
                                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                                         .scaleEffect(0.8)
-                                    Text("고화질 로딩...")
+                                    Text(LocalizedString.Photo.highQualityLoading)
                                         .font(.caption2)
                                         .foregroundColor(.white)
                                 }

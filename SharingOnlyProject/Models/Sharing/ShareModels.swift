@@ -16,14 +16,14 @@ enum ShareDirection: String, CaseIterable, Identifiable, Codable {
     
     var displayName: String {
         switch self {
-        case .top: return "위"
-        case .topRight: return "우상"
-        case .right: return "오른쪽"
-        case .bottomRight: return "우하"
-        case .bottom: return "아래"
-        case .bottomLeft: return "좌하"
-        case .left: return "왼쪽"
-        case .topLeft: return "좌상"
+        case .top: return LocalizedString.Direction.top
+        case .topRight: return LocalizedString.Direction.topRight
+        case .right: return LocalizedString.Direction.right
+        case .bottomRight: return LocalizedString.Direction.bottomRight
+        case .bottom: return LocalizedString.Direction.bottom
+        case .bottomLeft: return LocalizedString.Direction.bottomLeft
+        case .left: return LocalizedString.Direction.left
+        case .topLeft: return LocalizedString.Direction.topLeft
         }
     }
     
@@ -81,7 +81,7 @@ enum ShareDirection: String, CaseIterable, Identifiable, Codable {
 }
 
 // MARK: - 공유 대상자
-struct ShareRecipient: Identifiable {
+struct ShareRecipient: Identifiable, Hashable {
     let id = UUID()
     var name: String
     var direction: ShareDirection

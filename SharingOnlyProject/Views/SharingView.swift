@@ -50,19 +50,19 @@ struct SharingView: View {
         
         var title: String {
             switch self {
-            case .dateSelection: return "사진"
-            case .recipientSetup: return "대상자 추가"
-            case .photoDistribution: return "분배"
-            case .albumPreview: return "공유"
+            case .dateSelection: return LocalizedString.Steps.dateSelection
+            case .recipientSetup: return LocalizedString.Steps.recipientSetup
+            case .photoDistribution: return LocalizedString.Steps.photoDistribution
+            case .albumPreview: return LocalizedString.Steps.albumPreview
             }
         }
-        
+
         var subtitle: String {
             switch self {
-            case .dateSelection: return "사진 확인"
-            case .recipientSetup: return "사람 설정"
-            case .photoDistribution: return "사진 분배"
-            case .albumPreview: return "공유 실행"
+            case .dateSelection: return LocalizedString.Steps.dateSelectionSubtitle
+            case .recipientSetup: return LocalizedString.Steps.recipientSetupSubtitle
+            case .photoDistribution: return LocalizedString.Steps.photoDistributionSubtitle
+            case .albumPreview: return LocalizedString.Steps.albumPreviewSubtitle
             }
         }
         
@@ -111,8 +111,8 @@ struct SharingView: View {
                                 Image(systemName: "calendar")
                                     .toolbarIconButton(theme: theme)
                             }
-                            .accessibilityLabel("날짜 선택")
-                            .accessibilityHint("달력을 열어 날짜를 선택합니다")
+                            .accessibilityLabel(LocalizedString.Accessibility.selectDate)
+                            .accessibilityHint(LocalizedString.Accessibility.selectDateHint)
                         }
                     }
 
@@ -127,8 +127,8 @@ struct SharingView: View {
                                     Image(systemName: "trash.circle")
                                         .toolbarIconButton(size: 16, color: .red)
                                 }
-                                .accessibilityLabel("모든 사진 삭제")
-                                .accessibilityHint("추가한 모든 사진을 삭제합니다")
+                                .accessibilityLabel(LocalizedString.Accessibility.deleteAllPhotos)
+                                .accessibilityHint(LocalizedString.Accessibility.deleteAllPhotosHint)
                             }
 
                             // 필터 토글 버튼
@@ -139,8 +139,8 @@ struct SharingView: View {
                                     Image(systemName: photoViewModel.currentFilter == .all ? "photo.badge.plus.fill" : "calendar.and.person")
                                         .toolbarIconButton(size: 16, theme: theme)
                                 }
-                                .accessibilityLabel(photoViewModel.currentFilter == .all ? "추가 사진만 보기" : "모든 사진 보기")
-                                .accessibilityHint("사진 필터를 전환합니다")
+                                .accessibilityLabel(photoViewModel.currentFilter == .all ? LocalizedString.Accessibility.showAddedPhotos : LocalizedString.Accessibility.showAllPhotos)
+                                .accessibilityHint(LocalizedString.Accessibility.toggleFilterHint)
 
                             // 사진 추가 버튼
                             if currentStep == .dateSelection {
@@ -150,8 +150,8 @@ struct SharingView: View {
                                     Image(systemName: "plus.circle")
                                         .toolbarIconButton(theme: theme)
                                 }
-                                .accessibilityLabel("사진 추가")
-                                .accessibilityHint("앨범에서 사진을 선택하여 추가합니다")
+                                .accessibilityLabel(LocalizedString.Accessibility.addPhoto)
+                                .accessibilityHint(LocalizedString.Accessibility.addPhotoHint)
                             }
                         }
                     }
@@ -213,26 +213,26 @@ struct SharingView: View {
                 .zIndex(1700)
             }
         }
-        .alert("사진 삭제", isPresented: $showingDeleteConfirmation) {
-            Button("취소", role: .cancel) {
+        .alert(LocalizedString.Alert.deletePhoto, isPresented: $showingDeleteConfirmation) {
+            Button(LocalizedString.General.cancel, role: .cancel) {
                 photoToDelete = nil
             }
-            Button("삭제", role: .destructive) {
+            Button(LocalizedString.General.delete, role: .destructive) {
                 if let photo = photoToDelete {
                     photoViewModel.send(.removeUserPhoto(photo))
                 }
                 photoToDelete = nil
             }
         } message: {
-            Text("이 사진을 삭제하시겠습니까?")
+            Text(LocalizedString.Alert.deletePhotoMessage)
         }
-        .alert("모든 추가 사진 삭제", isPresented: $showingClearAllConfirmation) {
-            Button("취소", role: .cancel) { }
-            Button("모두 삭제", role: .destructive) {
+        .alert(LocalizedString.Alert.deleteAllPhotos, isPresented: $showingClearAllConfirmation) {
+            Button(LocalizedString.General.cancel, role: .cancel) { }
+            Button(LocalizedString.Alert.deleteAllAction, role: .destructive) {
                 photoViewModel.send(.clearUserPhotos)
             }
         } message: {
-            Text("추가한 모든 사진을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.")
+            Text(LocalizedString.Alert.deleteAllPhotosMessage)
         }
         .onAppear {
             setupInitialState()
@@ -328,7 +328,7 @@ struct SharingView: View {
                         .scaleEffect(1.2)
                         .tint(theme.accentColor)
                     
-                    Text("사진 확인 중...")
+                    Text(LocalizedString.Photo.checking)
                         .font(.subheadline)
                         .foregroundColor(theme.secondaryText)
                 }
@@ -425,7 +425,7 @@ struct SharingView: View {
                                 Spacer()
                                 HStack {
                                     Spacer()
-                                    Text("더미")
+                                    Text(LocalizedString.Photo.dummy)
                                         .font(.caption2)
                                         .fontWeight(.medium)
                                         .foregroundColor(.white)
@@ -512,7 +512,7 @@ struct SharingView: View {
                         currentStep = .photoDistribution
                     }
                 }) {
-                    Text("← 사진 분배로 돌아가기")
+                    Text(LocalizedString.Button.backToDistribution)
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(theme.secondaryText)
@@ -529,7 +529,7 @@ struct SharingView: View {
                 Button(action: {
                     resetSharingSession()
                 }) {
-                    Text("새로 시작하기")
+                    Text(LocalizedString.Button.startOver)
                         .font(.subheadline)
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
@@ -559,7 +559,7 @@ struct SharingView: View {
                 Button(action: {
                     goToPreviousStep()
                 }) {
-                    Text("이전")
+                    Text(LocalizedString.Button.previous)
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(theme.secondaryText)
@@ -603,13 +603,13 @@ struct SharingView: View {
     private var nextButtonTitle: String {
         switch currentStep {
         case .dateSelection:
-            return "다음"
+            return LocalizedString.Button.next
         case .recipientSetup:
-            return "사진 분배 시작"
+            return LocalizedString.Button.startDistribution
         case .photoDistribution:
-            return "공유 앨범 확인하기"
+            return LocalizedString.Button.checkAlbums
         case .albumPreview:
-            return "완료"
+            return LocalizedString.Button.done
         }
     }
 
@@ -631,27 +631,27 @@ struct SharingView: View {
         switch currentStep {
         case .dateSelection:
             if photoViewModel.isLoading {
-                return "확인 중..."
+                return LocalizedString.Status.checking
             } else if photoViewModel.photos.isEmpty {
-                return "사진 없음"
+                return LocalizedString.Status.noPhotos
             } else {
                 return photoViewModel.photoCountInfo
             }
         case .recipientSetup:
             if sharingViewModel.recipients.isEmpty {
-                return "대상자 없음"
+                return LocalizedString.Status.noRecipients
             } else {
-                return "\(sharingViewModel.recipients.count)명 설정됨"
+                return LocalizedString.statusRecipientsSet(sharingViewModel.recipients.count)
             }
         case .photoDistribution:
             let distributed = sharingViewModel.getTotalPhotosDistributed()
             if distributed == 0 {
-                return sharingViewModel.recipients.isEmpty ? "대상자 설정 필요" : "드래그로 분배"
+                return sharingViewModel.recipients.isEmpty ? LocalizedString.Status.recipientSetupNeeded : LocalizedString.Status.dragToDistribute
             } else {
-                return "\(distributed)장 완료"
+                return LocalizedString.statusPhotosCompleted(distributed)
             }
         case .albumPreview:
-            return sharingViewModel.canStartSharing ? "준비 완료" : "분배 필요"
+            return sharingViewModel.canStartSharing ? LocalizedString.Status.ready : LocalizedString.Status.distributionNeeded
         }
     }
     
@@ -701,14 +701,14 @@ struct SharingView: View {
         case .all:
             return (
                 icon: "photo.on.rectangle",
-                title: "선택한 날짜에 사진이 없습니다",
-                subtitle: "다른 날짜를 선택하거나\n새 사진을 추가해보세요"
+                title: LocalizedString.EmptyState.noPhotosTitle,
+                subtitle: LocalizedString.EmptyState.noPhotosSubtitle
             )
         case .userAddedOnly:
             return (
                 icon: "photo.badge.plus",
-                title: "추가된 사진이 없습니다",
-                subtitle: "새 사진을 추가해보세요"
+                title: LocalizedString.EmptyState.noAddedPhotosTitle,
+                subtitle: LocalizedString.EmptyState.noAddedPhotosSubtitle
             )
         }
     }
