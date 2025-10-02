@@ -8,7 +8,15 @@ struct CompactThemeButton: View {
     var body: some View {
         Button(action: {
             withAnimation(.easeInOut(duration: 0.3)) {
-                let nextTheme: AppTheme = themeViewModel.currentTheme == .spring ? .sleek : .spring
+                let nextTheme: AppTheme
+                switch themeViewModel.currentTheme {
+                case .spring:
+                    nextTheme = .sleek
+                case .sleek:
+                    nextTheme = .auto
+                case .auto:
+                    nextTheme = .spring
+                }
                 themeViewModel.setTheme(nextTheme)
             }
         }) {
@@ -38,6 +46,8 @@ struct CompactThemeButton: View {
             return "sun.max.fill"      // 봄 테마일 때는 해
         case .sleek:
             return "moon.fill"         // 시크 테마일 때는 달
+        case .auto:
+            return "circle.lefthalf.filled"  // 자동 테마일 때는 반달 (라이트/다크 모드)
         }
     }
 }

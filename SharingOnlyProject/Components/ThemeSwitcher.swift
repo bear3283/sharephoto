@@ -80,6 +80,12 @@ struct ThemeSwitcher: View {
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
+        case .auto:
+            return LinearGradient(
+                colors: [Color(red: 0.5, green: 0.5, blue: 0.5), Color(red: 0.3, green: 0.3, blue: 0.3)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
         }
     }
 }

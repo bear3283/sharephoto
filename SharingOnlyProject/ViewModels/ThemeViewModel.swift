@@ -1,10 +1,13 @@
 import Foundation
 import Combine
+import SwiftUI
 
 // MARK: - ThemeViewModel State
 struct ThemeViewModelState {
     var currentTheme: AppTheme = .spring
     var availableThemes: [AppTheme] = []
+    var colorScheme: ColorScheme?
+    var effectiveTheme: AppTheme = .spring
 }
 
 // MARK: - ThemeViewModel Actions
@@ -12,6 +15,7 @@ enum ThemeViewModelAction {
     case loadTheme
     case setTheme(AppTheme)
     case loadAvailableThemes
+    case updateColorScheme(ColorScheme)
 }
 
 // MARK: - ThemeViewModel
@@ -30,11 +34,14 @@ final class ThemeViewModel: ViewModelProtocol {
     var availableThemes: [AppTheme] { state.availableThemes }
     
     var colors: ThemeColors {
-        switch state.currentTheme {
+        switch state.effectiveTheme {
         case .spring:
             return SpringThemeColors()
         case .sleek:
             return SleekThemeColors()
+        case .auto:
+            // Auto should never be the effective theme
+            return SpringThemeColors()
         }
     }
     
@@ -65,12 +72,15 @@ final class ThemeViewModel: ViewModelProtocol {
         switch action {
         case .loadTheme:
             await loadSavedTheme()
-            
+
         case .setTheme(let theme):
             await setCurrentTheme(theme)
-            
+
         case .loadAvailableThemes:
             await loadAvailableThemes()
+
+        case .updateColorScheme(let colorScheme):
+            await updateColorScheme(colorScheme)
         }
     }
     
@@ -86,15 +96,32 @@ final class ThemeViewModel: ViewModelProtocol {
     private func loadSavedTheme() async {
         let savedTheme = themeService.loadSavedTheme()
         state.currentTheme = savedTheme
+        updateEffectiveTheme()
     }
-    
+
     private func setCurrentTheme(_ theme: AppTheme) async {
         state.currentTheme = theme
         themeService.saveTheme(theme)
+        updateEffectiveTheme()
     }
-    
+
     private func loadAvailableThemes() async {
         let themes = themeService.getAvailableThemes()
         state.availableThemes = themes
+    }
+
+    private func updateColorScheme(_ colorScheme: ColorScheme) async {
+        state.colorScheme = colorScheme
+        updateEffectiveTheme()
+    }
+
+    private func updateEffectiveTheme() {
+        if state.currentTheme.isSystemBased {
+            // 시스템 설정에 따라 테마 결정
+            state.effectiveTheme = (state.colorScheme == .dark) ? .sleek : .spring
+        } else {
+            // 사용자가 선택한 테마 사용
+            state.effectiveTheme = state.currentTheme
+        }
     }
 }

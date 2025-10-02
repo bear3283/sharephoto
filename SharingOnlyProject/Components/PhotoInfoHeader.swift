@@ -16,7 +16,7 @@ struct PhotoInfoHeader: View {
             Button(action: onFavoriteToggle) {
                 Image(systemName: photo.isFavorite ? "heart.fill" : "heart")
                     .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(photo.isFavorite ? .pink : theme.primaryText)
+                    .foregroundColor(photo.isFavorite ? theme.favoriteActive : theme.primaryText)
                     .frame(width: 32, height: 32)
                     .scaleEffect(photo.isFavorite ? 1.1 : 1.0)
                     .animation(.spring(response: 0.3, dampingFraction: 0.6), value: photo.isFavorite)
@@ -53,12 +53,12 @@ struct PhotoInfoHeader: View {
                             .font(.caption2)
                             .fontWeight(.medium)
                     }
-                    .foregroundColor(.white)
+                    .foregroundColor(theme.overlayBackground)
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)
                     .background(
                         Capsule()
-                            .fill(Color.red.opacity(0.8))
+                            .fill(theme.deleteColor.opacity(0.8))
                     )
                 }
                 

@@ -60,14 +60,14 @@ struct TimelinePhotoHeader: View {
             HStack {
                 Text(photo.dateCreated.timelineDisplayString)
                     .font(.system(size: 14, weight: .medium, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(theme.primaryText)
                     .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: 1)
-                
+
                 Spacer()
-                
+
                 Text("\(currentIndex + 1) of \(totalCount)")
                     .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(.white.opacity(0.8))
+                    .foregroundColor(theme.primaryText.opacity(0.8))
                     .padding(.horizontal, 8)
                     .padding(.vertical, 3)
                     .background(
@@ -98,23 +98,23 @@ struct TimelinePhotoHeader: View {
             if photo.isFavorite {
                 Image(systemName: "heart.fill")
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(.red)
-                    .shadow(color: .red.opacity(0.5), radius: 2, x: 0, y: 0)
+                    .foregroundColor(theme.favoriteActive)
+                    .shadow(color: theme.favoriteActive.opacity(0.5), radius: 2, x: 0, y: 0)
             }
             
             // Status badges
             if photo.isMarkedForSaving {
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(.green)
-                    .shadow(color: .green.opacity(0.5), radius: 2, x: 0, y: 0)
+                    .foregroundColor(theme.saveColor)
+                    .shadow(color: theme.saveColor.opacity(0.5), radius: 2, x: 0, y: 0)
             }
-            
+
             if photo.isMarkedForDeletion {
                 Image(systemName: "trash.circle.fill")
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(.red)
-                    .shadow(color: .red.opacity(0.5), radius: 2, x: 0, y: 0)
+                    .foregroundColor(theme.deleteColor)
+                    .shadow(color: theme.deleteColor.opacity(0.5), radius: 2, x: 0, y: 0)
             }
         }
     }
@@ -133,7 +133,7 @@ struct TimelinePhotoHeader: View {
             // Favorite toggle button
             FloatingActionButton(
                 icon: photo.isFavorite ? "heart.fill" : "heart",
-                iconColor: photo.isFavorite ? .red : .white,
+                iconColor: photo.isFavorite ? theme.favoriteActive : theme.primaryText,
                 action: onFavoriteToggle
             )
         }
@@ -151,11 +151,11 @@ struct ProgressSegment: View {
             ZStack(alignment: .leading) {
                 // Background
                 RoundedRectangle(cornerRadius: 1.5)
-                    .fill(.white.opacity(0.3))
-                
+                    .fill(Color(red: 1.0, green: 0.9, blue: 0.5).opacity(0.3))
+
                 // Progress fill
                 RoundedRectangle(cornerRadius: 1.5)
-                    .fill(.white)
+                    .fill(Color(red: 1.0, green: 0.9, blue: 0.5))
                     .frame(width: progressWidth(geometry.size.width))
                     .animation(
                         isActive ? .easeInOut(duration: 3.0) : .easeInOut(duration: 0.3),
@@ -182,7 +182,7 @@ struct FloatingActionButton: View {
     let iconColor: Color
     let action: () -> Void
     
-    init(icon: String, iconColor: Color = .white, action: @escaping () -> Void) {
+    init(icon: String, iconColor: Color = Color(red: 1.0, green: 0.9, blue: 0.5), action: @escaping () -> Void) {
         self.icon = icon
         self.iconColor = iconColor
         self.action = action

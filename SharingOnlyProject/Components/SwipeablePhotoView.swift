@@ -156,11 +156,11 @@ struct SwipeIndicator: View {
         VStack(spacing: 6) {
             Image(systemName: icon)
                 .font(.title)
-                .foregroundColor(.white)
+                .foregroundColor(Color(red: 1.0, green: 0.9, blue: 0.5))
             Text(text)
                 .font(.caption)
                 .fontWeight(.bold)
-                .foregroundColor(.white)
+                .foregroundColor(Color(red: 1.0, green: 0.9, blue: 0.5))
         }
         .padding(20)
         .background(

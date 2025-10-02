@@ -37,17 +37,17 @@ struct PhotoOverlayInfo: View {
             ZStack {
                 // Background circle for better tap area
                 Circle()
-                    .fill(Color.black.opacity(0.2))
+                    .fill(theme.overlayBackground.opacity(0.3))
                     .frame(width: 44, height: 44)
-                
+
                 // Heart icon with enhanced feedback
                 Image(systemName: photo.isFavorite ? "heart.fill" : "heart")
                     .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(photo.isFavorite ? .pink : .white)
+                    .foregroundColor(photo.isFavorite ? theme.favoriteActive : theme.primaryText)
                     .shadow(
-                        color: photo.isFavorite ? .pink.opacity(0.5) : .black.opacity(0.5), 
-                        radius: photo.isFavorite ? 4 : 2, 
-                        x: 0, 
+                        color: photo.isFavorite ? theme.favoriteActive.opacity(0.5) : theme.secondaryShadow,
+                        radius: photo.isFavorite ? 4 : 2,
+                        x: 0,
                         y: 1
                     )
                     .scaleEffect(photo.isFavorite ? 1.15 : 1.0)
@@ -64,37 +64,37 @@ struct PhotoOverlayInfo: View {
         Text(formatDateTime(photo.dateCreated))
             .font(.subheadline)
             .fontWeight(.medium)
-            .foregroundColor(.white)
+            .foregroundColor(theme.primaryText)
             .padding(.horizontal, 12)
             .padding(.vertical, 6)
             .background(
                 Capsule()
-                    .fill(Color.black.opacity(0.4))
+                    .fill(theme.overlayBackground)
                     .overlay(
                         Capsule()
-                            .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                            .stroke(theme.buttonBorder, lineWidth: 1)
                     )
             )
-            .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
+            .shadow(color: theme.secondaryShadow, radius: 2, x: 0, y: 1)
     }
-    
+
     // MARK: - 3. 현재사진/전체사진 섹션
     private var photoCounterSection: some View {
         Text("\(currentIndex + 1)/\(totalCount)")
             .font(.subheadline)
             .fontWeight(.bold)
-            .foregroundColor(.white)
+            .foregroundColor(theme.primaryText)
             .padding(.horizontal, 12)
             .padding(.vertical, 6)
             .background(
                 Capsule()
-                    .fill(Color.blue.opacity(0.6))
+                    .fill(theme.accentColor.opacity(0.6))
                     .overlay(
                         Capsule()
-                            .stroke(Color.white.opacity(0.4), lineWidth: 1)
+                            .stroke(theme.buttonBorder, lineWidth: 1)
                     )
             )
-            .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
+            .shadow(color: theme.primaryShadow, radius: 2, x: 0, y: 1)
     }
     
     // MARK: - 4. 폴더에추가 섹션
@@ -109,32 +109,32 @@ struct PhotoOverlayInfo: View {
                         .font(.caption)
                         .fontWeight(.medium)
                 }
-                .foregroundColor(.white)
+                .foregroundColor(theme.primaryText)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
                 .background(
                     Capsule()
-                        .fill(Color.red.opacity(0.8))
+                        .fill(theme.deleteColor)
                 )
-                .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
+                .shadow(color: theme.secondaryShadow, radius: 2, x: 0, y: 1)
             }
-            
+
             // Album/Folder button
             if let onAddToAlbum = onAddToAlbum {
                 Button(action: onAddToAlbum) {
                     Image(systemName: "plus.rectangle.on.folder")
                         .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(.white)
+                        .foregroundColor(theme.primaryText)
                         .frame(width: 36, height: 36)
                         .background(
                             Circle()
-                                .fill(Color.green.opacity(0.6))
+                                .fill(theme.saveColor)
                                 .overlay(
                                     Circle()
-                                        .stroke(Color.white.opacity(0.4), lineWidth: 1)
+                                        .stroke(theme.buttonBorder, lineWidth: 1)
                                 )
                         )
-                        .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
+                        .shadow(color: theme.primaryShadow, radius: 2, x: 0, y: 1)
                 }
                 .buttonStyle(PlainButtonStyle())
             }

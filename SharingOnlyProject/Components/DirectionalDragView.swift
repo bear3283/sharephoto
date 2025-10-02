@@ -106,7 +106,7 @@ struct DirectionalDragView: View {
                     path.move(to: CGPoint(x: innerX, y: innerY))
                     path.addLine(to: CGPoint(x: outerX, y: outerY))
                 }
-                .stroke(Color.white.opacity(0.4), lineWidth: 2.0) // 약간 더 굵고 진하게
+                .stroke(theme.primaryText.opacity(0.4), lineWidth: 2.0) // 약간 더 굵고 진하게
             }
         }
         .transition(.scale.combined(with: .opacity))
@@ -145,8 +145,8 @@ struct DirectionalDragView: View {
                 ) :
                 LinearGradient(
                     colors: [
-                        Color.gray.opacity(0.3),
-                        Color.gray.opacity(0.2)
+                        theme.secondaryText.opacity(0.3),
+                        theme.secondaryText.opacity(0.2)
                     ],
                     startPoint: .center,
                     endPoint: .bottom
@@ -183,28 +183,28 @@ struct DirectionalDragView: View {
             // 방향 아이콘
             Image(systemName: direction.systemIcon)
                 .font(.system(size: isActive ? 20 : 16, weight: .bold, design: .rounded))
-                .foregroundColor(.white)
-                .shadow(color: .black.opacity(0.5), radius: 2, x: 0, y: 1)
-            
+                .foregroundColor(theme.primaryText)
+                .shadow(color: theme.secondaryShadow, radius: 2, x: 0, y: 1)
+
             // 이름
             Text(recipient.name)
                 .font(.system(size: isActive ? 11 : 9, weight: .bold, design: .rounded))
-                .foregroundColor(.white)
-                .shadow(color: .black.opacity(0.7), radius: 1, x: 0, y: 1)
+                .foregroundColor(theme.primaryText)
+                .shadow(color: theme.secondaryShadow, radius: 1, x: 0, y: 1)
                 .lineLimit(1)
-            
+
             // 사진 개수 (있을 때만)
             if photoCount > 0 {
                 Text("\(photoCount)")
                     .font(.system(size: isActive ? 12 : 10, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(theme.primaryText)
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)
                     .background(
                         Capsule()
-                            .fill(Color.black.opacity(0.6))
+                            .fill(theme.overlayBackground)
                     )
-                    .shadow(color: .black.opacity(0.5), radius: 2, x: 0, y: 1)
+                    .shadow(color: theme.secondaryShadow, radius: 2, x: 0, y: 1)
             }
         }
         .position(x: x, y: y)
@@ -233,8 +233,8 @@ struct DirectionalDragView: View {
                 ) :
                 LinearGradient(
                     colors: [
-                        Color.gray.opacity(hasRecipients ? 0.7 : 0.3),
-                        Color.gray.opacity(hasRecipients ? 0.5 : 0.2)
+                        theme.secondaryText.opacity(hasRecipients ? 0.7 : 0.3),
+                        theme.secondaryText.opacity(hasRecipients ? 0.5 : 0.2)
                     ],
                     startPoint: .center,
                     endPoint: .bottom
@@ -245,8 +245,8 @@ struct DirectionalDragView: View {
                 Circle()
                     .stroke(
                         isActive && hasRecipients ?
-                        Color.white.opacity(0.9) :
-                        Color.gray.opacity(hasRecipients ? 0.4 : 0.2),
+                        theme.primaryText.opacity(0.9) :
+                        theme.secondaryText.opacity(hasRecipients ? 0.4 : 0.2),
                         lineWidth: isActive ? 3 : 2
                     )
             )
@@ -257,19 +257,19 @@ struct DirectionalDragView: View {
                     Image(systemName: hasRecipients ? "person.3.fill" : "person.3")
                         .font(.system(size: isActive ? 18 : 16, weight: .bold, design: .rounded))
                         .foregroundColor(
-                            isActive && hasRecipients ? .white :
+                            isActive && hasRecipients ? theme.primaryText :
                             hasRecipients ? theme.accentColor : theme.secondaryText
                         )
-                        .shadow(color: .black.opacity(isActive ? 0.5 : 0), radius: 2, x: 0, y: 1)
+                        .shadow(color: theme.secondaryShadow.opacity(isActive ? 0.5 : 0), radius: 2, x: 0, y: 1)
 
                     // 텍스트
                     Text(hasRecipients ? LocalizedString.Distribution.allPeople : LocalizedString.Distribution.noRecipientStatus)
                         .font(.system(size: isActive ? 11 : 10, weight: .bold, design: .rounded))
                         .foregroundColor(
-                            isActive && hasRecipients ? .white :
+                            isActive && hasRecipients ? theme.primaryText :
                             hasRecipients ? theme.primaryText : theme.secondaryText
                         )
-                        .shadow(color: .black.opacity(isActive ? 0.7 : 0), radius: 1, x: 0, y: 1)
+                        .shadow(color: theme.secondaryShadow.opacity(isActive ? 0.7 : 0), radius: 1, x: 0, y: 1)
                         .lineLimit(1)
 
                     // 수신자 수 표시
@@ -277,7 +277,7 @@ struct DirectionalDragView: View {
                         Text(LocalizedString.recipientCount(sharingViewModel.recipients.count))
                             .font(.system(size: isActive ? 10 : 9, weight: .semibold, design: .rounded))
                             .foregroundColor(
-                                isActive ? .white.opacity(0.9) : theme.secondaryText
+                                isActive ? theme.primaryText.opacity(0.9) : theme.secondaryText
                             )
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
@@ -285,11 +285,11 @@ struct DirectionalDragView: View {
                                 Capsule()
                                     .fill(
                                         isActive ?
-                                        Color.black.opacity(0.3) :
+                                        theme.overlayBackground.opacity(0.3) :
                                         theme.accentColor.opacity(0.2)
                                     )
                             )
-                            .shadow(color: .black.opacity(isActive ? 0.5 : 0), radius: 2, x: 0, y: 1)
+                            .shadow(color: theme.secondaryShadow.opacity(isActive ? 0.5 : 0), radius: 2, x: 0, y: 1)
                     }
                 }
                 .scaleEffect(isActive ? 1.2 : 1.0)
@@ -386,11 +386,11 @@ struct DirectionalDragView: View {
                     Image(systemName: "chevron.left")
                         .font(.title2)
                         .fontWeight(.semibold)
-                        .foregroundColor(selectedPhotoIndex == 0 ? theme.secondaryText : .white)
+                        .foregroundColor(selectedPhotoIndex == 0 ? theme.secondaryText : theme.primaryText)
                         .frame(width: 40, height: 40)
                         .background(
                             Circle().fill(
-                                selectedPhotoIndex == 0 
+                                selectedPhotoIndex == 0
                                     ? AnyShapeStyle(theme.secondaryBackground.opacity(0.6))
                                     : AnyShapeStyle(theme.accentColor)
                             )
@@ -458,7 +458,7 @@ struct DirectionalDragView: View {
                 // For now, just show the message
             }
             .fontWeight(.semibold)
-            .foregroundColor(.white)
+            .foregroundColor(theme.primaryText)
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
             .background(
@@ -552,7 +552,7 @@ struct EnhancedPhotoDragView: View {
                                         .scaleEffect(0.8)
                                     Text(LocalizedString.Photo.highQualityLoading)
                                         .font(.caption2)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(theme.primaryText)
                                 }
                                 .padding(12)
                                 .background(

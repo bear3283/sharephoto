@@ -189,7 +189,7 @@ struct FullscreenPhotoViewer: View {
                         Text("\(currentIndex + 1) / \(photos.count)")
                             .font(.subheadline)
                             .fontWeight(.medium)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color(red: 1.0, green: 0.9, blue: 0.5))
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
                             .background(
@@ -206,7 +206,7 @@ struct FullscreenPhotoViewer: View {
                         }
                         .font(.headline)
                         .fontWeight(.medium)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(red: 1.0, green: 0.9, blue: 0.5))
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
                         .background(
@@ -239,7 +239,7 @@ struct FullscreenPhotoViewer: View {
                             Image(systemName: "chevron.left")
                                 .font(.title2)
                                 .fontWeight(.semibold)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(red: 1.0, green: 0.9, blue: 0.5))
                                 .frame(width: 48, height: 48)
                                 .background(
                                     Circle()
@@ -267,7 +267,7 @@ struct FullscreenPhotoViewer: View {
                             Image(systemName: "chevron.right")
                                 .font(.title2)
                                 .fontWeight(.semibold)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(red: 1.0, green: 0.9, blue: 0.5))
                                 .frame(width: 48, height: 48)
                                 .background(
                                     Circle()
@@ -293,26 +293,26 @@ struct FullscreenPhotoViewer: View {
                             Text(DateFormatter.photoDetail.string(from: photo.dateCreated))
                                 .font(.subheadline)
                                 .fontWeight(.medium)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(red: 1.0, green: 0.9, blue: 0.5))
                             
                             // 즐겨찾기 표시
                             if photo.isFavorite {
                                 HStack(spacing: 4) {
                                     Image(systemName: "heart.fill")
                                         .font(.caption)
-                                        .foregroundColor(.red)
+                                        .foregroundColor(Color(red: 1.0, green: 0.0, blue: 0.4))
                                     
                                     Text("즐겨찾기")
                                         .font(.caption)
-                                        .foregroundColor(.white.opacity(0.8))
+                                        .foregroundColor(Color(red: 1.0, green: 0.9, blue: 0.5).opacity(0.8))
                                 }
                             }
-                            
+
                             // 고화질 해상도 정보
                             if let fullQualityImage = fullQualityImages[photo.id.uuidString] {
                                 Text("\(Int(fullQualityImage.size.width)) × \(Int(fullQualityImage.size.height))")
                                     .font(.caption2)
-                                    .foregroundColor(.white.opacity(0.7))
+                                    .foregroundColor(Color(red: 1.0, green: 0.9, blue: 0.5).opacity(0.7))
                             }
                         }
                         

@@ -158,7 +158,7 @@ struct OverlayDatePicker: View {
                     Text("완료")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.white)
+                        .foregroundColor(theme.overlayBackground)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
                         .background(
@@ -189,7 +189,7 @@ struct OverlayDatePicker: View {
                             .stroke(
                                 LinearGradient(
                                     colors: [
-                                        Color.white.opacity(0.3),
+                                        theme.primaryText.opacity(0.3),
                                         Color.clear
                                     ],
                                     startPoint: .topLeading,
@@ -281,8 +281,8 @@ struct OverlayDatePicker: View {
                     isPresented = true
                 }
                 .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
+                .background(Color(red: 1.0, green: 0.84, blue: 0.0))
+                .foregroundColor(Color.black)
                 .cornerRadius(8)
             }
             .overlay(

@@ -91,14 +91,14 @@ struct TemporaryAlbumPreview: View {
                 let totalAlbums = sharingViewModel.temporaryAlbums.count
                 
                 Image(systemName: sharingViewModel.canStartSharing ? "checkmark.circle.fill" : "info.circle")
-                    .foregroundColor(sharingViewModel.canStartSharing ? .green : theme.accentColor)
+                    .foregroundColor(sharingViewModel.canStartSharing ? theme.accentColor : theme.secondaryText)
                     .font(.title3)
-                
+
                 VStack(alignment: .leading, spacing: 2) {
                     Text(sharingViewModel.canStartSharing ? LocalizedString.Album.shareReady : LocalizedString.Album.someReady)
                         .font(.caption)
                         .fontWeight(.semibold)
-                        .foregroundColor(sharingViewModel.canStartSharing ? .green : theme.primaryText)
+                        .foregroundColor(sharingViewModel.canStartSharing ? theme.accentColor : theme.primaryText)
 
                     Text(LocalizedString.albumPhotoCount(totalPhotos, nonEmptyAlbums, totalAlbums))
                         .font(.caption2)
@@ -109,7 +109,7 @@ struct TemporaryAlbumPreview: View {
             .padding(.vertical, 8)
             .background(
                 Capsule()
-                    .fill(sharingViewModel.canStartSharing ? AnyShapeStyle(Color.green.opacity(0.1)) : AnyShapeStyle(theme.accentColor.opacity(0.1)))
+                    .fill(sharingViewModel.canStartSharing ? AnyShapeStyle(theme.saveColor.opacity(0.2)) : AnyShapeStyle(theme.accentColor.opacity(0.1)))
             )
         }
     }
@@ -133,7 +133,7 @@ struct TemporaryAlbumPreview: View {
         VStack(spacing: 0) {
             // Gradient overlay for smooth transition
             LinearGradient(
-                colors: [Color.clear, Color.white.opacity(0.9)],
+                colors: [Color.clear, theme.primaryText.opacity(0.15)],
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -161,13 +161,13 @@ struct TemporaryAlbumPreview: View {
             ForEach(sharingViewModel.temporaryAlbums) { album in
                 HStack(spacing: 4) {
                     Circle()
-                        .fill(album.isEmpty ? .red : .green)
+                        .fill(album.isEmpty ? theme.deleteColor : theme.saveColor)
                         .frame(width: 8, height: 8)
                         .symbolEffect(.pulse, options: .repeat(.continuous).speed(1), value: album.isEmpty)
-                    
+
                     Text(album.recipient.name)
                         .font(.caption2)
-                        .foregroundColor(album.isEmpty ? .red : theme.secondaryText)
+                        .foregroundColor(album.isEmpty ? theme.secondaryText : theme.primaryText)
                         .fontWeight(album.isEmpty ? .medium : .regular)
                 }
                 .transition(.scale.combined(with: .opacity))
@@ -187,8 +187,8 @@ struct TemporaryAlbumPreview: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(
-                            sharingViewModel.canStartSharing ? 
-                            .green.opacity(0.3) : .red.opacity(0.3),
+                            sharingViewModel.canStartSharing ?
+                            theme.accentColor.opacity(0.3) : theme.deleteColor.opacity(0.3),
                             lineWidth: 1
                         )
                 )
@@ -219,7 +219,7 @@ struct TemporaryAlbumPreview: View {
             }
             .foregroundColor(
                 sharingViewModel.canStartSharing && !sharingViewModel.isLoading ?
-                .green : theme.secondaryText
+                theme.accentColor : theme.secondaryText
             )
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
@@ -286,7 +286,7 @@ struct TemporaryAlbumPreview: View {
     private var successToast: some View {
         HStack(spacing: 12) {
             Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(.green)
+                .foregroundColor(theme.saveColor)
                 .font(.title3)
             
             VStack(alignment: .leading, spacing: 2) {
@@ -307,7 +307,7 @@ struct TemporaryAlbumPreview: View {
         .background(
             RoundedRectangle(cornerRadius: 12)
                 .fill(.ultraThinMaterial)
-                .shadow(color: .green.opacity(0.2), radius: 8, x: 0, y: 4)
+                .shadow(color: theme.saveColor.opacity(0.2), radius: 8, x: 0, y: 4)
         )
         .padding(.horizontal, 20)
         .padding(.top, 8)
@@ -355,13 +355,13 @@ struct AlbumPreviewCard: View {
                     // Photo count with badge style
                     ZStack {
                         Circle()
-                            .fill(album.isEmpty ? .red.opacity(0.1) : theme.accentColor.opacity(0.1))
+                            .fill(album.isEmpty ? theme.deleteColor.opacity(0.1) : theme.accentColor.opacity(0.1))
                             .frame(width: 32, height: 32)
-                        
+
                         Text("\(album.photoCount)")
                             .font(.subheadline)
                             .fontWeight(.bold)
-                            .foregroundColor(album.isEmpty ? .red : theme.accentColor)
+                            .foregroundColor(album.isEmpty ? theme.deleteColor : theme.accentColor)
                     }
                     .scaleEffect(album.isEmpty ? 0.9 : 1.0)
                     .animation(.easeInOut(duration: 0.2), value: album.isEmpty)
@@ -381,7 +381,7 @@ struct AlbumPreviewCard: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(
-                                album.isEmpty ? .red.opacity(0.3) : album.recipient.swiftUIColor.opacity(0.3),
+                                album.isEmpty ? theme.deleteColor.opacity(0.3) : album.recipient.swiftUIColor.opacity(0.3),
                                 lineWidth: 1
                             )
                     )
@@ -428,12 +428,12 @@ struct AlbumPreviewCard: View {
         VStack(spacing: 8) {
             Image(systemName: "photo.badge.plus")
                 .font(.title2)
-                .foregroundColor(.red.opacity(0.6))
+                .foregroundColor(theme.deleteColor.opacity(0.6))
                 .symbolEffect(.pulse, options: .repeat(.continuous).speed(2))
-            
+
             Text(LocalizedString.Album.addPhotos)
                 .font(.caption)
-                .foregroundColor(.red)
+                .foregroundColor(theme.deleteColor)
                 .fontWeight(.medium)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
@@ -442,8 +442,8 @@ struct AlbumPreviewCard: View {
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .fill(.red.opacity(0.1))
-                .stroke(.red.opacity(0.3), lineWidth: 1)
+                .fill(theme.deleteColor.opacity(0.1))
+                .stroke(theme.deleteColor.opacity(0.3), lineWidth: 1)
         )
     }
 }
@@ -551,7 +551,7 @@ struct AlbumDetailSheet: View {
 
                 Text("\(album.photoCount)장의 사진")
                     .font(.caption)
-                    .foregroundColor(album.isEmpty ? .red : theme.accentColor)
+                    .foregroundColor(album.isEmpty ? theme.deleteColor : theme.accentColor)
                     .fontWeight(.medium)
             }
 
@@ -586,10 +586,10 @@ struct AlbumDetailSheet: View {
                                                 }) {
                                                     Image(systemName: "xmark.circle.fill")
                                                         .font(.system(size: 20))
-                                                        .foregroundColor(.white)
+                                                        .foregroundColor(theme.primaryText)
                                                         .background(
                                                             Circle()
-                                                                .fill(Color.red.opacity(0.8))
+                                                                .fill(theme.deleteColor)
                                                                 .frame(width: 24, height: 24)
                                                         )
                                                 }
@@ -681,7 +681,7 @@ struct AlbumDetailSheet: View {
             }
             .foregroundColor(
                 !album.isEmpty && !sharingViewModel.isLoading ?
-                .green : theme.secondaryText
+                theme.accentColor : theme.secondaryText
             )
             .padding(.horizontal, 20)
             .padding(.vertical, 10)

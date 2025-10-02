@@ -194,7 +194,7 @@ struct FloatingAddButton: View {
         Button(action: action) {
             Image(systemName: "plus")
                 .font(.system(size: 20, weight: .semibold))
-                .foregroundColor(.white)
+                .foregroundColor(theme.overlayBackground)
                 .frame(width: 56, height: 56)
                 .background(
                     Circle()

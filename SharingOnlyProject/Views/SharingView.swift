@@ -82,24 +82,26 @@ struct SharingView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                // Main Content
-                VStack(spacing: 0) {
-                    // Progress Header
-                    progressHeaderView
-                    
-                    Divider()
-                        .opacity(0.3)
-                    
-                    // Step Content
-                    stepContentView
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-                .navigationTitle("PHOTO FLICK")
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarHidden(showingFullscreenPhoto)
-                .toolbar(showingFullscreenPhoto ? .hidden : .visible, for: .navigationBar)
-                .toolbar {
+            VStack(spacing: 0) {
+                // Progress Header
+                progressHeaderView
+
+                Divider()
+                    .opacity(0.3)
+
+                // Step Content
+                stepContentView
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .background(themeViewModel.colors.primaryBackground)
+            .navigationTitle("PHOTO FLICK")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarHidden(showingFullscreenPhoto)
+            .toolbarBackground(themeViewModel.colors.primaryBackground, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbar(showingFullscreenPhoto ? .hidden : .visible, for: .navigationBar)
+            .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         HStack(spacing: 16) {
                             // 달력 아이콘 (정리탭과 일관성) - 풀스크린에서 비활성화
@@ -125,7 +127,7 @@ struct SharingView: View {
                                     showingClearAllConfirmation = true
                                 }) {
                                     Image(systemName: "trash.circle")
-                                        .toolbarIconButton(size: 16, color: .red)
+                                        .toolbarIconButton(size: 16, theme: themeViewModel.colors)
                                 }
                                 .accessibilityLabel(LocalizedString.Accessibility.deleteAllPhotos)
                                 .accessibilityHint(LocalizedString.Accessibility.deleteAllPhotosHint)
@@ -385,10 +387,10 @@ struct SharingView: View {
                                         }) {
                                             Image(systemName: "xmark.circle.fill")
                                                 .font(.system(size: 16, weight: .regular))
-                                                .foregroundColor(.white)
+                                                .foregroundColor(themeViewModel.colors.primaryText)
                                                 .background(
                                                     Circle()
-                                                        .fill(Color.red.opacity(0.6))
+                                                        .fill(themeViewModel.colors.deleteColor)
                                                         .frame(width: 20, height: 20)
                                                 )
                                         }
@@ -428,12 +430,12 @@ struct SharingView: View {
                                     Text(LocalizedString.Photo.dummy)
                                         .font(.caption2)
                                         .fontWeight(.medium)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(themeViewModel.colors.primaryText)
                                         .padding(.horizontal, 6)
                                         .padding(.vertical, 2)
                                         .background(
                                             Capsule()
-                                                .fill(Color.black.opacity(0.6))
+                                                .fill(themeViewModel.colors.overlayBackground)
                                         )
                                         .padding(6)
                                 }
@@ -465,7 +467,7 @@ struct SharingView: View {
                 }
             }
         }
-        .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+        .shadow(color: themeViewModel.colors.secondaryShadow, radius: 4, x: 0, y: 2)
     }
     
     private var recipientSetupView: some View {
@@ -532,16 +534,10 @@ struct SharingView: View {
                     Text(LocalizedString.Button.startOver)
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.white)
+                        .foregroundColor(theme.overlayBackground)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
-                        .background(
-                            LinearGradient(
-                                colors: [theme.accentColor, theme.accentColor.opacity(0.8)],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
+                        .background(theme.primaryGradient)
                         .cornerRadius(12)
                 }
                 .buttonStyle(PlainButtonStyle())
@@ -581,16 +577,10 @@ struct SharingView: View {
                     Text(nextButtonTitle)
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.white)
+                        .foregroundColor(theme.overlayBackground)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, Constants.buttonVerticalPadding)
-                        .background(
-                            LinearGradient(
-                                colors: [theme.accentColor, theme.accentColor.opacity(0.8)],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
+                        .background(theme.primaryGradient)
                         .cornerRadius(Constants.buttonCornerRadius)
                 }
                 .buttonStyle(PlainButtonStyle())
@@ -783,7 +773,7 @@ struct ToolbarIconButtonStyle: ViewModifier {
 
 extension View {
     func toolbarIconButton(size: CGFloat = 18, theme: ThemeColors) -> some View {
-        modifier(ToolbarIconButtonStyle(size: size, color: theme.accentColor))
+        modifier(ToolbarIconButtonStyle(size: size, color: theme.primaryText))
     }
 
     func toolbarIconButton(size: CGFloat = 18, color: Color) -> some View {

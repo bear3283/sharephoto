@@ -69,7 +69,7 @@ struct RecipientSetupView: View {
                 Text("\(sharingViewModel.recipients.count)/8")
                     .font(.caption)
                     .fontWeight(.semibold)
-                    .foregroundColor(.white)
+                    .foregroundColor(theme.primaryText)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
                     .background(
@@ -140,7 +140,7 @@ struct RecipientSetupView: View {
                 Text(LocalizedString.General.add)
                     .fontWeight(.semibold)
             }
-            .foregroundColor(.white)
+            .foregroundColor(theme.primaryText)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)
             .background(
@@ -219,7 +219,7 @@ struct RecipientCard: View {
                 
                 Image(systemName: recipient.direction.systemIcon)
                     .font(.system(size: 24, weight: .semibold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(theme.primaryText)
                 
                 // Photo count badge - 개선된 위치
                 if let album = album, !album.isEmpty {
@@ -228,14 +228,14 @@ struct RecipientCard: View {
                             Spacer()
                             Text("\(album.photoCount)")
                                 .font(.system(size: 10, weight: .bold))
-                                .foregroundColor(.white)
+                                .foregroundColor(theme.primaryText)
                                 .frame(width: 20, height: 20)
                                 .background(
                                     Circle()
-                                        .fill(.red)
+                                        .fill(theme.deleteColor)
                                         .overlay(
                                             Circle()
-                                                .stroke(.white, lineWidth: 2)
+                                                .stroke(theme.overlayBackground, lineWidth: 2)
                                         )
                                 )
                                 .offset(x: 8, y: -8)
@@ -396,12 +396,12 @@ struct AddRecipientSheet: View {
             if availableDirections.isEmpty {
                 Text(LocalizedString.Recipient.noDirectionsAvailable)
                     .font(.subheadline)
-                    .foregroundColor(.red)
+                    .foregroundColor(theme.deleteColor)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(.red.opacity(0.1))
+                            .fill(theme.deleteColor.opacity(0.1))
                     )
             } else {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 4), spacing: 16) {
@@ -430,7 +430,7 @@ struct AddRecipientSheet: View {
         }) {
             Text(LocalizedString.General.add)
                 .fontWeight(.semibold)
-                .foregroundColor(.white)
+                .foregroundColor(theme.primaryText)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
                 .background(
