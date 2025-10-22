@@ -80,9 +80,40 @@ struct SharingView: View {
         horizontalSizeClass == .regular ? 80 : 65
     }
 
+    // 동적 네비게이션 타이틀 (날짜 + 현재 단계)
+    private var dynamicNavigationTitle: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy년 M월 d일"
+        let dateString = dateFormatter.string(from: photoViewModel.selectedDate)
+
+        switch currentStep {
+        case .dateSelection:
+            return "\(dateString) • 사진 선택"
+        case .recipientSetup:
+            return "\(dateString) • 공유 대상자"
+        case .photoDistribution:
+            return "\(dateString) • 사진 분배"
+        case .albumPreview:'
+            return "\(dateString) • 미리보기"
+        }
+    }
+
+    // 테마별 툴바 색상 설정
+    private var toolbarColorScheme: ColorScheme {
+        switch themeViewModel.currentTheme {
+        case .spring:
+            // Golden Hour: 밝은 배경이므로 어두운 텍스트
+            return .light
+        case .auto:
+            // 자동 테마: 시스템 설정에 따라 반대로
+            return .light
+        }
+    }
+
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
+            ZStack {
+                VStack(spacing: 0) {
                 // Progress Header
                 progressHeaderView
 
@@ -94,12 +125,12 @@ struct SharingView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .background(themeViewModel.colors.primaryBackground)
-            .navigationTitle("PHOTO FLICK")
+            .navigationTitle(dynamicNavigationTitle)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarHidden(showingFullscreenPhoto)
             .toolbarBackground(themeViewModel.colors.primaryBackground, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarColorScheme(toolbarColorScheme, for: .navigationBar)
             .toolbar(showingFullscreenPhoto ? .hidden : .visible, for: .navigationBar)
             .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -158,8 +189,7 @@ struct SharingView: View {
                         }
                     }
                 }
-                .background(theme.primaryBackground.ignoresSafeArea())
-                
+
                 // Overlay Date Picker
                 if showingDatePicker {
                     OverlayDatePicker(

@@ -106,15 +106,15 @@ struct TimelinePhotoHeader: View {
             if photo.isMarkedForSaving {
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(theme.saveColor)
-                    .shadow(color: theme.saveColor.opacity(0.5), radius: 2, x: 0, y: 0)
+                    .foregroundStyle(theme.saveColor)
+                    .shadow(color: .green.opacity(0.5), radius: 2, x: 0, y: 0)
             }
 
             if photo.isMarkedForDeletion {
                 Image(systemName: "trash.circle.fill")
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(theme.deleteColor)
-                    .shadow(color: theme.deleteColor.opacity(0.5), radius: 2, x: 0, y: 0)
+                    .foregroundStyle(theme.deleteColor)
+                    .shadow(color: .red.opacity(0.5), radius: 2, x: 0, y: 0)
             }
         }
     }

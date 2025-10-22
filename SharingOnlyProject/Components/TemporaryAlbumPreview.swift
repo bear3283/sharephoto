@@ -188,7 +188,7 @@ struct TemporaryAlbumPreview: View {
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(
                             sharingViewModel.canStartSharing ?
-                            theme.accentColor.opacity(0.3) : theme.deleteColor.opacity(0.3),
+                            theme.accentColor.opacity(0.3) : .red.opacity(0.3),
                             lineWidth: 1
                         )
                 )
@@ -286,7 +286,7 @@ struct TemporaryAlbumPreview: View {
     private var successToast: some View {
         HStack(spacing: 12) {
             Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(theme.saveColor)
+                .foregroundStyle(theme.saveColor)
                 .font(.title3)
             
             VStack(alignment: .leading, spacing: 2) {
@@ -307,7 +307,7 @@ struct TemporaryAlbumPreview: View {
         .background(
             RoundedRectangle(cornerRadius: 12)
                 .fill(.ultraThinMaterial)
-                .shadow(color: theme.saveColor.opacity(0.2), radius: 8, x: 0, y: 4)
+                .shadow(color: .green.opacity(0.2), radius: 8, x: 0, y: 4)
         )
         .padding(.horizontal, 20)
         .padding(.top, 8)
@@ -355,13 +355,13 @@ struct AlbumPreviewCard: View {
                     // Photo count with badge style
                     ZStack {
                         Circle()
-                            .fill(album.isEmpty ? theme.deleteColor.opacity(0.1) : theme.accentColor.opacity(0.1))
+                            .fill(album.isEmpty ? .red.opacity(0.1) : theme.accentColor.opacity(0.1))
                             .frame(width: 32, height: 32)
 
                         Text("\(album.photoCount)")
                             .font(.subheadline)
                             .fontWeight(.bold)
-                            .foregroundColor(album.isEmpty ? theme.deleteColor : theme.accentColor)
+                            .foregroundColor(album.isEmpty ? .red : theme.accentColor)
                     }
                     .scaleEffect(album.isEmpty ? 0.9 : 1.0)
                     .animation(.easeInOut(duration: 0.2), value: album.isEmpty)
@@ -381,7 +381,7 @@ struct AlbumPreviewCard: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(
-                                album.isEmpty ? theme.deleteColor.opacity(0.3) : album.recipient.swiftUIColor.opacity(0.3),
+                                album.isEmpty ? .red.opacity(0.3) : album.recipient.swiftUIColor.opacity(0.3),
                                 lineWidth: 1
                             )
                     )
@@ -428,12 +428,12 @@ struct AlbumPreviewCard: View {
         VStack(spacing: 8) {
             Image(systemName: "photo.badge.plus")
                 .font(.title2)
-                .foregroundColor(theme.deleteColor.opacity(0.6))
+                .foregroundColor(.red.opacity(0.6))
                 .symbolEffect(.pulse, options: .repeat(.continuous).speed(2))
 
             Text(LocalizedString.Album.addPhotos)
                 .font(.caption)
-                .foregroundColor(theme.deleteColor)
+                .foregroundColor(.red)
                 .fontWeight(.medium)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
@@ -442,8 +442,11 @@ struct AlbumPreviewCard: View {
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .fill(theme.deleteColor.opacity(0.1))
-                .stroke(theme.deleteColor.opacity(0.3), lineWidth: 1)
+                .fill(.red.opacity(0.1))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(.red.opacity(0.3), lineWidth: 1)
+                )
         )
     }
 }
@@ -551,7 +554,7 @@ struct AlbumDetailSheet: View {
 
                 Text("\(album.photoCount)장의 사진")
                     .font(.caption)
-                    .foregroundColor(album.isEmpty ? theme.deleteColor : theme.accentColor)
+                    .foregroundColor(album.isEmpty ? .red : theme.accentColor)
                     .fontWeight(.medium)
             }
 

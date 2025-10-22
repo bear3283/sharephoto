@@ -396,12 +396,12 @@ struct AddRecipientSheet: View {
             if availableDirections.isEmpty {
                 Text(LocalizedString.Recipient.noDirectionsAvailable)
                     .font(.subheadline)
-                    .foregroundColor(theme.deleteColor)
+                    .foregroundStyle(theme.deleteColor)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(theme.deleteColor.opacity(0.1))
+                            .fill(.red.opacity(0.1))
                     )
             } else {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 4), spacing: 16) {

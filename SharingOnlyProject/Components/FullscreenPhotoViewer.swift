@@ -452,19 +452,15 @@ struct FullscreenPhotoViewer: View {
         // 로딩 중으로 표시
         loadingFullQuality.insert(assetId)
 
-        Task {
+        Task { @MainActor in
             if let fullQualityImage = await photoService.loadImage(for: asset, context: .fullscreen) {
-                await MainActor.run {
-                    // 캐시 크기 제한 관리
-                    manageCache(forNewAsset: assetId)
-                    fullQualityImages[assetId] = fullQualityImage
-                    cacheAccessOrder.append(assetId)
-                    loadingFullQuality.remove(assetId)
-                }
+                // 캐시 크기 제한 관리
+                manageCache(forNewAsset: assetId)
+                fullQualityImages[assetId] = fullQualityImage
+                cacheAccessOrder.append(assetId)
+                loadingFullQuality.remove(assetId)
             } else {
-                await MainActor.run {
-                    loadingFullQuality.remove(assetId)
-                }
+                loadingFullQuality.remove(assetId)
             }
         }
     }
@@ -495,14 +491,12 @@ struct FullscreenPhotoViewer: View {
 
     private func resetUITimer() {
         uiHideTask?.cancel()
-        uiHideTask = Task {
+        uiHideTask = Task { @MainActor in
             try? await Task.sleep(for: .seconds(Constants.uiHideDelay))
             guard !Task.isCancelled else { return }
 
-            await MainActor.run {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    showingUI = false
-                }
+            withAnimation(.easeInOut(duration: 0.3)) {
+                showingUI = false
             }
         }
     }

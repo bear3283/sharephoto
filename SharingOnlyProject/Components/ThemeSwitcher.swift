@@ -70,13 +70,10 @@ struct ThemeSwitcher: View {
         switch theme {
         case .spring:
             return LinearGradient(
-                colors: [Color(red: 0.2, green: 0.7, blue: 0.4), Color(red: 0.1, green: 0.6, blue: 0.8)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        case .sleek:
-            return LinearGradient(
-                colors: [Color(red: 0.2, green: 0.2, blue: 0.2), Color(red: 0.0, green: 0.48, blue: 1.0)],
+                colors: [
+                    Color(red: 1.0, green: 0.722, blue: 0.302),  // Warm Gold
+                    Color(red: 1.0, green: 0.588, blue: 0.208)   // Amber
+                ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )

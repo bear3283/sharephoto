@@ -11,8 +11,6 @@ struct CompactThemeButton: View {
                 let nextTheme: AppTheme
                 switch themeViewModel.currentTheme {
                 case .spring:
-                    nextTheme = .sleek
-                case .sleek:
                     nextTheme = .auto
                 case .auto:
                     nextTheme = .spring
@@ -43,9 +41,7 @@ struct CompactThemeButton: View {
     private var themeIconName: String {
         switch themeViewModel.currentTheme {
         case .spring:
-            return "sun.max.fill"      // 봄 테마일 때는 해
-        case .sleek:
-            return "moon.fill"         // 시크 테마일 때는 달
+            return "sparkles"          // 골든 아워 테마일 때는 반짝임
         case .auto:
             return "circle.lefthalf.filled"  // 자동 테마일 때는 반달 (라이트/다크 모드)
         }
@@ -53,12 +49,7 @@ struct CompactThemeButton: View {
 }
 
 #Preview {
-    HStack(spacing: 20) {
-        CompactThemeButton(themeViewModel: ThemeViewModel())
+    CompactThemeButton(themeViewModel: ThemeViewModel())
         .environment(\.theme, SpringThemeColors())
-        
-        CompactThemeButton(themeViewModel: ThemeViewModel())
-        .environment(\.theme, SleekThemeColors())
-    }
-    .padding()
+        .padding()
 }

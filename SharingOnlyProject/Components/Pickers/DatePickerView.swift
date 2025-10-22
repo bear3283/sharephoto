@@ -79,11 +79,12 @@ struct OverlayDatePicker: View {
     @Binding var selectedDate: Date
     @Binding var isPresented: Bool
     let onDateSelected: () -> Void
-    
+
     @State private var backgroundOpacity: Double = 0.0
     @State private var calendarScale: Double = 0.85
     @State private var calendarOpacity: Double = 0.0
     @State private var calendarOffset: CGFloat = 30
+    @Environment(\.theme) private var theme
     
     var body: some View {
         ZStack {

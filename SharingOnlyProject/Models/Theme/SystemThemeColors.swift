@@ -1,13 +1,11 @@
 import SwiftUI
 
-// MARK: - Golden Hour Theme Implementation
-struct SpringThemeColors: ThemeColors {
+// MARK: - System Theme Implementation (Auto Dark/Light Mode)
+struct SystemThemeColors: ThemeColors {
+    // MARK: - Primary Colors (브랜드 칼라 유지)
     var primaryGradient: LinearGradient {
         LinearGradient(
-            colors: [
-                Color(red: 1.0, green: 0.722, blue: 0.302),  // #FFB84D Warm Gold
-                Color(red: 1.0, green: 0.588, blue: 0.208)   // #FF9635 Amber
-            ],
+            colors: [Color(red: 0.2, green: 0.7, blue: 0.4), Color(red: 0.1, green: 0.6, blue: 0.8)],
             startPoint: .leading,
             endPoint: .trailing
         )
@@ -15,24 +13,22 @@ struct SpringThemeColors: ThemeColors {
 
     var secondaryGradient: LinearGradient {
         LinearGradient(
-            colors: [
-                Color(red: 1.0, green: 0.8, blue: 0.4),      // Lighter gold
-                Color(red: 1.0, green: 0.7, blue: 0.35)      // Medium amber
-            ],
+            colors: [Color(red: 0.3, green: 0.6, blue: 0.5), Color(red: 0.2, green: 0.5, blue: 0.6)],
             startPoint: .leading,
             endPoint: .trailing
         )
     }
 
     var accentColor: Color {
-        Color(red: 1.0, green: 0.588, blue: 0.208)  // #FF9635 Amber
+        Color(red: 0.2, green: 0.7, blue: 0.4)
     }
-    
+
+    // MARK: - Background Colors (시스템 칼라 사용)
     var primaryBackground: LinearGradient {
         LinearGradient(
             colors: [
-                Color(red: 1.0, green: 0.98, blue: 0.94),    // Warm cream
-                Color(red: 1.0, green: 0.96, blue: 0.88)     // Soft peach
+                Color(uiColor: .systemBackground),
+                Color(uiColor: .systemBackground)
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
@@ -42,8 +38,8 @@ struct SpringThemeColors: ThemeColors {
     var secondaryBackground: LinearGradient {
         LinearGradient(
             colors: [
-                Color(red: 1.0, green: 0.96, blue: 0.90),    // Light beige
-                Color(red: 0.98, green: 0.94, blue: 0.86)    // Warm sand
+                Color(uiColor: .secondarySystemBackground),
+                Color(uiColor: .secondarySystemBackground)
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
@@ -53,53 +49,63 @@ struct SpringThemeColors: ThemeColors {
     var cardBackground: LinearGradient {
         LinearGradient(
             colors: [
-                Color(red: 1.0, green: 0.97, blue: 0.92),    // Ivory
-                Color(red: 0.99, green: 0.95, blue: 0.88)    // Cream
+                Color(uiColor: .secondarySystemGroupedBackground),
+                Color(uiColor: .secondarySystemGroupedBackground)
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
     }
-    
+
     var overlayBackground: Color {
         Color.black.opacity(0.4)
     }
-    
+
+    // MARK: - Text Colors (시스템 칼라 사용)
     var primaryText: Color {
-        Color(red: 0.6, green: 0.4, blue: 0.2)      // Warm brown
+        Color(uiColor: .label)
     }
 
     var secondaryText: Color {
-        Color(red: 0.7, green: 0.5, blue: 0.3)      // Light brown
+        Color(uiColor: .secondaryLabel)
     }
-    
+
     var accentText: LinearGradient {
         primaryGradient
     }
-    
+
+    // MARK: - Interactive Colors
     var buttonBackground: LinearGradient {
-        primaryBackground
-    }
-    
-    var buttonBorder: LinearGradient {
         LinearGradient(
             colors: [
-                Color(red: 1.0, green: 0.722, blue: 0.302).opacity(0.3),  // Gold with transparency
-                Color(red: 1.0, green: 0.588, blue: 0.208).opacity(0.3)   // Amber with transparency
+                Color(uiColor: .tertiarySystemBackground),
+                Color(uiColor: .tertiarySystemBackground)
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
     }
-    
+
+    var buttonBorder: LinearGradient {
+        LinearGradient(
+            colors: [
+                Color(red: 0.2, green: 0.7, blue: 0.4).opacity(0.3),
+                Color(red: 0.1, green: 0.6, blue: 0.8).opacity(0.3)
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
+
     var favoriteActive: Color {
         .yellow
     }
-    
+
     var favoriteInactive: Color {
         Color.yellow.opacity(0.4)
     }
-    
+
+    // MARK: - Status Colors (브랜드 칼라 유지)
     var saveColor: LinearGradient {
         LinearGradient(
             colors: [Color(red: 0.2, green: 0.8, blue: 0.4), Color(red: 0.1, green: 0.7, blue: 0.3)],
@@ -107,7 +113,7 @@ struct SpringThemeColors: ThemeColors {
             endPoint: .bottomTrailing
         )
     }
-    
+
     var deleteColor: LinearGradient {
         LinearGradient(
             colors: [Color(red: 1.0, green: 0.6, blue: 0.6), Color(red: 0.9, green: 0.4, blue: 0.4)],
@@ -115,12 +121,13 @@ struct SpringThemeColors: ThemeColors {
             endPoint: .bottomTrailing
         )
     }
-    
+
+    // MARK: - Shadow Colors (시스템 적응형)
     var primaryShadow: Color {
-        Color(red: 1.0, green: 0.588, blue: 0.208).opacity(0.15)  // Amber shadow
+        Color(uiColor: .systemGray3).opacity(0.3)
     }
 
     var secondaryShadow: Color {
-        Color(red: 1.0, green: 0.722, blue: 0.302).opacity(0.1)   // Gold shadow
+        Color(uiColor: .systemGray4).opacity(0.2)
     }
 }

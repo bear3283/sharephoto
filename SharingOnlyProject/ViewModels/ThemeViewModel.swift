@@ -32,16 +32,13 @@ final class ThemeViewModel: ViewModelProtocol {
     // MARK: - Computed Properties
     var currentTheme: AppTheme { state.currentTheme }
     var availableThemes: [AppTheme] { state.availableThemes }
-    
+
     var colors: ThemeColors {
         switch state.effectiveTheme {
         case .spring:
             return SpringThemeColors()
-        case .sleek:
-            return SleekThemeColors()
         case .auto:
-            // Auto should never be the effective theme
-            return SpringThemeColors()
+            return SystemThemeColors()
         }
     }
     
@@ -116,12 +113,9 @@ final class ThemeViewModel: ViewModelProtocol {
     }
 
     private func updateEffectiveTheme() {
-        if state.currentTheme.isSystemBased {
-            // 시스템 설정에 따라 테마 결정
-            state.effectiveTheme = (state.colorScheme == .dark) ? .sleek : .spring
-        } else {
-            // 사용자가 선택한 테마 사용
-            state.effectiveTheme = state.currentTheme
-        }
+        // 사용자가 선택한 테마를 그대로 사용
+        // .spring: 고정 봄 테마
+        // .auto: 시스템 다크/라이트 모드에 자동 적응
+        state.effectiveTheme = state.currentTheme
     }
 }
