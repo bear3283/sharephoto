@@ -22,12 +22,7 @@ struct PhotoInfoHeader: View {
                     .animation(.spring(response: 0.3, dampingFraction: 0.6), value: photo.isFavorite)
             }
             .buttonStyle(PlainButtonStyle())
-            
-            // Date and time - center left
-            Text(photo.dateCreated.photoDisplayString)
-                .font(.system(size: 15, weight: .medium, design: .rounded))
-                .foregroundStyle(theme.primaryText)
-            
+
             Spacer()
             
             // Photo counter (현재/전체) - center right

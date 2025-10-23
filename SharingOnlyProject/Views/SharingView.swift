@@ -80,21 +80,17 @@ struct SharingView: View {
         horizontalSizeClass == .regular ? 80 : 65
     }
 
-    // 동적 네비게이션 타이틀 (날짜 + 현재 단계)
+    // 동적 네비게이션 타이틀 (현재 단계만 표시)
     private var dynamicNavigationTitle: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy년 M월 d일"
-        let dateString = dateFormatter.string(from: photoViewModel.selectedDate)
-
         switch currentStep {
         case .dateSelection:
-            return "\(dateString) • 사진 선택"
+            return "사진 선택"
         case .recipientSetup:
-            return "\(dateString) • 공유 대상자"
+            return "공유 대상자"
         case .photoDistribution:
-            return "\(dateString) • 사진 분배"
-        case .albumPreview:'
-            return "\(dateString) • 미리보기"
+            return "사진 분배"
+        case .albumPreview:
+            return "미리보기"
         }
     }
 

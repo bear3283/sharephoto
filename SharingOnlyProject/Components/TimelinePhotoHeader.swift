@@ -55,14 +55,9 @@ struct TimelinePhotoHeader: View {
                 }
             }
             .frame(height: 3)
-            
-            // Date with subtle styling
-            HStack {
-                Text(photo.dateCreated.timelineDisplayString)
-                    .font(.system(size: 14, weight: .medium, design: .rounded))
-                    .foregroundColor(theme.primaryText)
-                    .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: 1)
 
+            // Photo counter
+            HStack {
                 Spacer()
 
                 Text("\(currentIndex + 1) of \(totalCount)")

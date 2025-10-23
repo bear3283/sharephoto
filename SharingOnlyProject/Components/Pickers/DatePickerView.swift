@@ -22,34 +22,19 @@ struct DatePickerView: View {
                 HStack(spacing: 8) {
                     Image(systemName: "calendar")
                         .font(.system(size: 16, weight: .medium))
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [Color(red: 0.2, green: 0.7, blue: 0.4), Color(red: 0.1, green: 0.6, blue: 0.8)],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                    
+                        .foregroundStyle(theme.primaryGradient)
+
                     Text(selectedDate, style: .date)
                         .font(.subheadline)
                         .fontWeight(.medium)
-.foregroundColor(theme.primaryText)
+                        .foregroundColor(theme.primaryText)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    Color(red: 0.95, green: 0.98, blue: 0.95),
-                                    Color(red: 0.92, green: 0.96, blue: 0.98)
-                                ],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .shadow(color: Color(red: 0.1, green: 0.6, blue: 0.8).opacity(0.1), radius: 3, x: 0, y: 1)
+                        .fill(theme.secondaryBackground)
+                        .shadow(color: theme.primaryShadow.opacity(0.1), radius: 3, x: 0, y: 1)
                 )
             }
             .buttonStyle(PlainButtonStyle())
@@ -58,17 +43,8 @@ struct DatePickerView: View {
         .padding(.vertical, 8)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 0.98, green: 1.0, blue: 0.95),
-                            Color(red: 0.95, green: 0.98, blue: 1.0)
-                        ],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .shadow(color: Color(red: 0.1, green: 0.7, blue: 0.4).opacity(0.1), radius: 6, x: 0, y: 2)
+                .fill(theme.primaryBackground)
+                .shadow(color: theme.primaryShadow.opacity(0.1), radius: 6, x: 0, y: 2)
         )
         .padding(.horizontal, 16)
     }
@@ -108,20 +84,14 @@ struct OverlayDatePicker: View {
                     Text("날짜 선택")
                         .font(.title2)
                         .fontWeight(.semibold)
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [Color(red: 0.2, green: 0.7, blue: 0.4), Color(red: 0.1, green: 0.6, blue: 0.8)],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                    
+                        .foregroundStyle(theme.primaryGradient)
+
                     Spacer()
-                    
+
                     Button(action: dismissCalendar) {
                         Image(systemName: "xmark.circle.fill")
                             .font(.title2)
-                            .foregroundColor(Color(red: 0.6, green: 0.6, blue: 0.6))
+                            .foregroundColor(theme.secondaryText)
                             .scaleEffect(0.9)
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -139,7 +109,7 @@ struct OverlayDatePicker: View {
                               displayedComponents: .date)
                         .datePickerStyle(GraphicalDatePickerStyle())
                         .colorScheme(.light)
-                        .accentColor(Color(red: 0.2, green: 0.7, blue: 0.4))
+                        .accentColor(theme.accentColor)
                         .frame(width: 300, height: 320)
                         .clipped()
                         .id("datePicker") // ID를 고정하여 재생성 방지
@@ -159,58 +129,23 @@ struct OverlayDatePicker: View {
                     Text("완료")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(theme.overlayBackground)
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
-                        .background(
-                            LinearGradient(
-                                colors: [Color(red: 0.2, green: 0.7, blue: 0.4), Color(red: 0.1, green: 0.6, blue: 0.8)],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
+                        .background(theme.primaryGradient)
                         .cornerRadius(12)
                 }
             }
             .padding(24)
             .background(
                 RoundedRectangle(cornerRadius: 24)
-                    .fill(
-                        LinearGradient(
-                            colors: [
-                                Color(red: 0.99, green: 1.0, blue: 0.97),
-                                Color(red: 0.96, green: 0.99, blue: 1.0)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
+                    .fill(theme.primaryBackground)
                     .overlay(
                         RoundedRectangle(cornerRadius: 24)
-                            .stroke(
-                                LinearGradient(
-                                    colors: [
-                                        theme.primaryText.opacity(0.3),
-                                        Color.clear
-                                    ],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ),
-                                lineWidth: 1
-                            )
+                            .stroke(theme.buttonBorder.opacity(0.3), lineWidth: 1)
                     )
-                    .shadow(
-                        color: Color.black.opacity(0.12),
-                        radius: 24,
-                        x: 0,
-                        y: 12
-                    )
-                    .shadow(
-                        color: Color.black.opacity(0.06),
-                        radius: 48,
-                        x: 0,
-                        y: 24
-                    )
+                    .shadow(color: theme.primaryShadow.opacity(0.12), radius: 24, x: 0, y: 12)
+                    .shadow(color: theme.secondaryShadow.opacity(0.06), radius: 48, x: 0, y: 24)
             )
             .frame(width: 350, height: 480) // 전체 달력 컨테이너 고정 크기
             .frame(minWidth: 350, maxWidth: 350, minHeight: 480, maxHeight: 480) // 최소/최대 크기 강제 고정
@@ -282,8 +217,8 @@ struct OverlayDatePicker: View {
                     isPresented = true
                 }
                 .padding()
-                .background(Color(red: 1.0, green: 0.84, blue: 0.0))
-                .foregroundColor(Color.black)
+                .background(Color.blue)
+                .foregroundColor(.white)
                 .cornerRadius(8)
             }
             .overlay(

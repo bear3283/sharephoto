@@ -183,13 +183,13 @@ struct DirectionalDragView: View {
             // 방향 아이콘
             Image(systemName: direction.systemIcon)
                 .font(.system(size: isActive ? 20 : 16, weight: .bold, design: .rounded))
-                .foregroundColor(theme.primaryText)
+                .foregroundColor(.white)
                 .shadow(color: theme.secondaryShadow, radius: 2, x: 0, y: 1)
 
             // 이름
             Text(recipient.name)
                 .font(.system(size: isActive ? 11 : 9, weight: .bold, design: .rounded))
-                .foregroundColor(theme.primaryText)
+                .foregroundColor(.white)
                 .shadow(color: theme.secondaryShadow, radius: 1, x: 0, y: 1)
                 .lineLimit(1)
 
@@ -197,7 +197,7 @@ struct DirectionalDragView: View {
             if photoCount > 0 {
                 Text("\(photoCount)")
                     .font(.system(size: isActive ? 12 : 10, weight: .bold, design: .rounded))
-                    .foregroundColor(theme.primaryText)
+                    .foregroundColor(.white)
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)
                     .background(
@@ -256,19 +256,13 @@ struct DirectionalDragView: View {
                     // 아이콘
                     Image(systemName: hasRecipients ? "person.3.fill" : "person.3")
                         .font(.system(size: isActive ? 18 : 16, weight: .bold, design: .rounded))
-                        .foregroundColor(
-                            isActive && hasRecipients ? theme.primaryText :
-                            hasRecipients ? theme.accentColor : theme.secondaryText
-                        )
+                        .foregroundColor(.white)
                         .shadow(color: theme.secondaryShadow.opacity(isActive ? 0.5 : 0), radius: 2, x: 0, y: 1)
 
                     // 텍스트
                     Text(hasRecipients ? LocalizedString.Distribution.allPeople : LocalizedString.Distribution.noRecipientStatus)
                         .font(.system(size: isActive ? 11 : 10, weight: .bold, design: .rounded))
-                        .foregroundColor(
-                            isActive && hasRecipients ? theme.primaryText :
-                            hasRecipients ? theme.primaryText : theme.secondaryText
-                        )
+                        .foregroundColor(.white)
                         .shadow(color: theme.secondaryShadow.opacity(isActive ? 0.7 : 0), radius: 1, x: 0, y: 1)
                         .lineLimit(1)
 
@@ -276,9 +270,7 @@ struct DirectionalDragView: View {
                     if hasRecipients {
                         Text(LocalizedString.recipientCount(sharingViewModel.recipients.count))
                             .font(.system(size: isActive ? 10 : 9, weight: .semibold, design: .rounded))
-                            .foregroundColor(
-                                isActive ? theme.primaryText.opacity(0.9) : theme.secondaryText
-                            )
+                            .foregroundColor(.white)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
                             .background(
@@ -386,7 +378,7 @@ struct DirectionalDragView: View {
                     Image(systemName: "chevron.left")
                         .font(.title2)
                         .fontWeight(.semibold)
-                        .foregroundColor(selectedPhotoIndex == 0 ? theme.secondaryText : theme.primaryText)
+                        .foregroundColor(.white)
                         .frame(width: 40, height: 40)
                         .background(
                             Circle().fill(
@@ -398,7 +390,7 @@ struct DirectionalDragView: View {
                         .shadow(color: theme.primaryShadow.opacity(0.3), radius: 6, x: 0, y: 3)
                 }
                 .disabled(selectedPhotoIndex == 0)
-                
+
                 Text("\(selectedPhotoIndex + 1) / \(photoViewModel.photos.count)")
                     .font(.subheadline)
                     .fontWeight(.semibold)
@@ -410,12 +402,12 @@ struct DirectionalDragView: View {
                             .fill(theme.primaryBackground)
                             .shadow(color: theme.primaryShadow.opacity(0.2), radius: 4, x: 0, y: 2)
                     )
-                
+
                 Button(action: nextPhoto) {
                     Image(systemName: "chevron.right")
                         .font(.title2)
                         .fontWeight(.semibold)
-                        .foregroundColor(selectedPhotoIndex == photoViewModel.photos.count - 1 ? theme.secondaryText : .white)
+                        .foregroundColor(.white)
                         .frame(width: 40, height: 40)
                         .background(
                             Circle().fill(
