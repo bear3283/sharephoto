@@ -1,0 +1,176 @@
+import SwiftUI
+import Photos
+
+/// 재사용 가능한 컴팩트 액션 버튼 컴포넌트
+struct CompactActionButtons: View {
+    @ObservedObject var photoViewModel: PhotoViewModel
+    @State private var showingProcessAlert = false
+    @State private var showingDeleteConfirmation = false
+    @State private var processResultMessage = ""
+    @State private var isProcessing = false
+    
+    @Environment(\.theme) private var theme
+    
+    private var markedForSavingCount: Int {
+        photoViewModel.photos.filter { $0.isMarkedForSaving }.count
+    }
+    
+    private var markedForDeletionCount: Int {
+        photoViewModel.photos.filter { $0.isMarkedForDeletion }.count
+    }
+    
+    private var hasMarkedPhotos: Bool {
+        markedForSavingCount > 0 || markedForDeletionCount > 0
+    }
+    
+    var body: some View {
+        if hasMarkedPhotos {
+            HStack(spacing: 12) {
+                // Status indicators
+                HStack(spacing: 8) {
+                    if markedForSavingCount > 0 {
+                        HStack(spacing: 4) {
+                            Image(systemName: "archivebox.fill")
+                                .font(.caption)
+                                .foregroundColor(.green)
+                            Text("\(markedForSavingCount)")
+                                .font(.caption)
+                                .fontWeight(.medium)
+                            
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(
+                            Capsule()
+                                .fill(Color.pink.opacity(0.1))
+                        )
+                    }
+                    
+                    if markedForDeletionCount > 0 {
+                        HStack(spacing: 4) {
+                            Image(systemName: "trash.fill")
+                                .font(.caption)
+                                .foregroundColor(.red)
+                            Text("\(markedForDeletionCount)")
+                                .font(.caption)
+                                .fontWeight(.medium)
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(
+                            Capsule()
+                                .fill(Color.red.opacity(0.1))
+                        )
+                    }
+                }
+                
+                Spacer()
+                
+                // Action buttons
+                HStack(spacing: 8) {
+                    // Clear button
+                    Button(action: clearAllMarks) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.title3)
+                            .foregroundColor(.pink)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    // Execute button
+                    Button(action: {
+                        if isProcessing { return }
+                        
+                        if markedForDeletionCount > 0 {
+                            showingDeleteConfirmation = true
+                        } else {
+                            processPhotos()
+                        }
+                    }) {
+                        if isProcessing {
+                            ProgressView()
+                                .scaleEffect(0.7)
+                                .tint(theme.accentColor)
+                        } else {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.title3)
+                                .foregroundStyle(theme.primaryGradient)
+                        }
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .disabled(isProcessing)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(theme.primaryBackground)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(theme.buttonBorder, lineWidth: 1)
+                    )
+                    .shadow(color: theme.primaryShadow, radius: 6, x: 0, y: 2)
+            )
+            .padding(.horizontal, 16)
+            .alert("삭제 확인", isPresented: $showingDeleteConfirmation) {
+                Button("취소", role: .cancel) { }
+                Button("삭제", role: .destructive) {
+                    processPhotos()
+                }
+            } message: {
+                Text("\(markedForDeletionCount)개의 사진을 영구적으로 삭제하시겠습니까?")
+            }
+            .alert("배치 처리 완료", isPresented: $showingProcessAlert) {
+                Button("확인") { }
+            } message: {
+                Text(processResultMessage.isEmpty ? "선택한 작업이 완료되었습니다." : processResultMessage)
+            }
+        }
+    }
+    
+    private func processPhotos() {
+        // 처리 전 상태 저장
+        let deletionCount = markedForDeletionCount
+        let savingCount = markedForSavingCount
+        
+        isProcessing = true
+        
+        Task {
+            await MainActor.run {
+                photoViewModel.send(.processMarkedPhotos)
+            }
+            
+            // 짧은 딩레이로 UI 피드백 개선
+            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5초
+            
+            await MainActor.run {
+                isProcessing = false
+                
+                // 결과 메시지 설정
+                var resultMessages: [String] = []
+                if deletionCount > 0 { resultMessages.append("\(deletionCount)개 삭제") }
+                if savingCount > 0 { resultMessages.append("\(savingCount)개 보관 마킹") }
+                
+                processResultMessage = resultMessages.isEmpty ? "작업이 완료되었습니다." : "\(resultMessages.joined(separator: ", ")) 완료\n\n보관 사진은 복제되지 않고 마킹만 유지됩니다."
+                
+                showingProcessAlert = true
+            }
+        }
+    }
+    
+    private func clearAllMarks() {
+        photoViewModel.send(.clearAllMarks)
+    }
+}
+
+#Preview {
+    VStack(spacing: 20) {
+        // Preview with marked photos
+        CompactActionButtons(photoViewModel: PhotoViewModel())
+        
+        Text("액션 버튼이 여기에 표시됩니다")
+            .foregroundColor(.secondary)
+    }
+    .environment(\.theme, SpringThemeColors())
+    .padding()
+}

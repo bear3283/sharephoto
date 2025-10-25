@@ -1,0 +1,139 @@
+/*
+  Localizable.strings (English)
+  SharingOnlyProject
+
+  Created by Claude on 9/30/25.
+*/
+
+// MARK: - General
+"app_name" = "PHOTO FLICK";
+"general_back" = "Back";
+"general_next" = "Next";
+"general_cancel" = "Cancel";
+"general_confirm" = "Confirm";
+"general_delete" = "Delete";
+"general_close" = "Close";
+"general_share" = "Share";
+"general_add" = "Add";
+"general_loading" = "Loading...";
+
+// MARK: - Sharing Steps
+"step_date_selection" = "Photos";
+"step_recipient_setup" = "Add Recipients";
+"step_photo_distribution" = "Distribute";
+"step_album_preview" = "Share";
+
+"step_date_selection_subtitle" = "Review Photos";
+"step_recipient_setup_subtitle" = "Set Up People";
+"step_photo_distribution_subtitle" = "Distribute Photos";
+"step_album_preview_subtitle" = "Execute Share";
+
+// MARK: - Directions
+"direction_top" = "Top";
+"direction_bottom" = "Bottom";
+"direction_left" = "Left";
+"direction_right" = "Right";
+"direction_top_left" = "Top-Left";
+"direction_top_right" = "Top-Right";
+"direction_bottom_left" = "Bottom-Left";
+"direction_bottom_right" = "Bottom-Right";
+"direction_suffix" = " direction";
+
+// MARK: - Photo View
+"photo_checking" = "Checking photos...";
+"photo_no_photos" = "No Photos";
+"photo_no_photos_message" = "No photos on the selected date";
+"photo_no_added_photos" = "No added photos";
+"photo_no_added_photos_message" = "Try adding new photos";
+"photo_high_quality_loading" = "Loading high quality...";
+"photo_dummy" = "Dummy";
+
+// MARK: - Recipients
+"recipient_title" = "Recipients";
+"recipient_max_count" = "Max 8 people";
+"recipient_add_person" = "Add People";
+"recipient_add_person_message" = "Set up to 8 people, one per direction";
+"recipient_new" = "New Recipient";
+"recipient_enter_name" = "Enter the person's name to share with";
+"recipient_select_direction" = "Select Direction";
+"recipient_no_directions_available" = "No directions available (Max 8 people)";
+"recipient_remove_title" = "Remove Recipient";
+"recipient_remove_message" = "Remove %@?\nPhotos in their temporary album will also be deleted.";
+"recipient_count" = "%d people";
+
+// MARK: - Photo Distribution
+"distribution_drag_to_distribute" = "Drag to Distribute";
+"distribution_no_recipients" = "Please set up recipients first";
+"distribution_no_recipients_message" = "Go back to the previous step\nand add people to share with";
+"distribution_go_to_recipient_setup" = "Go to Recipient Setup";
+"distribution_all_people" = "Everyone";
+"distribution_no_recipient_status" = "No Recipients";
+"distribution_start" = "Start Photo Distribution";
+
+// MARK: - Album
+"album_temporary" = "Temporary Albums";
+"album_photos_distributed" = "%d photos distributed";
+"album_share_ready" = "Ready to Share";
+"album_some_ready" = "Some Albums Ready";
+"album_photo_count" = "%d photos • %d/%d recipients";
+"album_no_albums" = "No temporary albums";
+"album_no_albums_message" = "Add recipients and\ndrag photos to distribute";
+"album_share_all" = "Share All Albums";
+"album_sharing" = "Sharing...";
+"album_add_photos" = "Drag photos to\nadd to album";
+"album_add_photos_message" = "Drag photos to add to album";
+"album_not_found" = "Album not found";
+"album_photo_count_text" = "%d photos";
+"album_empty" = "Album is empty";
+"album_empty_message" = "Drag photos to %@\nto add them";
+"album_share_success" = "Share Complete!";
+"album_share_success_message" = "All albums have been successfully shared";
+"album_loading" = "Loading album...";
+
+// MARK: - Buttons
+"button_previous" = "Previous";
+"button_next" = "Next";
+"button_start_distribution" = "Start Photo Distribution";
+"button_check_albums" = "Check Shared Albums";
+"button_done" = "Done";
+"button_start_over" = "Start Over";
+"button_back_to_distribution" = "← Back to Distribution";
+"button_share_album" = "Share";
+
+// MARK: - Status
+"status_checking" = "Checking...";
+"status_no_photos" = "No Photos";
+"status_no_recipients" = "No Recipients";
+"status_recipients_set" = "%d people set";
+"status_recipient_setup_needed" = "Recipient Setup Needed";
+"status_drag_to_distribute" = "Drag to Distribute";
+"status_photos_completed" = "%d photos completed";
+"status_ready" = "Ready";
+"status_distribution_needed" = "Distribution Needed";
+
+// MARK: - Alerts
+"alert_delete_photo" = "Delete Photo";
+"alert_delete_photo_message" = "Do you want to delete this photo?";
+"alert_delete_all_photos" = "Delete All Added Photos";
+"alert_delete_all_photos_message" = "Delete all added photos? This action cannot be undone.";
+"alert_delete_all_action" = "Delete All";
+"alert_remove_from_album" = "Delete Photo";
+"alert_remove_from_album_message" = "Remove this photo from the album?";
+"alert_share_status" = "Share Status";
+
+// MARK: - Accessibility
+"accessibility_select_date" = "Select Date";
+"accessibility_select_date_hint" = "Opens calendar to select a date";
+"accessibility_delete_all_photos" = "Delete All Photos";
+"accessibility_delete_all_photos_hint" = "Deletes all added photos";
+"accessibility_show_added_photos" = "Show Added Photos Only";
+"accessibility_show_all_photos" = "Show All Photos";
+"accessibility_toggle_filter_hint" = "Toggles photo filter";
+"accessibility_add_photo" = "Add Photo";
+"accessibility_add_photo_hint" = "Select photos from album to add";
+
+// MARK: - Empty States
+"empty_state_no_photos_title" = "No photos on the selected date";
+"empty_state_no_photos_subtitle" = "Select a different date or\nadd new photos";
+"empty_state_no_added_photos_title" = "No added photos";
+"empty_state_no_added_photos_subtitle" = "Try adding new photos";

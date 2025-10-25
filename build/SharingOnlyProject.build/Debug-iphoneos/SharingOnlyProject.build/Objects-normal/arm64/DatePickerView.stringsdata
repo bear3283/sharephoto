@@ -1,0 +1,40 @@
+{
+  "source": "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/Pickers/DatePickerView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "선택된 날짜",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 10
+        }
+      },
+      {
+        "comment": "",
+        "key": "날짜 선택",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 107
+        }
+      },
+      {
+        "comment": "",
+        "key": "날짜 선택",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 138
+        }
+      },
+      {
+        "comment": "",
+        "key": "완료",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 161
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,56 @@
+{
+  "source": "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Views/SharingView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "PHOTO SHARING",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 65
+        }
+      },
+      {
+        "comment": "",
+        "key": "사진 확인 중...",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 203
+        }
+      },
+      {
+        "comment": "",
+        "key": "선택한 날짜에 사진이 없습니다",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 215
+        }
+      },
+      {
+        "comment": "",
+        "key": "더미",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 282
+        }
+      },
+      {
+        "comment": "",
+        "key": "새로 시작하기",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 361
+        }
+      },
+      {
+        "comment": "",
+        "key": "이전",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 383
+        }
+      }
+    ]
+  },
+  "version": 1
+}

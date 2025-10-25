@@ -1,0 +1,139 @@
+/*
+  Localizable.strings (Korean)
+  SharingOnlyProject
+
+  Created by Claude on 9/30/25.
+*/
+
+// MARK: - General
+"app_name" = "PHOTO FLICK";
+"general_back" = "이전";
+"general_next" = "다음";
+"general_cancel" = "취소";
+"general_confirm" = "확인";
+"general_delete" = "삭제";
+"general_close" = "닫기";
+"general_share" = "공유";
+"general_add" = "추가";
+"general_loading" = "로딩 중...";
+
+// MARK: - Sharing Steps
+"step_date_selection" = "사진";
+"step_recipient_setup" = "대상자 추가";
+"step_photo_distribution" = "분배";
+"step_album_preview" = "공유";
+
+"step_date_selection_subtitle" = "사진 확인";
+"step_recipient_setup_subtitle" = "사람 설정";
+"step_photo_distribution_subtitle" = "사진 분배";
+"step_album_preview_subtitle" = "공유 실행";
+
+// MARK: - Directions
+"direction_top" = "위";
+"direction_bottom" = "아래";
+"direction_left" = "왼쪽";
+"direction_right" = "오른쪽";
+"direction_top_left" = "좌상";
+"direction_top_right" = "우상";
+"direction_bottom_left" = "좌하";
+"direction_bottom_right" = "우하";
+"direction_suffix" = " 방향";
+
+// MARK: - Photo View
+"photo_checking" = "사진 확인 중...";
+"photo_no_photos" = "사진 없음";
+"photo_no_photos_message" = "선택한 날짜에 사진이 없습니다";
+"photo_no_added_photos" = "추가된 사진이 없습니다";
+"photo_no_added_photos_message" = "새 사진을 추가해보세요";
+"photo_high_quality_loading" = "고화질 로딩...";
+"photo_dummy" = "더미";
+
+// MARK: - Recipients
+"recipient_title" = "대상자";
+"recipient_max_count" = "최대 8명";
+"recipient_add_person" = "사람을 추가하세요";
+"recipient_add_person_message" = "각 방향에 한 명씩 최대 8명까지 설정해서 분배가능";
+"recipient_new" = "새 공유 대상자";
+"recipient_enter_name" = "공유할 사람의 이름을 입력하세요";
+"recipient_select_direction" = "방향 선택";
+"recipient_no_directions_available" = "사용 가능한 방향이 없습니다 (최대 8명)";
+"recipient_remove_title" = "대상자 제거";
+"recipient_remove_message" = "%@을(를) 제거하시겠습니까?\n해당 임시 앨범의 사진도 함께 삭제됩니다.";
+"recipient_count" = "%d명";
+
+// MARK: - Photo Distribution
+"distribution_drag_to_distribute" = "드래그로 분배";
+"distribution_no_recipients" = "공유할 대상자를 먼저 설정하세요";
+"distribution_no_recipients_message" = "이전 단계로 돌아가서\n공유할 사람들을 추가해주세요";
+"distribution_go_to_recipient_setup" = "대상자 설정하러 가기";
+"distribution_all_people" = "모든 사람";
+"distribution_no_recipient_status" = "대상자 없음";
+"distribution_start" = "사진 분배 시작";
+
+// MARK: - Album
+"album_temporary" = "임시 앨범";
+"album_photos_distributed" = "%d장의 사진 분배됨";
+"album_share_ready" = "공유 준비 완료";
+"album_some_ready" = "일부 앨범 준비됨";
+"album_photo_count" = "%d장 사진 • %d/%d명 대상자";
+"album_no_albums" = "임시 앨범이 없습니다";
+"album_no_albums_message" = "공유 대상자를 추가하고\n사진을 드래그하여 분배해보세요";
+"album_share_all" = "모든 앨범 공유하기";
+"album_sharing" = "공유 중...";
+"album_add_photos" = "사진을 드래그하여\n앨범에 추가하세요";
+"album_add_photos_message" = "사진을 드래그하여 앨범에 추가하세요";
+"album_not_found" = "앨범을 찾을 수 없습니다";
+"album_photo_count_text" = "%d장의 사진";
+"album_empty" = "앨범이 비어있습니다";
+"album_empty_message" = "%@ 방향으로\n사진을 드래그하여 추가해보세요";
+"album_share_success" = "공유 완료!";
+"album_share_success_message" = "모든 앨범이 성공적으로 공유되었습니다";
+"album_loading" = "앨범 불러오는 중...";
+
+// MARK: - Buttons
+"button_previous" = "이전";
+"button_next" = "다음";
+"button_start_distribution" = "사진 분배 시작";
+"button_check_albums" = "공유 앨범 확인하기";
+"button_done" = "완료";
+"button_start_over" = "새로 시작하기";
+"button_back_to_distribution" = "← 사진 분배로 돌아가기";
+"button_share_album" = "공유하기";
+
+// MARK: - Status
+"status_checking" = "확인 중...";
+"status_no_photos" = "사진 없음";
+"status_no_recipients" = "대상자 없음";
+"status_recipients_set" = "%d명 설정됨";
+"status_recipient_setup_needed" = "대상자 설정 필요";
+"status_drag_to_distribute" = "드래그로 분배";
+"status_photos_completed" = "%d장 완료";
+"status_ready" = "준비 완료";
+"status_distribution_needed" = "분배 필요";
+
+// MARK: - Alerts
+"alert_delete_photo" = "사진 삭제";
+"alert_delete_photo_message" = "이 사진을 삭제하시겠습니까?";
+"alert_delete_all_photos" = "모든 추가 사진 삭제";
+"alert_delete_all_photos_message" = "추가한 모든 사진을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.";
+"alert_delete_all_action" = "모두 삭제";
+"alert_remove_from_album" = "사진 삭제";
+"alert_remove_from_album_message" = "이 사진을 앨범에서 제거하시겠습니까?";
+"alert_share_status" = "공유 상태";
+
+// MARK: - Accessibility
+"accessibility_select_date" = "날짜 선택";
+"accessibility_select_date_hint" = "달력을 열어 날짜를 선택합니다";
+"accessibility_delete_all_photos" = "모든 사진 삭제";
+"accessibility_delete_all_photos_hint" = "추가한 모든 사진을 삭제합니다";
+"accessibility_show_added_photos" = "추가 사진만 보기";
+"accessibility_show_all_photos" = "모든 사진 보기";
+"accessibility_toggle_filter_hint" = "사진 필터를 전환합니다";
+"accessibility_add_photo" = "사진 추가";
+"accessibility_add_photo_hint" = "앨범에서 사진을 선택하여 추가합니다";
+
+// MARK: - Empty States
+"empty_state_no_photos_title" = "선택한 날짜에 사진이 없습니다";
+"empty_state_no_photos_subtitle" = "다른 날짜를 선택하거나\n새 사진을 추가해보세요";
+"empty_state_no_added_photos_title" = "추가된 사진이 없습니다";
+"empty_state_no_added_photos_subtitle" = "새 사진을 추가해보세요";

@@ -1,0 +1,200 @@
+{
+  "source": "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/TemporaryAlbumPreview.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "공유 상태",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 35
+        }
+      },
+      {
+        "comment": "",
+        "key": "확인",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 36
+        }
+      },
+      {
+        "comment": "",
+        "key": "임시 앨범",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 56
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld장의 사진 분배됨",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld장 사진 • %lld/%lld명 대상자",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 86
+        }
+      },
+      {
+        "comment": "",
+        "key": "공유 준비 완료",
+        "location": {
+          "startingColumn": 61,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "일부 앨범 준비됨",
+        "location": {
+          "startingColumn": 86,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "•",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 143
+        }
+      },
+      {
+        "comment": "",
+        "key": "공유 중...",
+        "location": {
+          "startingColumn": 51,
+          "startingLine": 183
+        }
+      },
+      {
+        "comment": "",
+        "key": "모든 앨범 공유하기",
+        "location": {
+          "startingColumn": 69,
+          "startingLine": 183
+        }
+      },
+      {
+        "comment": "",
+        "key": "임시 앨범이 없습니다",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 219
+        }
+      },
+      {
+        "comment": "",
+        "key": "공유 대상자를 추가하고\n사진을 드래그하여 분배해보세요",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 223
+        }
+      },
+      {
+        "comment": "",
+        "key": "공유 완료!",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 246
+        }
+      },
+      {
+        "comment": "",
+        "key": "모든 앨범이 성공적으로 공유되었습니다",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 251
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 314
+        }
+      },
+      {
+        "comment": "",
+        "key": "+%lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 368
+        }
+      },
+      {
+        "comment": "",
+        "key": "사진을 드래그하여\n앨범에 추가하세요",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 385
+        }
+      },
+      {
+        "comment": "",
+        "key": "닫기",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 430
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ 방향",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 464
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld장의 사진",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 468
+        }
+      },
+      {
+        "comment": "",
+        "key": "앨범이 비어있습니다",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 504
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ 방향으로\n사진을 드래그하여 추가해보세요",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 508
+        }
+      },
+      {
+        "comment": "",
+        "key": "공유 중...",
+        "location": {
+          "startingColumn": 51,
+          "startingLine": 537
+        }
+      },
+      {
+        "comment": "",
+        "key": "공유하기",
+        "location": {
+          "startingColumn": 69,
+          "startingLine": 537
+        }
+      }
+    ]
+  },
+  "version": 1
+}

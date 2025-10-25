@@ -1,0 +1,16 @@
+{
+  "source": "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/TimelinePhotoHeader.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%lld of %lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 68
+        }
+      }
+    ]
+  },
+  "version": 1
+}

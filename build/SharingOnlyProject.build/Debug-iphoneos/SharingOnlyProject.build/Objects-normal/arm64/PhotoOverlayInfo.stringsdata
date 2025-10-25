@@ -1,0 +1,48 @@
+{
+  "source": "/Users/bear/Library/Mobile Documents/com~apple~CloudDocs/AppleAcademy/Xcode/SharingOnlyProject/SharingOnlyProject/Components/PhotoOverlayInfo.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "즐겨찾기에서 제거",
+        "location": {
+          "startingColumn": 48,
+          "startingLine": 58
+        }
+      },
+      {
+        "comment": "",
+        "key": "즐겨찾기에 추가",
+        "location": {
+          "startingColumn": 78,
+          "startingLine": 58
+        }
+      },
+      {
+        "comment": "",
+        "key": "두 번 탭하여 즐겨찾기 상태를 변경합니다",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 59
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld/%lld",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 83
+        }
+      },
+      {
+        "comment": "",
+        "key": "삭제",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 108
+        }
+      }
+    ]
+  },
+  "version": 1
+}
